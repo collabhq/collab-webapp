@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import CreateWorkspaceDialog from "../CreateWorkspaceDialog/CreateWorkspaceDialog";
-import { createWorkspace } from "../../actions/landingPage";
+import { showCreateWorkspaceDialog } from "../../actions/landingPage";
 
 const styles = {
   root: {
@@ -21,13 +21,13 @@ const styles = {
   }
 };
 
-const LandingPage = ({ createWorkspace: createNewWorkspace }) => (
+const LandingPage = ({ showCreateWorkspaceDialog: showWorkspaceDialog }) => (
   <div>
     <AppBar position="static">Menu</AppBar>
     <Button
       variant="contained"
       color="primary"
-      onClick={() => createNewWorkspace()}
+      onClick={() => showWorkspaceDialog()}
     >
       Get Started
     </Button>
@@ -36,10 +36,12 @@ const LandingPage = ({ createWorkspace: createNewWorkspace }) => (
 );
 
 LandingPage.propTypes = {
-  createWorkspace: PropTypes.func.isRequired
+  showCreateWorkspaceDialog: PropTypes.func.isRequired
 };
 
-const mapDispatchToProps = { createWorkspace };
+const mapDispatchToProps = {
+  showCreateWorkspaceDialog
+};
 export default connect(
   null,
   mapDispatchToProps
