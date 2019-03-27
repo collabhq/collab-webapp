@@ -6,8 +6,8 @@ import WorkspacePage from "./components/WorkspacePage/WorkspacePage";
 
 const App = () => (
   <HashRouter>
-    <Route path="/" component={LandingPage} />
-    <Route path="/workspace" component={WorkspacePage} />
+    <Route exact path="/" component={LandingPage} />
+    <Route exact path="/workspace" component={WorkspacePage} />
   </HashRouter>
 );
 

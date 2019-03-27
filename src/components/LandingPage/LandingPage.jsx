@@ -1,42 +1,126 @@
 import React from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
+import CloudCircle from "@material-ui/icons/CloudCircle";
+import { AppBar, Button, Typography, Link } from "@material-ui/core";
 import CreateWorkspaceDialog from "../CreateWorkspaceDialog/CreateWorkspaceDialog";
 import { showCreateWorkspaceDialog } from "../../actions/landingPage";
 
-const styles = {
+const styles = theme => ({
   root: {
-    flexGrow: 1
+    display: "flex",
+    flexDirection: "column"
   },
-  grow: {
-    flexGrow: 1
+  appBar: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    alignSelf: "flex-start",
+    padding: theme.spacing.unit * 1.2
   },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
+  logoContainer: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  logo: {
+    marginLeft: 10
+  },
+  logoText: {
+    marginLeft: 5
+  },
+  github: {
+    marginRight: 15
+  },
+  contentContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginTop: 100 // !important -> fix this
+  },
+  largeLogo: {
+    width: 150,
+    height: 150
+  },
+  largeLogoText: {},
+  subtitle: {
+    marginTop: theme.spacing.unit * 0.5,
+    marginBottom: theme.spacing.unit * 3
+  },
+  getStartedButton: {
+    width: 150
+  },
+  bottomBar: {
+    display: "flex",
+    top: "auto",
+    bottom: 0,
+    padding: theme.spacing.unit * 1.2
   }
-};
+});
 
-const LandingPage = ({ showCreateWorkspaceDialog: showWorkspaceDialog }) => (
-  <div>
-    <AppBar position="static">Menu</AppBar>
-    <Button
-      variant="contained"
-      color="primary"
-      onClick={() => showWorkspaceDialog()}
-    >
-      Get Started
-    </Button>
+const LandingPage = ({
+  showCreateWorkspaceDialog: showWorkspaceDialog,
+  classes
+}) => (
+  <div className={classes.root}>
+    <AppBar position="static" className={classes.appBar}>
+      <div className={classes.logoContainer}>
+        <CloudCircle fontSize="large" className={classes.logo} />
+        <Typography
+          variant="title"
+          color="inherit"
+          className={classes.logoText}
+        >
+          Puffnote
+        </Typography>
+      </div>
+      <Link
+        color="inherit"
+        href="https://www.github.com/puffnote"
+        target="_blank"
+        className={classes.github}
+      >
+        Github
+      </Link>
+    </AppBar>
+    <div className={classes.contentContainer}>
+      <CloudCircle className={classes.largeLogo} />
+      <Typography
+        variant="h4"
+        color="inherit"
+        className={classes.largeLogoText}
+      >
+        Puffnote
+      </Typography>
+      <Typography
+        variant="subtitle1"
+        color="inherit"
+        className={classes.subtitle}
+      >
+        Collaborate and share data in real-time
+      </Typography>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => showWorkspaceDialog()}
+        className={classes.getStartedButton}
+      >
+        Get Started
+      </Button>
+    </div>
+    <AppBar position="fixed" className={classes.bottomBar}>
+      <p />
+    </AppBar>
     <CreateWorkspaceDialog />
   </div>
 );
 
 LandingPage.propTypes = {
-  showCreateWorkspaceDialog: PropTypes.func.isRequired
+  showCreateWorkspaceDialog: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 const mapDispatchToProps = {
@@ -45,4 +129,4 @@ const mapDispatchToProps = {
 export default connect(
   null,
   mapDispatchToProps
-)(withStyles(styles)(LandingPage));
+)(withStyles(styles, { withTheme: true })(LandingPage));
