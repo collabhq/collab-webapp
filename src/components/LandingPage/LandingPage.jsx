@@ -87,7 +87,7 @@ const LandingPage = ({
       </Link>
     </AppBar>
     <div className={classes.contentContainer}>
-      <CloudCircle className={classes.largeLogo} />
+      <CloudCircle className={classes.largeLogo} color="primary" />
       <Typography
         variant="h4"
         color="inherit"

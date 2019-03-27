@@ -1,13 +1,13 @@
 import React from "react";
 import { HashRouter, Route } from "react-router-dom";
 import "./App.css";
-import LandingPage from "./components/LandingPage/LandingPage";
-import WorkspacePage from "./components/WorkspacePage/WorkspacePage";
+import LandingPageThemeProvider from "./components/ThemeProviders/LandingPageThemeProvider";
+import WorkspacePageThemeProvider from "./components/ThemeProviders/WorkspacePageThemeProvider";
 
 const App = () => (
   <HashRouter>
-    <Route exact path="/" component={LandingPage} />
-    <Route exact path="/workspace" component={WorkspacePage} />
+    <Route exact path="/" component={LandingPageThemeProvider} />
+    <Route exact path="/workspace" component={WorkspacePageThemeProvider} />
   </HashRouter>
 );
 
