@@ -14,7 +14,8 @@ import {
   IconButton,
   ListItem,
   ListItemIcon,
-  ListItemText
+  ListItemText,
+  Fab
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -88,6 +89,11 @@ const styles = theme => ({
     display: "flex",
     flexGrow: 1,
     padding: theme.spacing.unit * 3
+  },
+  fab: {
+    position: "fixed",
+    bottom: theme.spacing.unit * 2,
+    marginLeft: "50%"
   }
 });
 
@@ -96,7 +102,6 @@ const noteCategories = ["Pinned Notes", "All Notes"];
 
 function WorkspacePage(props) {
   const { classes, theme, drawerOpen } = props;
-  console.log(props);
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -159,7 +164,7 @@ function WorkspacePage(props) {
         </List>
         <Divider />
         <List>
-          {users.map((text, index) => (
+          {users.map(text => (
             <ListItem button key={text}>
               <ListItemIcon>
                 <PersonIcon />
@@ -180,6 +185,14 @@ function WorkspacePage(props) {
         <div className={classes.toolbar} />
         <WorkspacePageContent />
       </main>
+      <Fab
+        variant="extended"
+        aria-label="New Note"
+        color="primary"
+        className={classes.fab}
+      >
+        <Typography color="inherit">New Note</Typography>
+      </Fab>
     </div>
   );
 }
