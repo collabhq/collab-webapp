@@ -69,11 +69,7 @@ const LandingPage = ({
     <AppBar position="static" className={classes.appBar}>
       <div className={classes.logoContainer}>
         <CloudCircle fontSize="large" className={classes.logo} />
-        <Typography
-          variant="title"
-          color="inherit"
-          className={classes.logoText}
-        >
+        <Typography variant="h6" color="inherit" className={classes.logoText}>
           Puffnote
         </Typography>
       </div>
