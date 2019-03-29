@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import CloudCircle from "@material-ui/icons/CloudCircle";
-import { AppBar, Button, Typography, Link } from "@material-ui/core";
+import { AppBar, Button, Typography, Link, Grid } from "@material-ui/core";
 import CreateWorkspaceDialog from "../CreateWorkspaceDialog/CreateWorkspaceDialog";
 import { showCreateWorkspaceDialog } from "../../actions/landingPage";
 
@@ -38,8 +38,7 @@ const styles = theme => ({
   contentContainer: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
-    marginTop: 100 // !important -> fix this
+    alignItems: "center"
   },
   largeLogo: {
     width: 150,
@@ -52,12 +51,6 @@ const styles = theme => ({
   },
   getStartedButton: {
     width: 150
-  },
-  bottomBar: {
-    display: "flex",
-    top: "auto",
-    bottom: 0,
-    padding: theme.spacing.unit * 1.2
   }
 });
 
@@ -107,9 +100,6 @@ const LandingPage = ({
         Get Started
       </Button>
     </div>
-    <AppBar position="fixed" className={classes.bottomBar}>
-      <p />
-    </AppBar>
     <CreateWorkspaceDialog />
   </div>
 );
