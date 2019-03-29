@@ -17,7 +17,7 @@ const styles = theme => ({
   }
 });
 
-function WorkspaceNewNoteExpansionPanel(props) {
+function WorkspaceNewNoteContent(props) {
   const { classes, theme } = props;
   return (
     <div className={classes.root}>
@@ -39,11 +39,9 @@ function WorkspaceNewNoteExpansionPanel(props) {
   );
 }
 
-WorkspaceNewNoteExpansionPanel.propTypes = {
+WorkspaceNewNoteContent.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired
 };
 
-export default withStyles(styles, { withTheme: true })(
-  WorkspaceNewNoteExpansionPanel
-);
+export default withStyles(styles, { withTheme: true })(WorkspaceNewNoteContent);

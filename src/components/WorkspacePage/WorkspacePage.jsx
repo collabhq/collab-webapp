@@ -31,7 +31,7 @@ import AppsIcon from "@material-ui/icons/Apps";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import WorkspacePageContent from "../WorkspacePageContent/WorkspacePageContent";
 import { showDrawer, hideDrawer } from "../../actions/workspacePage";
-import WorkspaceNewNoteExpansionPanel from "../WorkspaceNewNoteExpansionPanel/WorkspaceNewNoteExpansionPanel";
+import WorkspaceNewNoteContent from "../WorkspaceNewNoteContent/WorkspaceNewNoteContent";
 
 const drawerWidth = 240;
 
@@ -202,14 +202,14 @@ function WorkspacePage(props) {
               </div>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-              <WorkspaceNewNoteExpansionPanel />
+              <WorkspaceNewNoteContent />
             </ExpansionPanelDetails>
             <Divider />
             <ExpansionPanelActions>
-              <Button size="small" color="secondary">
+              <Button variant="contained" size="small" color="secondary">
                 Cancel
               </Button>
-              <Button size="small" color="primary">
+              <Button variant="contained" size="small" color="primary">
                 Save
               </Button>
             </ExpansionPanelActions>

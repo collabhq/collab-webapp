@@ -10,13 +10,13 @@ import {
 import { withTheme } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import { hideEditableCard } from "../../actions/workspaceCard";
-import WorkspaceNewNoteExpansionPanel from "../WorkspaceNewNoteExpansionPanel/WorkspaceNewNoteExpansionPanel";
+import WorkspaceNewNoteContent from "../WorkspaceNewNoteContent/WorkspaceNewNoteContent";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
-const EditableWorkspaceCard = ({
+const WorkspaceEditNoteDialog = ({
   editableCardShown,
   hideEditableCard: hideEditableCardDialog
 }) => (
@@ -29,14 +29,22 @@ const EditableWorkspaceCard = ({
       onClose={() => hideEditableCardDialog()}
     >
       <DialogContent>
-        <WorkspaceNewNoteExpansionPanel />
+        <WorkspaceNewNoteContent />
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={() => hideEditableCardDialog()} color="secondary">
+        <Button
+          onClick={() => hideEditableCardDialog()}
+          variant="contained"
+          color="secondary"
+        >
           Cancel
         </Button>
-        <Button onClick={() => hideEditableCardDialog()} color="primary">
+        <Button
+          onClick={() => hideEditableCardDialog()}
+          variant="contained"
+          color="primary"
+        >
           Save
         </Button>
       </DialogActions>
@@ -44,11 +52,11 @@ const EditableWorkspaceCard = ({
   </div>
 );
 
-EditableWorkspaceCard.defaultProps = {
+WorkspaceEditNoteDialog.defaultProps = {
   editableCardShown: false
 };
 
-EditableWorkspaceCard.propTypes = {
+WorkspaceEditNoteDialog.propTypes = {
   editableCardShown: PropTypes.bool,
   hideEditableCard: PropTypes.func.isRequired
 };
@@ -64,4 +72,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withTheme({})(EditableWorkspaceCard));
+)(withTheme({})(WorkspaceEditNoteDialog));

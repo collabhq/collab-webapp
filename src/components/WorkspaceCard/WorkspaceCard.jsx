@@ -16,7 +16,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import { withStyles } from "@material-ui/core/styles";
 import { showEditableCard } from "../../actions/workspaceCard";
-import EditableWorkspaceCard from "../EditableWorkspaceCard/EditableWorkspaceCard";
+import WorkspaceEditNoteDialog from "../WorkspaceEditNoteDialog/WorkspaceEditNoteDialog";
 
 const styles = theme => ({
   card: {
@@ -92,7 +92,7 @@ function WorkspaceCard(props) {
           </IconButton>
         </CardActions>
       </Card>
-      <EditableWorkspaceCard />
+      <WorkspaceEditNoteDialog />
     </div>
   );
 }

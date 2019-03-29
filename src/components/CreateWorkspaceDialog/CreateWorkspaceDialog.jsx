@@ -52,10 +52,16 @@ const CreateWorkspaceDialog = ({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => hideWorkspaceDialog()} color="secondary">
+        <Button
+          onClick={() => hideWorkspaceDialog()}
+          variant="contained"
+          color="secondary"
+        >
           Cancel
         </Button>
-        <Button color="primary">Create Workspace</Button>
+        <Button variant="contained" color="primary">
+          Create Workspace
+        </Button>
       </DialogActions>
     </Dialog>
   </div>
