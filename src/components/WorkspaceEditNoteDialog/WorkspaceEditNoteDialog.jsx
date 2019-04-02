@@ -24,7 +24,7 @@ const WorkspaceEditNoteDialog = ({
     <Dialog
       fullWidth
       maxWidth="sm"
-      open={editableCardShown}
+      open={editableCardShown !== undefined}
       TransitionComponent={Transition}
       onClose={() => hideEditableCardDialog()}
     >
@@ -53,7 +53,7 @@ const WorkspaceEditNoteDialog = ({
 );
 
 WorkspaceEditNoteDialog.defaultProps = {
-  editableCardShown: false
+  editableCardShown: undefined
 };
 
 WorkspaceEditNoteDialog.propTypes = {

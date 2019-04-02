@@ -8,12 +8,12 @@ export default (state = {}, action) => {
     case SHOW_EDITABLE_CARD:
       return {
         ...state,
-        editableCardShown: true
+        editableCardShown: action.payload.uuid
       };
     case HIDE_EDITABLE_CARD:
       return {
         ...state,
-        editableCardShown: false
+        editableCardShown: undefined
       };
     default:
       return state;

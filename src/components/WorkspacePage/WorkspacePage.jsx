@@ -32,6 +32,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import WorkspacePageContent from "../WorkspacePageContent/WorkspacePageContent";
 import { showDrawer, hideDrawer } from "../../actions/workspacePage";
 import WorkspaceNewNoteContent from "../WorkspaceNewNoteContent/WorkspaceNewNoteContent";
+import WorkspaceEditNoteDialog from "../WorkspaceEditNoteDialog/WorkspaceEditNoteDialog";
 
 const drawerWidth = 240;
 
@@ -193,7 +194,7 @@ function WorkspacePage(props) {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <ExpansionPanel className={classes.newNoteExpansion} boxShadow={3}>
+          <ExpansionPanel className={classes.newNoteExpansion} boxshadow={3}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
               <div className={classes.column}>
                 <Typography variant="subtitle2" color="inherit">
@@ -214,9 +215,10 @@ function WorkspacePage(props) {
               </Button>
             </ExpansionPanelActions>
           </ExpansionPanel>
-          <WorkspacePageContent />
+          <WorkspacePageContent notes />
         </main>
       </div>
+      <WorkspaceEditNoteDialog />
     </div>
   );
 }

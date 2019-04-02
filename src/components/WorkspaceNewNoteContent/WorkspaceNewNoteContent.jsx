@@ -18,7 +18,7 @@ const styles = theme => ({
 });
 
 function WorkspaceNewNoteContent(props) {
-  const { classes, theme } = props;
+  const { classes } = props;
   return (
     <div className={classes.root}>
       <InputBase
@@ -33,7 +33,7 @@ function WorkspaceNewNoteContent(props) {
         className={classes.textField}
         placeholder="Note"
         fullWidth
-        maxHeight="50%"
+        maxheight="50%"
       />
     </div>
   );

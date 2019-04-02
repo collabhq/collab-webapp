@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
 import WorkspaceCard from "../WorkspaceCard/WorkspaceCard";
 
 const styles = theme => ({
@@ -22,27 +23,30 @@ const styles = theme => ({
   }
 });
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
 function WorkspacePageContent(props) {
-  const { classes, theme } = props;
+  const { classes, notes } = props;
 
   return (
     <div className={classNames(classes.layout, classes.cardGrid)}>
       <Grid container spacing={24}>
-        {cards.map(card => (
-          <Grid item key={card} sm={6} md={4} lg={3}>
-            <WorkspaceCard />
+        {notes.map(({ uuid, title, content }) => (
+          <Grid item key={uuid} sm={6} md={4} lg={3}>
+            <WorkspaceCard uuid={uuid} title={title} content={content} />
           </Grid>
         ))}
       </Grid>
     </div>
   );
 }
+const mapStateToProps = ({ workspacePageContent: { notes } }) => ({ notes });
 
 WorkspacePageContent.propTypes = {
+  notes: PropTypes.array.isRequired,
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired
 };
 
-export default withStyles(styles, { withTheme: true })(WorkspacePageContent);
+export default connect(
+  mapStateToProps,
+  null
+)(withStyles(styles, { withTheme: true })(WorkspacePageContent));

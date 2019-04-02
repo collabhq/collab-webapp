@@ -10,7 +10,7 @@ import {
   DialogTitle,
   Slide
 } from "@material-ui/core";
-import { withStyles, withTheme } from "@material-ui/core/styles";
+import { withTheme } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import { hideCreateWorkspaceDialog } from "../../actions/landingPage";
 

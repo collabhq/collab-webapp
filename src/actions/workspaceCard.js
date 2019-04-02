@@ -7,7 +7,7 @@ export const HIDE_EDITABLE_CARD = "HIDE_EDITABLE_CARD";
 /**
  * Action Creators
  */
-export const showEditableCard = () => dispatch =>
-  dispatch({ type: SHOW_EDITABLE_CARD });
+export const showEditableCard = uuid => dispatch =>
+  dispatch({ type: SHOW_EDITABLE_CARD, payload: { uuid } });
 export const hideEditableCard = () => dispatch =>
   dispatch({ type: HIDE_EDITABLE_CARD });

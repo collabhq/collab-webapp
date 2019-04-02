@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 import {
   Card,
   CardActions,
@@ -16,7 +15,6 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import { withStyles } from "@material-ui/core/styles";
 import { showEditableCard } from "../../actions/workspaceCard";
-import WorkspaceEditNoteDialog from "../WorkspaceEditNoteDialog/WorkspaceEditNoteDialog";
 
 const styles = theme => ({
   card: {
@@ -42,14 +40,16 @@ const styles = theme => ({
 function WorkspaceCard(props) {
   const {
     classes,
-    theme,
     editableCardShown,
-    showEditableCard: showEditableCardDialog
+    showEditableCard: showEditableCardDialog,
+    uuid,
+    title,
+    content
   } = props;
 
   const handleEditableCardDialog = () => {
     if (!editableCardShown) {
-      showEditableCardDialog();
+      showEditableCardDialog(uuid);
     }
   };
 
@@ -72,13 +72,9 @@ function WorkspaceCard(props) {
             </IconButton>
           </Grid>
           <Typography gutterBottom variant="h5" component="h2">
-            Title
+            {title}
           </Typography>
-          <Typography component="p">
-            This is random text. This is random text. This is random text. This
-            is random text. This is random text. This is random text. This is
-            random text. This is random text.
-          </Typography>
+          <Typography component="p">{content}</Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
           <IconButton>
@@ -92,7 +88,6 @@ function WorkspaceCard(props) {
           </IconButton>
         </CardActions>
       </Card>
-      <WorkspaceEditNoteDialog />
     </div>
   );
 }
@@ -102,6 +97,9 @@ WorkspaceCard.defaultProps = {
 };
 
 WorkspaceCard.propTypes = {
+  uuid: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
   editableCardShown: PropTypes.bool,
   showEditableCard: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
