@@ -29,9 +29,14 @@ function WorkspacePageContent(props) {
   return (
     <div className={classNames(classes.layout, classes.cardGrid)}>
       <Grid container spacing={24}>
-        {notes.map(({ uuid, title, content }) => (
+        {notes.map(({ uuid, avatar, title, content }) => (
           <Grid item key={uuid} sm={6} md={4} lg={3}>
-            <WorkspaceCard uuid={uuid} title={title} content={content} />
+            <WorkspaceCard
+              uuid={uuid}
+              avatar={avatar}
+              title={title}
+              content={content}
+            />
           </Grid>
         ))}
       </Grid>

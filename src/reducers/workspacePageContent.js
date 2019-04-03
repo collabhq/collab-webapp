@@ -5,12 +5,14 @@ const initialState = {
   notes: [
     {
       uuid: "1",
+      avatar: "R",
       title: "New Note",
       content:
         "This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text"
     },
     {
       uuid: "2",
+      avatar: "R",
       title: "New Note",
       content:
         "This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text"

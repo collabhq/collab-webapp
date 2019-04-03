@@ -14,7 +14,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import { withStyles } from "@material-ui/core/styles";
-import { showEditableCard } from "../../actions/workspaceCard";
+import { editNote } from "../../actions/workspaceCard";
 
 const styles = theme => ({
   card: {
@@ -38,19 +38,10 @@ const styles = theme => ({
 });
 
 function WorkspaceCard(props) {
-  const {
-    classes,
-    editableCardShown,
-    showEditableCard: showEditableCardDialog,
-    uuid,
-    title,
-    content
-  } = props;
+  const { classes, editNote, uuid, avatar, title, content } = props;
 
   const handleEditableCardDialog = () => {
-    if (!editableCardShown) {
-      showEditableCardDialog(uuid);
-    }
+    editNote({ uuid, title, content });
   };
 
   return (
@@ -65,7 +56,7 @@ function WorkspaceCard(props) {
             className={classes.cardHeader}
           >
             <Avatar aria-label="Recipe" className={classes.avatar}>
-              R
+              {avatar}
             </Avatar>
             <IconButton>
               <FavoriteIcon />
@@ -92,29 +83,20 @@ function WorkspaceCard(props) {
   );
 }
 
-WorkspaceCard.defaultProps = {
-  editableCardShown: false
-};
-
 WorkspaceCard.propTypes = {
   uuid: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
-  editableCardShown: PropTypes.bool,
-  showEditableCard: PropTypes.func.isRequired,
+  editNote: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired
 };
 
-const mapStateToProps = ({ workspaceCard: { editableCardShown } }) => ({
-  editableCardShown
-});
-
 const mapDispatchToProps = {
-  showEditableCard
+  editNote
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(withStyles(styles, { withTheme: true })(WorkspaceCard));

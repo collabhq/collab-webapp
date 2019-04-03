@@ -9,39 +9,36 @@ import {
 } from "@material-ui/core";
 import { withTheme } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import { hideEditableCard } from "../../actions/workspaceCard";
-import WorkspaceNewNoteContent from "../WorkspaceNewNoteContent/WorkspaceNewNoteContent";
+import { hideNoteDialog } from "../../actions/noteDialog";
+import NoteForm from "../NoteForm/NoteForm";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
-const WorkspaceEditNoteDialog = ({
-  editableCardShown,
-  hideEditableCard: hideEditableCardDialog
-}) => (
+const NoteDialog = ({ open, hideNoteDialog }) => (
   <div>
     <Dialog
       fullWidth
       maxWidth="sm"
-      open={editableCardShown !== undefined}
+      open={open}
       TransitionComponent={Transition}
-      onClose={() => hideEditableCardDialog()}
+      onClose={() => hideNoteDialog()}
     >
       <DialogContent>
-        <WorkspaceNewNoteContent />
+        <NoteForm />
       </DialogContent>
 
       <DialogActions>
         <Button
-          onClick={() => hideEditableCardDialog()}
+          onClick={() => hideNoteDialog()}
           variant="contained"
           color="secondary"
         >
           Cancel
         </Button>
         <Button
-          onClick={() => hideEditableCardDialog()}
+          onClick={() => hideNoteDialog()}
           variant="contained"
           color="primary"
         >
@@ -52,24 +49,24 @@ const WorkspaceEditNoteDialog = ({
   </div>
 );
 
-WorkspaceEditNoteDialog.defaultProps = {
-  editableCardShown: undefined
+NoteDialog.defaultProps = {
+  open: false
 };
 
-WorkspaceEditNoteDialog.propTypes = {
-  editableCardShown: PropTypes.bool,
-  hideEditableCard: PropTypes.func.isRequired
+NoteDialog.propTypes = {
+  open: PropTypes.bool,
+  hideNoteDialog: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ workspaceCard: { editableCardShown } }) => ({
-  editableCardShown
+const mapStateToProps = ({ noteDialog: { open } }) => ({
+  open
 });
 
 const mapDispatchToProps = {
-  hideEditableCard
+  hideNoteDialog
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withTheme({})(WorkspaceEditNoteDialog));
+)(withTheme({})(NoteDialog));

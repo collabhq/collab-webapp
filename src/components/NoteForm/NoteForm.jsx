@@ -2,6 +2,7 @@ import React from "react";
 import { InputBase } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 const styles = theme => ({
   root: {
@@ -17,8 +18,7 @@ const styles = theme => ({
   }
 });
 
-function WorkspaceNewNoteContent(props) {
-  const { classes } = props;
+const NoteForm = ({ classes, note }) => {
   return (
     <div className={classes.root}>
       <InputBase
@@ -26,6 +26,7 @@ function WorkspaceNewNoteContent(props) {
         className={classes.textField}
         placeholder="Title"
         fullWidth
+        value={note.title}
       />
       <InputBase
         id="note-value"
@@ -34,14 +35,27 @@ function WorkspaceNewNoteContent(props) {
         placeholder="Note"
         fullWidth
         maxheight="50%"
+        value={note.content}
       />
     </div>
   );
-}
+};
 
-WorkspaceNewNoteContent.propTypes = {
+const mapStateToProps = ({ noteForm: { note } }) => ({
+  note
+});
+
+NoteForm.defaultProps = {
+  note: {}
+};
+
+NoteForm.propTypes = {
+  note: PropTypes.object,
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired
 };
 
-export default withStyles(styles, { withTheme: true })(WorkspaceNewNoteContent);
+export default connect(
+  mapStateToProps,
+  null
+)(withStyles(styles, { withTheme: true })(NoteForm));

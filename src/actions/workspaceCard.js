@@ -1,13 +1,14 @@
 /**
  * Action Types
  */
-export const SHOW_EDITABLE_CARD = "SHOW_EDITABLE_CARD";
-export const HIDE_EDITABLE_CARD = "HIDE_EDITABLE_CARD";
+import { SHOW_NOTE_DIALOG } from "./noteDialog";
+
+export const EDIT_NOTE = "EDIT_NOTE";
 
 /**
  * Action Creators
  */
-export const showEditableCard = uuid => dispatch =>
-  dispatch({ type: SHOW_EDITABLE_CARD, payload: { uuid } });
-export const hideEditableCard = () => dispatch =>
-  dispatch({ type: HIDE_EDITABLE_CARD });
+export const editNote = note => dispatch => {
+  dispatch({ type: EDIT_NOTE, payload: { note } });
+  dispatch({ type: SHOW_NOTE_DIALOG });
+};
