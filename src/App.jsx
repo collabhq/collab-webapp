@@ -1,24 +1,13 @@
 import React from "react";
-import { HashRouter } from "react-router-dom";
-import logo from "./logo.svg";
+import { HashRouter, Route } from "react-router-dom";
 import "./App.css";
+import LandingPage from "./components/LandingPage/LandingPage";
+import WorkspacePage from "./components/WorkspacePage/WorkspacePage";
 
 const App = () => (
   <HashRouter>
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Edit and save to reload.</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Route exact path="/" component={LandingPage} />
+    <Route exact path="/workspace" component={WorkspacePage} />
   </HashRouter>
 );
 

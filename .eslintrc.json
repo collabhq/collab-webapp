@@ -4,11 +4,15 @@
         "prettier"
     ],
     "plugins": [
-        "prettier"
+        "import",
+        "jsx-a11y",
+        "prettier",
+        "react"
     ],
     "rules": {
         "prettier/prettier": [
             "error"
         ]
-    }
+    },
+    "parser": "babel-eslint"
 }
