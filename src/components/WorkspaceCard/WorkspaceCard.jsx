@@ -37,13 +37,7 @@ const styles = theme => ({
   }
 });
 
-function WorkspaceCard(props) {
-  const { classes, editNote, uuid, avatar, title, content } = props;
-
-  const handleEditableCardDialog = () => {
-    editNote({ uuid, title, content });
-  };
-
+const WorkspaceCard = ({ classes, edit, uuid, avatar, title, content }) => {
   return (
     <div>
       <Card className={classes.card}>
@@ -72,7 +66,7 @@ function WorkspaceCard(props) {
             <DeleteIcon />
           </IconButton>
           <IconButton
-            onClick={() => handleEditableCardDialog()}
+            onClick={() => edit({ uuid, avatar, title, content })}
             className={classes.editCard}
           >
             <EditIcon />
@@ -81,19 +75,20 @@ function WorkspaceCard(props) {
       </Card>
     </div>
   );
-}
+};
 
 WorkspaceCard.propTypes = {
   uuid: PropTypes.string.isRequired,
+  avatar: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
-  editNote: PropTypes.func.isRequired,
+  edit: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired
 };
 
 const mapDispatchToProps = {
-  editNote
+  edit: editNote
 };
 
 export default connect(

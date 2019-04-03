@@ -9,39 +9,31 @@ import {
 } from "@material-ui/core";
 import { withTheme } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import { hideNoteDialog } from "../../actions/noteDialog";
+import { hideNoteDialog, saveDialogContent } from "../../actions/noteDialog";
 import NoteForm from "../NoteForm/NoteForm";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
-const NoteDialog = ({ open, hideNoteDialog }) => (
+const NoteDialog = ({ open, hide, save }) => (
   <div>
     <Dialog
       fullWidth
       maxWidth="sm"
       open={open}
       TransitionComponent={Transition}
-      onClose={() => hideNoteDialog()}
+      onClose={() => hide()}
     >
       <DialogContent>
         <NoteForm />
       </DialogContent>
 
       <DialogActions>
-        <Button
-          onClick={() => hideNoteDialog()}
-          variant="contained"
-          color="secondary"
-        >
+        <Button onClick={() => hide()} variant="contained" color="secondary">
           Cancel
         </Button>
-        <Button
-          onClick={() => hideNoteDialog()}
-          variant="contained"
-          color="primary"
-        >
+        <Button onClick={() => save()} variant="contained" color="primary">
           Save
         </Button>
       </DialogActions>
@@ -55,7 +47,8 @@ NoteDialog.defaultProps = {
 
 NoteDialog.propTypes = {
   open: PropTypes.bool,
-  hideNoteDialog: PropTypes.func.isRequired
+  hide: PropTypes.func.isRequired,
+  save: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ noteDialog: { open } }) => ({
@@ -63,7 +56,8 @@ const mapStateToProps = ({ noteDialog: { open } }) => ({
 });
 
 const mapDispatchToProps = {
-  hideNoteDialog
+  hide: hideNoteDialog,
+  save: saveDialogContent
 };
 
 export default connect(

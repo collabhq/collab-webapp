@@ -1,4 +1,8 @@
-import { SHOW_NOTE_DIALOG, HIDE_NOTE_DIALOG } from "../actions/noteDialog";
+import {
+  SHOW_NOTE_DIALOG,
+  HIDE_NOTE_DIALOG,
+  SAVE_NOTE_DIALOG_CONTENT
+} from "../actions/noteDialog";
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -8,6 +12,7 @@ export default (state = {}, action) => {
         open: true
       };
     case HIDE_NOTE_DIALOG:
+    case SAVE_NOTE_DIALOG_CONTENT:
       return {
         ...state,
         open: false
