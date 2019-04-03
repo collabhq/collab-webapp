@@ -17,6 +17,62 @@ const initialState = {
       title: "New Note2",
       content:
         "This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text"
+    },
+    {
+      uuid: "3",
+      avatar: "R",
+      title: "New Note1",
+      content:
+        "This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text"
+    },
+    {
+      uuid: "4",
+      avatar: "R",
+      title: "New Note2",
+      content:
+        "This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text"
+    },
+    {
+      uuid: "5",
+      avatar: "R",
+      title: "New Note1",
+      content:
+        "This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text"
+    },
+    {
+      uuid: "6",
+      avatar: "R",
+      title: "New Note2",
+      content:
+        "This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text"
+    },
+    {
+      uuid: "7",
+      avatar: "R",
+      title: "New Note1",
+      content:
+        "This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text"
+    },
+    {
+      uuid: "8",
+      avatar: "R",
+      title: "New Note2",
+      content:
+        "This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text"
+    },
+    {
+      uuid: "9",
+      avatar: "R",
+      title: "New Note1",
+      content:
+        "This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text"
+    },
+    {
+      uuid: "10",
+      avatar: "R",
+      title: "New Note2",
+      content:
+        "This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text"
     }
   ]
 };

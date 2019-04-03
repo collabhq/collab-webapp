@@ -1,7 +1,13 @@
-import { SHOW_DRAWER, HIDE_DRAWER } from "../actions/workspacePage";
+import {
+  SHOW_DRAWER,
+  HIDE_DRAWER,
+  FAB_CHECKED,
+  FAB_HIDDEN
+} from "../actions/workspacePage";
 
 const initialState = {
-  drawerOpen: false
+  drawerOpen: false,
+  fabClicked: false
 };
 
 export default (state = initialState, action) => {
@@ -15,6 +21,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         drawerOpen: false
+      };
+    case FAB_CHECKED:
+      return {
+        ...state,
+        fabClicked: !state.fabClicked
+      };
+    case FAB_HIDDEN:
+      return {
+        ...state,
+        fabClicked: false
       };
     default:
       return state;

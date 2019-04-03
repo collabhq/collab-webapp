@@ -15,11 +15,9 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  ExpansionPanelDetails,
-  ExpansionPanelActions,
-  Button
+  Fab,
+  Paper,
+  Slide
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -28,15 +26,23 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import PersonIcon from "@material-ui/icons/Person";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AppsIcon from "@material-ui/icons/Apps";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import AddIcon from "@material-ui/icons/Add";
 import WorkspacePageContent from "../WorkspacePageContent/WorkspacePageContent";
-import { showDrawer, hideDrawer } from "../../actions/workspacePage";
+import {
+  showDrawer,
+  hideDrawer,
+  fabChecked,
+  fabHidden
+} from "../../actions/workspacePage";
 import NoteForm from "../NoteForm/NoteForm";
 import NoteDialog from "../NoteDialog/NoteDialog";
 
 const drawerWidth = 240;
 
 const styles = theme => ({
+  page: {
+    height: "-webkit-fill-available"
+  },
   root: {
     display: "flex"
   },
@@ -97,23 +103,42 @@ const styles = theme => ({
     flexDirection: "column",
     flexGrow: 1
   },
-  newNoteExpansion: {
-    alignSelf: "center",
-    top: theme.spacing.unit * 2,
-    bottom: theme.spacing.unit * 2,
-    width: "50%",
-    zIndex: 1,
-    backgroundColor: theme.palette.background.paper
-  }
+  fabDiv: {
+    position: "fixed",
+    display: "flex",
+    justifyContent: "center",
+    margin: "auto",
+    width: "100%",
+    bottom: theme.spacing.unit * 4,
+    alignItems: "center"
+  },
+  fab: {
+    zIndex: theme.zIndex.drawer + 2,
+    backgroundColor: theme.palette.primary.dark
+  },
+  newNote: {
+    position: "fixed",
+    top: "auto",
+    left: "auto",
+    right: "12.5%",
+    bottom: "12.5%",
+    width: "75%",
+    height: "75%",
+    boxShadow: "0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23)",
+    zIndex: theme.zIndex.drawer + 2,
+    padding: theme.spacing.unit * 2
+  },
+  newNotePaper: {}
 });
 
 const users = ["Alex", "Price", "John", "Jim"];
 const noteCategories = ["Favorite Notes", "All Notes"];
 
 function WorkspacePage(props) {
-  const { classes, theme, drawerOpen } = props;
+  const { classes, theme, drawerOpen, fabClicked } = props;
+  console.log(theme);
   return (
-    <div>
+    <div className={classes.page}>
       <div className={classes.root}>
         <CssBaseline />
         <AppBar
@@ -194,30 +219,32 @@ function WorkspacePage(props) {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <ExpansionPanel className={classes.newNoteExpansion} boxshadow={3}>
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <div className={classes.column}>
-                <Typography variant="subtitle2" color="inherit">
-                  New Note
-                </Typography>
-              </div>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <NoteForm />
-            </ExpansionPanelDetails>
-            <Divider />
-            <ExpansionPanelActions>
-              <Button variant="contained" size="small" color="secondary">
-                Cancel
-              </Button>
-              <Button variant="contained" size="small" color="primary">
-                Save
-              </Button>
-            </ExpansionPanelActions>
-          </ExpansionPanel>
           <WorkspacePageContent notes />
         </main>
       </div>
+      <div className={classes.fabDiv}>
+        <Fab
+          color="primary"
+          aria-label="Add"
+          className={classes.fab}
+          onClick={() => props.fabChecked()}
+          onBlur={() => props.fabHidden()}
+          onClose={() => props.fabHidden()}
+        >
+          <AddIcon />
+        </Fab>
+      </div>
+      <Slide
+        direction="up"
+        in={fabClicked}
+        className={classes.newNote}
+        mountOnEnter
+        unmountOnExit
+      >
+        <Paper elevation={4} className={classes.newNotePaper}>
+          <NoteForm />
+        </Paper>
+      </Slide>
       <NoteDialog />
     </div>
   );
@@ -226,18 +253,24 @@ function WorkspacePage(props) {
 WorkspacePage.propTypes = {
   showDrawer: PropTypes.func.isRequired,
   hideDrawer: PropTypes.func.isRequired,
+  fabChecked: PropTypes.func.isRequired,
+  fabHidden: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
-  drawerOpen: PropTypes.bool.isRequired
+  drawerOpen: PropTypes.bool.isRequired,
+  fabClicked: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = ({ workspacePage: { drawerOpen } }) => ({
-  drawerOpen
+const mapStateToProps = ({ workspacePage: { drawerOpen, fabClicked } }) => ({
+  drawerOpen,
+  fabClicked
 });
 
 const mapDispatchToProps = {
   showDrawer,
-  hideDrawer
+  hideDrawer,
+  fabChecked,
+  fabHidden
 };
 
 export default connect(

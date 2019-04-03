@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField } from "@material-ui/core";
+import { TextField, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -9,16 +9,20 @@ import { setTitle, setContent } from "../../actions/noteForm";
 const styles = theme => ({
   root: {
     display: "flex",
+    flexDirection: "column",
     flexWrap: "wrap",
     backgroundColor: theme.palette.background.paper,
-    width: "100%"
+    padding: theme.spacing.unit * 1.5
   }
 });
 
 const NoteForm = ({ classes, note, title, content }) => {
   return (
     <div className={classes.root}>
-      <form noValidate autoComplete="off">
+      <Typography variant="h5" color="inherit">
+        New Note
+      </Typography>
+      <form className={classes.form} noValidate autoComplete="off">
         <TextField
           id="standard-title"
           label="Title"
