@@ -79,7 +79,8 @@ const styles = theme => ({
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen
-    })
+    }),
+    backgroundColor: theme.palette.primary.main
   },
   drawerClose: {
     transition: theme.transitions.create("width", {
@@ -90,7 +91,8 @@ const styles = theme => ({
     width: theme.spacing.unit * 7 + 1,
     [theme.breakpoints.up("sm")]: {
       width: theme.spacing.unit * 9 + 1
-    }
+    },
+    backgroundColor: theme.palette.primary.main
   },
   toolbar: {
     display: "flex",
@@ -115,7 +117,11 @@ const styles = theme => ({
   },
   fab: {
     zIndex: theme.zIndex.drawer + 2,
-    backgroundColor: theme.palette.primary.dark
+    backgroundColor: theme.palette.primary.dark,
+    boxShadow: "0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23)"
+  },
+  fabExtendedIcon: {
+    marginRight: theme.spacing.unit
   },
   newNote: {
     position: "fixed",
@@ -137,7 +143,9 @@ const noteCategories = ["Favorite Notes", "All Notes"];
 
 function WorkspacePage(props) {
   const { classes, theme, drawerOpen, fabClicked, newNote } = props;
-  console.log(theme);
+  const colorWhite = {
+    color: theme.palette.primary.contrastText
+  };
   return (
     <div className={classes.page}>
       <div className={classes.root}>
@@ -179,8 +187,10 @@ function WorkspacePage(props) {
           open={drawerOpen}
         >
           <div className={classes.toolbar}>
-            <Typography variant="h5">puffnote</Typography>
-            <IconButton onClick={() => props.hideDrawer()}>
+            <Typography variant="h5" style={colorWhite}>
+              puffnote
+            </Typography>
+            <IconButton style={colorWhite} onClick={() => props.hideDrawer()}>
               {theme.direction === "rtl" ? (
                 <ChevronRightIcon />
               ) : (
@@ -192,10 +202,16 @@ function WorkspacePage(props) {
           <List>
             {noteCategories.map((text, index) => (
               <ListItem button key={text}>
-                <ListItemIcon>
+                <ListItemIcon style={colorWhite}>
                   {index % 2 === 0 ? <FavoriteIcon /> : <AppsIcon />}
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText
+                  primary={
+                    <Typography variant="body1" style={colorWhite}>
+                      {text}
+                    </Typography>
+                  }
+                />
               </ListItem>
             ))}
           </List>
@@ -203,19 +219,31 @@ function WorkspacePage(props) {
           <List>
             {users.map(text => (
               <ListItem button key={text}>
-                <ListItemIcon>
+                <ListItemIcon style={colorWhite}>
                   <PersonIcon />
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText
+                  primary={
+                    <Typography variant="body1" style={colorWhite}>
+                      {text}
+                    </Typography>
+                  }
+                />
               </ListItem>
             ))}
           </List>
           <Divider />
           <ListItem button key="Settings">
-            <ListItemIcon>
+            <ListItemIcon style={colorWhite}>
               <SettingsIcon />
             </ListItemIcon>
-            <ListItemText primary="Settings" />
+            <ListItemText
+              primary={
+                <Typography variant="body1" style={colorWhite}>
+                  Settings
+                </Typography>
+              }
+            />
           </ListItem>
         </Drawer>
         <main className={classes.content}>
@@ -226,11 +254,13 @@ function WorkspacePage(props) {
       <div className={classes.fabDiv}>
         <Fab
           color="primary"
+          variant="extended"
           aria-label="Add"
           className={classes.fab}
           onClick={() => props.newNote()}
         >
-          <AddIcon />
+          <AddIcon className={classes.fabExtendedIcon} />
+          Add
         </Fab>
       </div>
       <NoteDialog />

@@ -30,7 +30,8 @@ const styles = theme => ({
     width: "100%"
   },
   mainContent: {
-    width: "100%"
+    width: "100%",
+    marginBottom: "10%"
   },
   subMainContent: {
     display: "flex",
@@ -77,7 +78,7 @@ const styles = theme => ({
     width: 150
   },
   footerText: {
-    color: theme.palette.secondary.main
+    color: theme.palette.common.black
   }
 });
 
