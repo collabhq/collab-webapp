@@ -15,28 +15,35 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  ExpansionPanelDetails,
-  ExpansionPanelActions,
-  Button
+  Fab
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import FavoriteIcon from "@material-ui/icons/Favorite";
+import BookmarkIcon from "@material-ui/icons/Bookmark";
 import PersonIcon from "@material-ui/icons/Person";
+import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AppsIcon from "@material-ui/icons/Apps";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import AddIcon from "@material-ui/icons/Add";
 import WorkspacePageContent from "../WorkspacePageContent/WorkspacePageContent";
-import { showDrawer, hideDrawer } from "../../actions/workspacePage";
-import NoteForm from "../NoteForm/NoteForm";
+import {
+  showDrawer,
+  hideDrawer,
+  fabChecked,
+  fabHidden,
+  showCreateUserDialog
+} from "../../actions/workspacePage";
 import NoteDialog from "../NoteDialog/NoteDialog";
+import { editNote } from "../../actions/workspaceCard";
+import AddUserDialog from "../AddUserDialog/AddUserDialog";
 
 const drawerWidth = 240;
 
 const styles = theme => ({
+  page: {
+    height: "-webkit-fill-available"
+  },
   root: {
     display: "flex"
   },
@@ -56,8 +63,13 @@ const styles = theme => ({
     })
   },
   menuButton: {
-    marginLeft: 12,
-    marginRight: 36
+    marginLeft: theme.spacing.unit * 0.5,
+    marginRight: theme.spacing.unit * 4.5
+  },
+  addUserButton: {
+    alignSelf: "center",
+    marginLeft: "auto",
+    marginRight: theme.spacing.unit * 1.5
   },
   hide: {
     display: "none"
@@ -72,7 +84,8 @@ const styles = theme => ({
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen
-    })
+    }),
+    backgroundColor: theme.palette.primary.main
   },
   drawerClose: {
     transition: theme.transitions.create("width", {
@@ -83,7 +96,8 @@ const styles = theme => ({
     width: theme.spacing.unit * 7 + 1,
     [theme.breakpoints.up("sm")]: {
       width: theme.spacing.unit * 9 + 1
-    }
+    },
+    backgroundColor: theme.palette.primary.main
   },
   toolbar: {
     display: "flex",
@@ -97,23 +111,43 @@ const styles = theme => ({
     flexDirection: "column",
     flexGrow: 1
   },
-  newNoteExpansion: {
-    alignSelf: "center",
-    top: theme.spacing.unit * 2,
-    bottom: theme.spacing.unit * 2,
-    width: "50%",
-    zIndex: 1,
-    backgroundColor: theme.palette.background.paper
+  fabDiv: {
+    position: "fixed",
+    display: "flex",
+    justifyContent: "center",
+    margin: "auto",
+    width: "100%",
+    bottom: theme.spacing.unit * 4,
+    alignItems: "center"
+  },
+  fab: {
+    zIndex: theme.zIndex.drawer + 2,
+    backgroundColor: theme.palette.primary.dark,
+    boxShadow: "0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23)"
+  },
+  fabExtendedIcon: {
+    marginRight: theme.spacing.unit
   }
 });
 
 const users = ["Alex", "Price", "John", "Jim"];
-const noteCategories = ["Favorite Notes", "All Notes"];
+const noteCategories = ["Bookmarked Notes", "All Notes"];
 
 function WorkspacePage(props) {
-  const { classes, theme, drawerOpen } = props;
+  const {
+    classes,
+    theme,
+    drawerOpen,
+    showCreateUserDialog: showUserDialog
+  } = props;
+  const colorWhite = {
+    color: theme.palette.primary.contrastText
+  };
+  const colorSecondary = {
+    color: theme.palette.secondary.main
+  };
   return (
-    <div>
+    <div className={classes.page}>
       <div className={classes.root}>
         <CssBaseline />
         <AppBar
@@ -153,8 +187,10 @@ function WorkspacePage(props) {
           open={drawerOpen}
         >
           <div className={classes.toolbar}>
-            <Typography variant="h5">puffnote</Typography>
-            <IconButton onClick={() => props.hideDrawer()}>
+            <Typography variant="h5" style={colorWhite}>
+              puffnote
+            </Typography>
+            <IconButton style={colorWhite} onClick={() => props.hideDrawer()}>
               {theme.direction === "rtl" ? (
                 <ChevronRightIcon />
               ) : (
@@ -162,63 +198,92 @@ function WorkspacePage(props) {
               )}
             </IconButton>
           </div>
-          <Divider />
+          <Divider light />
           <List>
             {noteCategories.map((text, index) => (
               <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <FavoriteIcon /> : <AppsIcon />}
+                <ListItemIcon style={colorWhite}>
+                  {index % 2 === 0 ? (
+                    <BookmarkIcon style={colorSecondary} />
+                  ) : (
+                    <AppsIcon />
+                  )}
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText
+                  primary={
+                    <Typography variant="body1" style={colorWhite}>
+                      {text}
+                    </Typography>
+                  }
+                />
               </ListItem>
             ))}
           </List>
-          <Divider />
+          <Divider light />
           <List>
+            <ListItem onClick={() => showUserDialog()} button key="Settings">
+              <ListItemIcon
+                onClick={() => showUserDialog()}
+                style={colorSecondary}
+              >
+                <PersonAddIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={
+                  <Typography variant="body1" style={colorWhite}>
+                    Add User
+                  </Typography>
+                }
+              />
+            </ListItem>
             {users.map(text => (
               <ListItem button key={text}>
-                <ListItemIcon>
+                <ListItemIcon style={colorWhite}>
                   <PersonIcon />
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText
+                  primary={
+                    <Typography variant="body1" style={colorWhite}>
+                      {text}
+                    </Typography>
+                  }
+                />
               </ListItem>
             ))}
           </List>
-          <Divider />
+          <Divider light />
           <ListItem button key="Settings">
-            <ListItemIcon>
+            <ListItemIcon style={colorSecondary}>
               <SettingsIcon />
             </ListItemIcon>
-            <ListItemText primary="Settings" />
+            <ListItemText
+              primary={
+                <Typography variant="body1" style={colorWhite}>
+                  Settings
+                </Typography>
+              }
+            />
           </ListItem>
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <ExpansionPanel className={classes.newNoteExpansion} boxshadow={3}>
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <div className={classes.column}>
-                <Typography variant="subtitle2" color="inherit">
-                  New Note
-                </Typography>
-              </div>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <NoteForm />
-            </ExpansionPanelDetails>
-            <Divider />
-            <ExpansionPanelActions>
-              <Button variant="contained" size="small" color="secondary">
-                Cancel
-              </Button>
-              <Button variant="contained" size="small" color="primary">
-                Save
-              </Button>
-            </ExpansionPanelActions>
-          </ExpansionPanel>
           <WorkspacePageContent notes />
         </main>
       </div>
+      <div className={classes.fabDiv}>
+        <Fab
+          color="primary"
+          variant="extended"
+          aria-label="Add"
+          className={classes.fab}
+          onClick={() => props.newNote()}
+        >
+          <AddIcon className={classes.fabExtendedIcon} />
+          Add
+        </Fab>
+      </div>
       <NoteDialog />
+      <AddUserDialog />
     </div>
   );
 }
@@ -226,18 +291,28 @@ function WorkspacePage(props) {
 WorkspacePage.propTypes = {
   showDrawer: PropTypes.func.isRequired,
   hideDrawer: PropTypes.func.isRequired,
+  fabChecked: PropTypes.func.isRequired,
+  fabHidden: PropTypes.func.isRequired,
+  newNote: PropTypes.func.isRequired,
+  showCreateUserDialog: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
-  drawerOpen: PropTypes.bool.isRequired
+  drawerOpen: PropTypes.bool.isRequired,
+  fabClicked: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = ({ workspacePage: { drawerOpen } }) => ({
-  drawerOpen
+const mapStateToProps = ({ workspacePage: { drawerOpen, fabClicked } }) => ({
+  drawerOpen,
+  fabClicked
 });
 
 const mapDispatchToProps = {
   showDrawer,
-  hideDrawer
+  hideDrawer,
+  fabChecked,
+  fabHidden,
+  newNote: editNote,
+  showCreateUserDialog
 };
 
 export default connect(

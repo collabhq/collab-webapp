@@ -7,7 +7,7 @@ import {
   DialogContent,
   Slide
 } from "@material-ui/core";
-import { withTheme } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import { hideNoteDialog, saveDialogContent } from "../../actions/noteDialog";
 import NoteForm from "../NoteForm/NoteForm";
@@ -16,7 +16,13 @@ function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
-const NoteDialog = ({ open, hide, save }) => (
+const styles = theme => ({
+  dialog: {
+    padding: theme.spacing.unit * 1
+  }
+});
+
+const NoteDialog = ({ classes, open, hide, save }) => (
   <div>
     <Dialog
       fullWidth
@@ -25,7 +31,7 @@ const NoteDialog = ({ open, hide, save }) => (
       TransitionComponent={Transition}
       onClose={() => hide()}
     >
-      <DialogContent>
+      <DialogContent className={classes.dialog}>
         <NoteForm />
       </DialogContent>
 
@@ -48,7 +54,9 @@ NoteDialog.defaultProps = {
 NoteDialog.propTypes = {
   open: PropTypes.bool,
   hide: PropTypes.func.isRequired,
-  save: PropTypes.func.isRequired
+  save: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired
 };
 
 const mapStateToProps = ({ noteDialog: { open } }) => ({
@@ -63,4 +71,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withTheme({})(NoteDialog));
+)(withStyles(styles, { withTheme: true })(NoteDialog));

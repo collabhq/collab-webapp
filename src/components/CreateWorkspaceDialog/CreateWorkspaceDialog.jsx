@@ -41,6 +41,7 @@ const CreateWorkspaceDialog = ({
           id="room_name"
           label="Workspace Name"
           type="text"
+          variant="outlined"
           fullWidth
         />
         <TextField
@@ -48,6 +49,7 @@ const CreateWorkspaceDialog = ({
           id="user_name"
           label="User Full Name"
           type="text"
+          variant="outlined"
           fullWidth
         />
       </DialogContent>

@@ -10,7 +10,7 @@ import {
   IconButton,
   Grid
 } from "@material-ui/core";
-import FavoriteIcon from "@material-ui/icons/Favorite";
+import BookmarkIcon from "@material-ui/icons/Bookmark";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import { withStyles } from "@material-ui/core/styles";
@@ -53,7 +53,7 @@ const WorkspaceCard = ({ classes, edit, uuid, avatar, title, content }) => {
               {avatar}
             </Avatar>
             <IconButton>
-              <FavoriteIcon />
+              <BookmarkIcon />
             </IconButton>
           </Grid>
           <Typography gutterBottom variant="h5" component="h2">
