@@ -1,7 +1,8 @@
 import { EDIT_NOTE } from "../actions/workspaceCard";
 import {
   HIDE_NOTE_DIALOG,
-  SAVE_NOTE_DIALOG_CONTENT
+  SAVE_NOTE_DIALOG_CONTENT,
+  ADD_NOTE
 } from "../actions/noteDialog";
 import { SET_TITLE, SET_CONTENT } from "../actions/noteForm";
 
@@ -13,6 +14,8 @@ export default (state = initialState, action) => {
       return action.payload;
     case HIDE_NOTE_DIALOG:
     case SAVE_NOTE_DIALOG_CONTENT:
+      return initialState;
+    case ADD_NOTE:
       return initialState;
     case SET_TITLE:
       return {

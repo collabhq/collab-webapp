@@ -22,7 +22,7 @@ const NoteForm = ({ classes, note, title, content }) => {
       <Typography variant="h5" color="inherit">
         New Note
       </Typography>
-      <form className={classes.form} noValidate autoComplete="off">
+      <form className={classes.form} noValidate={false} autoComplete="off">
         <TextField
           id="standard-title"
           label="Title"
@@ -35,7 +35,10 @@ const NoteForm = ({ classes, note, title, content }) => {
         <TextField
           id="standard-multiline-content"
           multiline
+          rows="4"
           label="Note"
+          autoFocus
+          required
           maxheight="50%"
           variant="outlined"
           margin="normal"

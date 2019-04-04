@@ -36,6 +36,7 @@ import {
 } from "../../actions/workspacePage";
 import NoteForm from "../NoteForm/NoteForm";
 import NoteDialog from "../NoteDialog/NoteDialog";
+import { editNote } from "../../actions/workspaceCard";
 
 const drawerWidth = 240;
 
@@ -135,7 +136,7 @@ const users = ["Alex", "Price", "John", "Jim"];
 const noteCategories = ["Favorite Notes", "All Notes"];
 
 function WorkspacePage(props) {
-  const { classes, theme, drawerOpen, fabClicked } = props;
+  const { classes, theme, drawerOpen, fabClicked, newNote } = props;
   console.log(theme);
   return (
     <div className={classes.page}>
@@ -227,24 +228,11 @@ function WorkspacePage(props) {
           color="primary"
           aria-label="Add"
           className={classes.fab}
-          onClick={() => props.fabChecked()}
-          onBlur={() => props.fabHidden()}
-          onClose={() => props.fabHidden()}
+          onClick={() => props.newNote()}
         >
           <AddIcon />
         </Fab>
       </div>
-      <Slide
-        direction="up"
-        in={fabClicked}
-        className={classes.newNote}
-        mountOnEnter
-        unmountOnExit
-      >
-        <Paper elevation={4} className={classes.newNotePaper}>
-          <NoteForm />
-        </Paper>
-      </Slide>
       <NoteDialog />
     </div>
   );
@@ -255,6 +243,7 @@ WorkspacePage.propTypes = {
   hideDrawer: PropTypes.func.isRequired,
   fabChecked: PropTypes.func.isRequired,
   fabHidden: PropTypes.func.isRequired,
+  newNote: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
   drawerOpen: PropTypes.bool.isRequired,
@@ -270,7 +259,8 @@ const mapDispatchToProps = {
   showDrawer,
   hideDrawer,
   fabChecked,
-  fabHidden
+  fabHidden,
+  newNote: editNote
 };
 
 export default connect(
