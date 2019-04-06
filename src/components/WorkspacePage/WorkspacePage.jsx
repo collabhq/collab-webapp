@@ -138,7 +138,8 @@ function WorkspacePage(props) {
     classes,
     theme,
     drawerOpen,
-    showCreateUserDialog: showUserDialog
+    showCreateUserDialog: showUserDialog,
+    workspaceName
   } = props;
   const colorWhite = {
     color: theme.palette.primary.contrastText
@@ -168,7 +169,7 @@ function WorkspacePage(props) {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" noWrap>
-              My Workspace
+              {workspaceName}
             </Typography>
           </Toolbar>
         </AppBar>
@@ -288,6 +289,10 @@ function WorkspacePage(props) {
   );
 }
 
+WorkspacePage.defaultProps = {
+  workspaceName: "Default Workspace"
+};
+
 WorkspacePage.propTypes = {
   showDrawer: PropTypes.func.isRequired,
   hideDrawer: PropTypes.func.isRequired,
@@ -298,12 +303,16 @@ WorkspacePage.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
   drawerOpen: PropTypes.bool.isRequired,
-  fabClicked: PropTypes.bool.isRequired
+  fabClicked: PropTypes.bool.isRequired,
+  workspaceName: PropTypes.string
 };
 
-const mapStateToProps = ({ workspacePage: { drawerOpen, fabClicked } }) => ({
+const mapStateToProps = ({
+  workspacePage: { drawerOpen, fabClicked, workspaceName }
+}) => ({
   drawerOpen,
-  fabClicked
+  fabClicked,
+  workspaceName
 });
 
 const mapDispatchToProps = {

@@ -5,6 +5,7 @@ import workspaceCard from "./workspaceCard";
 import workspacePageContent from "./workspacePageContent";
 import noteDialog from "./noteDialog";
 import noteForm from "./noteForm";
+import createWorkspaceDialog from "./createWorkspaceDialog";
 
 export default combineReducers({
   landingPage,
@@ -12,5 +13,6 @@ export default combineReducers({
   workspaceCard,
   workspacePageContent,
   noteDialog,
-  noteForm
+  noteForm,
+  createWorkspaceDialog
 });

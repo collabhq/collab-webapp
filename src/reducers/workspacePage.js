@@ -7,12 +7,12 @@ import {
   HIDE_CREATE_USER_DIALOG
 } from "../actions/workspacePage";
 
+import { CREATE_NEW_WORKSPACE } from "../actions/createWorkspaceDialog";
+
 const initialState = {
   drawerOpen: false,
   fabClicked: false,
-  showCreateUserDialog: false,
-  // TODO: Change this along with service integration
-  roomId: "abcdef"
+  showCreateUserDialog: false
 };
 
 export default (state = initialState, action) => {
@@ -46,6 +46,14 @@ export default (state = initialState, action) => {
       return {
         ...state,
         showCreateUserDialog: false
+      };
+    case CREATE_NEW_WORKSPACE:
+      return {
+        ...state,
+        workspaceUUID: action.payload.workspaceUUID,
+        userUUID: action.payload.userUUID,
+        workspaceName: action.payload.workspaceName,
+        username: action.payload.username
       };
     default:
       return state;
