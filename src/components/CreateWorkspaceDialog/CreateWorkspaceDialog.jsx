@@ -12,7 +12,13 @@ import {
 } from "@material-ui/core";
 import { withTheme } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
 import { hideCreateWorkspaceDialog } from "../../actions/landingPage";
+import {
+  createNewWorkspace,
+  setWorkspaceName,
+  setUsername
+} from "../../actions/createWorkspaceDialog";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -20,7 +26,13 @@ function Transition(props) {
 
 const CreateWorkspaceDialog = ({
   showCreateWorkspaceDialog,
-  hideCreateWorkspaceDialog: hideWorkspaceDialog
+  hideWorkspaceDialog,
+  newWorkspace,
+  newWorkspaceName,
+  newUsername,
+  workspaceName,
+  username,
+  history
 }) => (
   <div>
     <Dialog
@@ -43,6 +55,10 @@ const CreateWorkspaceDialog = ({
           type="text"
           variant="outlined"
           fullWidth
+          value={workspaceName}
+          onChange={evt => {
+            newWorkspaceName(evt.target.value);
+          }}
         />
         <TextField
           margin="dense"
@@ -51,6 +67,8 @@ const CreateWorkspaceDialog = ({
           type="text"
           variant="outlined"
           fullWidth
+          value={username}
+          onChange={evt => newUsername(evt.target.value)}
         />
       </DialogContent>
       <DialogActions>
@@ -61,7 +79,11 @@ const CreateWorkspaceDialog = ({
         >
           Cancel
         </Button>
-        <Button variant="contained" color="primary">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => newWorkspace(history.push)}
+        >
           Create Workspace
         </Button>
       </DialogActions>
@@ -70,23 +92,39 @@ const CreateWorkspaceDialog = ({
 );
 
 CreateWorkspaceDialog.defaultProps = {
-  showCreateWorkspaceDialog: false
+  showCreateWorkspaceDialog: false,
+  workspaceName: "",
+  username: ""
 };
 
 CreateWorkspaceDialog.propTypes = {
   showCreateWorkspaceDialog: PropTypes.bool,
-  hideCreateWorkspaceDialog: PropTypes.func.isRequired
+  hideWorkspaceDialog: PropTypes.func.isRequired,
+  newWorkspace: PropTypes.func.isRequired,
+  newWorkspaceName: PropTypes.func.isRequired,
+  newUsername: PropTypes.func.isRequired,
+  workspaceName: PropTypes.string,
+  username: PropTypes.string,
+  history: PropTypes.object.isRequired
 };
 
-const mapStateToProps = ({ landingPage: { showCreateWorkspaceDialog } }) => ({
-  showCreateWorkspaceDialog
+const mapStateToProps = ({
+  landingPage: { showCreateWorkspaceDialog },
+  createWorkspaceDialog: { workspaceName, username }
+}) => ({
+  showCreateWorkspaceDialog,
+  workspaceName,
+  username
 });
 
 const mapDispatchToProps = {
-  hideCreateWorkspaceDialog
+  hideWorkspaceDialog: hideCreateWorkspaceDialog,
+  newWorkspace: createNewWorkspace,
+  newWorkspaceName: setWorkspaceName,
+  newUsername: setUsername
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withTheme({})(CreateWorkspaceDialog));
+)(withTheme({})(withRouter(CreateWorkspaceDialog)));

@@ -161,6 +161,7 @@ LandingPage.propTypes = {
 const mapDispatchToProps = {
   showCreateWorkspaceDialog
 };
+
 export default connect(
   null,
   mapDispatchToProps

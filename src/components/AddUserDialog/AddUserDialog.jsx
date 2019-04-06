@@ -35,7 +35,7 @@ function AddUserDialog(props) {
     hideCreateUserDialog: hideUserDialog,
     theme,
     classes,
-    roomId
+    workspaceUUID
   } = props;
 
   const linkText = {
@@ -58,9 +58,9 @@ function AddUserDialog(props) {
           </Typography>
           <Typography variant="body2" style={linkText} className={classes.text}>
             {baseUrl}
-            {roomId}
+            {workspaceUUID}
           </Typography>
-          <QRCode className={classes.qrcode} value={baseUrl + roomId} />
+          <QRCode className={classes.qrcode} value={baseUrl + workspaceUUID} />
         </DialogContent>
         <DialogActions>
           <Button
@@ -83,16 +83,16 @@ AddUserDialog.defaultProps = {
 AddUserDialog.propTypes = {
   showCreateUserDialog: PropTypes.bool,
   hideCreateUserDialog: PropTypes.func.isRequired,
-  roomId: PropTypes.string.isRequired,
+  workspaceUUID: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired
 };
 
 const mapStateToProps = ({
-  workspacePage: { showCreateUserDialog, roomId }
+  workspacePage: { showCreateUserDialog, workspaceUUID }
 }) => ({
   showCreateUserDialog,
-  roomId
+  workspaceUUID
 });
 
 const mapDispatchToProps = {
