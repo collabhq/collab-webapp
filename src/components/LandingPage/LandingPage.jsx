@@ -83,7 +83,8 @@ const styles = theme => ({
 });
 
 function LandingPage(props) {
-  const { classes, showCreateWorkspaceDialog: showWorkspaceDialog } = props;
+  const { classes } = props;
+  // const { showCreateWorkspaceDialog: showWorkspaceDialog } = props;
 
   return (
     <React.Fragment>
