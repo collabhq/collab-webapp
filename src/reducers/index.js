@@ -7,8 +7,9 @@ import noteDialog from "./noteDialog";
 import noteForm from "./noteForm";
 import createWorkspaceDialog from "./createWorkspaceDialog";
 import webSocketClient from "./webSocketClient";
+import { CREATE_NEW_WORKSPACE } from "../actions/createWorkspaceDialog";
 
-export default combineReducers({
+const appReducer = combineReducers({
   landingPage,
   workspacePage,
   workspaceCard,
@@ -18,3 +19,11 @@ export default combineReducers({
   createWorkspaceDialog,
   webSocketClient
 });
+
+export default (state, action) => {
+  if (action.type === CREATE_NEW_WORKSPACE) {
+    // eslint-disable-next-line no-param-reassign
+    state = undefined;
+  }
+  return appReducer(state, action);
+};
