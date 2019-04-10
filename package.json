@@ -16,8 +16,10 @@
     "react-redux": "^6.0.1",
     "react-router-dom": "^4.4.0",
     "react-scripts": "2.1.8",
+    "react-stomp": "^4.1.0",
     "react-styleguidist": "^9.0.4",
     "redux": "^4.0.1",
+    "redux-persist": "^5.10.0",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {

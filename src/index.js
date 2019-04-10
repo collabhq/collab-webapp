@@ -1,20 +1,27 @@
+/* eslint-disable react/jsx-filename-extension */
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { MuiThemeProvider } from "@material-ui/core/styles";
-import configureStore from "./store";
+import { PersistGate } from "redux-persist/integration/react";
 
+import configureStore from "./store";
 import theme from "./ui/theme/index";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
+const { store, persistor } = configureStore();
+
 ReactDOM.render(
-  <Provider store={configureStore()}>
-    <MuiThemeProvider theme={theme}>
-      <App />
-    </MuiThemeProvider>
+  <Provider store={store}>
+    <PersistGate loadind={null} persistor={persistor}>
+      <MuiThemeProvider theme={theme}>
+        <App />
+      </MuiThemeProvider>
+    </PersistGate>
   </Provider>,
+  /* eslint-disable no-undef */
   document.getElementById("root")
 );
 
