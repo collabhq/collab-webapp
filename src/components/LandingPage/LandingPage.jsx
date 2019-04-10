@@ -129,11 +129,11 @@ function LandingPage(props) {
             </Typography>
             <Button
               variant="contained"
-              color="primary"
-              onClick={() => showWorkspaceDialog()}
+              color="secondary"
+              onClick
               className={classes.getStartedButton}
             >
-              Get Started
+              Coming soon!
             </Button>
             <CreateWorkspaceDialog />
           </div>
