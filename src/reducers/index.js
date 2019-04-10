@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import storage from "redux-persist/lib/storage";
 import landingPage from "./landingPage";
 import workspacePage from "./workspacePage";
 import workspaceCard from "./workspaceCard";
@@ -22,6 +23,7 @@ const appReducer = combineReducers({
 
 export default (state, action) => {
   if (action.type === CREATE_NEW_WORKSPACE) {
+    storage.removeItem("persist:root");
     // eslint-disable-next-line no-param-reassign
     state = undefined;
   }
