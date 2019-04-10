@@ -6,6 +6,7 @@ import workspacePageContent from "./workspacePageContent";
 import noteDialog from "./noteDialog";
 import noteForm from "./noteForm";
 import createWorkspaceDialog from "./createWorkspaceDialog";
+import webSocketClient from "./webSocketClient";
 
 export default combineReducers({
   landingPage,
@@ -14,5 +15,6 @@ export default combineReducers({
   workspacePageContent,
   noteDialog,
   noteForm,
-  createWorkspaceDialog
+  createWorkspaceDialog,
+  webSocketClient
 });

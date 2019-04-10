@@ -1,80 +1,8 @@
 import { SET_NOTES } from "../actions/workspacePageContent";
-import { SAVE_NOTE_DIALOG_CONTENT, ADD_NOTE } from "../actions/noteDialog";
+import { UPDATE_NOTE, ADD_NOTE } from "../actions/noteDialog";
 
 const initialState = {
-  // TODO: Remove these default values and load an empty notes array
-  notes: [
-    {
-      uuid: "1",
-      avatar: "R",
-      title: "New Note1",
-      content:
-        "This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text"
-    },
-    {
-      uuid: "2",
-      avatar: "R",
-      title: "New Note2",
-      content:
-        "This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text"
-    },
-    {
-      uuid: "3",
-      avatar: "R",
-      title: "New Note1",
-      content:
-        "This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text"
-    },
-    {
-      uuid: "4",
-      avatar: "R",
-      title: "New Note2",
-      content:
-        "This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text"
-    },
-    {
-      uuid: "5",
-      avatar: "R",
-      title: "New Note1",
-      content:
-        "This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text"
-    },
-    {
-      uuid: "6",
-      avatar: "R",
-      title: "New Note2",
-      content:
-        "This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text"
-    },
-    {
-      uuid: "7",
-      avatar: "R",
-      title: "New Note1",
-      content:
-        "This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text"
-    },
-    {
-      uuid: "8",
-      avatar: "R",
-      title: "New Note2",
-      content:
-        "This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text"
-    },
-    {
-      uuid: "9",
-      avatar: "R",
-      title: "New Note1",
-      content:
-        "This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text"
-    },
-    {
-      uuid: "10",
-      avatar: "R",
-      title: "New Note2",
-      content:
-        "This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text. This is random text"
-    }
-  ]
+  notes: []
 };
 
 export default (state = initialState, action) => {
@@ -84,22 +12,30 @@ export default (state = initialState, action) => {
         ...state,
         notes: action.payload
       };
-    case SAVE_NOTE_DIALOG_CONTENT: {
+    case UPDATE_NOTE: {
       return {
         ...state,
         // TODO: Refactor might be required after service integration
         notes: state.notes.map(note =>
-          note.uuid === action.payload.uuid ? action.payload : note
+          note.uuid === action.payload.uuid
+            ? {
+                // TODO: Fix these keys mismatch between service and ui
+                uuid: action.payload.uuid,
+                avatar: "K",
+                title: action.payload.name,
+                content: action.payload.value
+              }
+            : note
         )
       };
     }
     case ADD_NOTE: {
-      // TODO: Refactor required. Temporarily adding note. Values hardcoded.
-      // TODO: Refactor required, dont add to state, send title and content and user uuid to endpoint
       const note = {
-        title: action.payload.title ? action.payload.title : "Hello",
-        content: action.payload.content ? action.payload.content : "ABCDEF",
-        uuid: Math.random() * 10,
+        // TODO: Fix these keys mismatch between service and ui
+        title: action.payload.name,
+        content: action.payload.value,
+        uuid: action.payload.uuid,
+        // TODO: Refactor required. Values hardcoded
         avatar: "K"
       };
       return {
