@@ -1,6 +1,7 @@
 import {
   SET_WORKSPACE_NAME,
-  SET_USERNAME
+  SET_USERNAME,
+  SET_JOIN_WORKSPACE_UUID
 } from "../actions/createWorkspaceDialog";
 import { HIDE_CREATE_WORKSPACE_DIALOG } from "../actions/landingPage";
 
@@ -16,6 +17,11 @@ export default (state = intialState, action) => {
       return {
         ...state,
         username: action.payload
+      };
+    case SET_JOIN_WORKSPACE_UUID:
+      return {
+        ...state,
+        joinWorkspaceUUID: action.payload
       };
     case HIDE_CREATE_WORKSPACE_DIALOG:
       return intialState;
