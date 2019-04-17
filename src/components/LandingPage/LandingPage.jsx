@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import CreateWorkspaceDialog from "../CreateWorkspaceDialog/CreateWorkspaceDialog";
 import { showCreateWorkspaceDialog } from "../../actions/landingPage";
+import { setJoinWorkspaceUUID } from "../../actions/createWorkspaceDialog";
 
 const styles = theme => ({
   root: {
@@ -82,84 +83,99 @@ const styles = theme => ({
   }
 });
 
-function LandingPage(props) {
-  const { classes, showCreateWorkspaceDialog: showWorkspaceDialog } = props;
+// eslint-disable-next-line react/prefer-stateless-function
+class LandingPage extends React.Component {
+  componentDidMount() {
+    const {
+      joinWorkspace,
+      location: { search }
+    } = this.props;
+    const workspaceUUID = new URLSearchParams(search).get("join");
+    joinWorkspace(workspaceUUID);
+  }
 
-  return (
-    <React.Fragment>
-      <CssBaseline />
-      <div className={classes.root}>
-        <div className={classes.appBarMain}>
-          <AppBar position="static">
-            <Toolbar className={classes.appBar}>
-              <div className={classes.appBarLeft}>
-                <CloudCircle className={classes.icon} />
-                <Typography variant="h6" color="inherit" noWrap>
-                  Puffnote
-                </Typography>
-              </div>
-              <div className={classes.appBarRight}>
-                <Link
-                  color="inherit"
-                  href="https://www.github.com/puffnote"
-                  target="_blank"
-                  rel="noopener"
-                >
+  render() {
+    const { classes, showWorkspaceDialog } = this.props;
+
+    return (
+      <React.Fragment>
+        <CssBaseline />
+        <div className={classes.root}>
+          <div className={classes.appBarMain}>
+            <AppBar position="static">
+              <Toolbar className={classes.appBar}>
+                <div className={classes.appBarLeft}>
+                  <CloudCircle className={classes.icon} />
                   <Typography variant="h6" color="inherit" noWrap>
-                    Github
+                    Puffnote
                   </Typography>
-                </Link>
-              </div>
-            </Toolbar>
-          </AppBar>
-        </div>
-
-        <div className={classes.mainContent}>
-          <div className={classes.subMainContent}>
-            <CloudCircle className={classes.mainLogo} color="primary" />
-            <Typography variant="h4" color="inherit">
-              Puffnote
-            </Typography>
-            <Typography
-              variant="subtitle1"
-              color="inherit"
-              className={classes.subtitle}
-            >
-              Collaborate and share data in real-time
-            </Typography>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => showWorkspaceDialog()}
-              className={classes.getStartedButton}
-            >
-              Get Started
-            </Button>
-            <CreateWorkspaceDialog />
+                </div>
+                <div className={classes.appBarRight}>
+                  <Link
+                    color="inherit"
+                    href="https://www.github.com/puffnote"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <Typography variant="h6" color="inherit" noWrap>
+                      Github
+                    </Typography>
+                  </Link>
+                </div>
+              </Toolbar>
+            </AppBar>
           </div>
+
+          <div className={classes.mainContent}>
+            <div className={classes.subMainContent}>
+              <CloudCircle className={classes.mainLogo} color="primary" />
+              <Typography variant="h4" color="inherit">
+                Puffnote
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                color="inherit"
+                className={classes.subtitle}
+              >
+                Collaborate and share data in real-time
+              </Typography>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => showWorkspaceDialog()}
+                className={classes.getStartedButton}
+              >
+                Get Started
+              </Button>
+              <CreateWorkspaceDialog />
+            </div>
+          </div>
+          <footer className={classes.footer}>
+            <Typography
+              variant="subtitle2"
+              align="center"
+              gutterBottom
+              className={classes.footerText}
+            >
+              puffnote © 2019
+            </Typography>
+          </footer>
         </div>
-        <footer className={classes.footer}>
-          <Typography
-            variant="subtitle2"
-            align="center"
-            gutterBottom
-            className={classes.footerText}
-          >
-            puffnote © 2019
-          </Typography>
-        </footer>
-      </div>
-    </React.Fragment>
-  );
+      </React.Fragment>
+    );
+  }
 }
 
 LandingPage.propTypes = {
-  showCreateWorkspaceDialog: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired
+  showWorkspaceDialog: PropTypes.func.isRequired,
+  joinWorkspace: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
+  location: PropTypes.object
 };
 
 const mapDispatchToProps = {
-  showCreateWorkspaceDialog
+  showWorkspaceDialog: showCreateWorkspaceDialog,
+  joinWorkspace: setJoinWorkspaceUUID
 };
 
 export default connect(

@@ -1,5 +1,6 @@
 import { SET_NOTES } from "../actions/workspacePageContent";
 import { UPDATE_NOTE, ADD_NOTE } from "../actions/noteDialog";
+import { JOIN_WORKSPACE } from "../actions/createWorkspaceDialog";
 
 const initialState = {
   notes: []
@@ -41,6 +42,18 @@ export default (state = initialState, action) => {
       return {
         ...state,
         notes: [...state.notes, note]
+      };
+    }
+    case JOIN_WORKSPACE: {
+      return {
+        ...state,
+        notes: action.payload.notes.map(note => ({
+          // TODO: Fix these keys mismatch between service and ui
+          uuid: note.uuid,
+          avatar: "K",
+          title: note.name,
+          content: note.value
+        }))
       };
     }
     default:

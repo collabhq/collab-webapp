@@ -16,6 +16,7 @@ import { withRouter } from "react-router-dom";
 import { hideCreateWorkspaceDialog } from "../../actions/landingPage";
 import {
   createNewWorkspace,
+  joinUserToWorkspace,
   setWorkspaceName,
   setUsername
 } from "../../actions/createWorkspaceDialog";
@@ -28,10 +29,12 @@ const CreateWorkspaceDialog = ({
   showCreateWorkspaceDialog,
   hideWorkspaceDialog,
   newWorkspace,
+  joinWorkspace,
   newWorkspaceName,
   newUsername,
   workspaceName,
   username,
+  joinWorkspaceUUID,
   history
 }) => (
   <div>
@@ -41,25 +44,32 @@ const CreateWorkspaceDialog = ({
       TransitionComponent={Transition}
       aria-labelledby="form-dialog-title"
     >
-      <DialogTitle id="form-dialog-title">New Workspace</DialogTitle>
+      <DialogTitle id="form-dialog-title">
+        {joinWorkspaceUUID === null ? "New Workspace" : "Join Workspace"}
+      </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Please enter a name for the workspace and your full name to get
-          started.
+          Please enter
+          {joinWorkspaceUUID === null ? " a name for the workspace and " : " "}
+          your full name to get started.
         </DialogContentText>
-        <TextField
-          autoFocus
-          margin="dense"
-          id="room_name"
-          label="Workspace Name"
-          type="text"
-          variant="outlined"
-          fullWidth
-          value={workspaceName}
-          onChange={evt => {
-            newWorkspaceName(evt.target.value);
-          }}
-        />
+        {joinWorkspaceUUID === null ? (
+          <TextField
+            autoFocus
+            margin="dense"
+            id="room_name"
+            label="Workspace Name"
+            type="text"
+            variant="outlined"
+            fullWidth
+            value={workspaceName}
+            onChange={evt => {
+              newWorkspaceName(evt.target.value);
+            }}
+          />
+        ) : (
+          undefined
+        )}
         <TextField
           margin="dense"
           id="user_name"
@@ -82,9 +92,15 @@ const CreateWorkspaceDialog = ({
         <Button
           variant="contained"
           color="primary"
-          onClick={() => newWorkspace(history.push)}
+          onClick={() => {
+            if (joinWorkspaceUUID === null) {
+              newWorkspace(history.push);
+            } else {
+              joinWorkspace(history.push);
+            }
+          }}
         >
-          Create Workspace
+          {joinWorkspaceUUID === null ? "Create Workspace" : "Join"}
         </Button>
       </DialogActions>
     </Dialog>
@@ -94,32 +110,37 @@ const CreateWorkspaceDialog = ({
 CreateWorkspaceDialog.defaultProps = {
   showCreateWorkspaceDialog: false,
   workspaceName: "",
-  username: ""
+  username: "",
+  joinWorkspaceUUID: null
 };
 
 CreateWorkspaceDialog.propTypes = {
   showCreateWorkspaceDialog: PropTypes.bool,
   hideWorkspaceDialog: PropTypes.func.isRequired,
   newWorkspace: PropTypes.func.isRequired,
+  joinWorkspace: PropTypes.func.isRequired,
   newWorkspaceName: PropTypes.func.isRequired,
   newUsername: PropTypes.func.isRequired,
   workspaceName: PropTypes.string,
   username: PropTypes.string,
+  joinWorkspaceUUID: PropTypes.string,
   history: PropTypes.object.isRequired
 };
 
 const mapStateToProps = ({
   landingPage: { showCreateWorkspaceDialog },
-  createWorkspaceDialog: { workspaceName, username }
+  createWorkspaceDialog: { workspaceName, username, joinWorkspaceUUID }
 }) => ({
   showCreateWorkspaceDialog,
   workspaceName,
-  username
+  username,
+  joinWorkspaceUUID
 });
 
 const mapDispatchToProps = {
   hideWorkspaceDialog: hideCreateWorkspaceDialog,
   newWorkspace: createNewWorkspace,
+  joinWorkspace: joinUserToWorkspace,
   newWorkspaceName: setWorkspaceName,
   newUsername: setUsername
 };

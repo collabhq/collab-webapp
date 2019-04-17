@@ -7,7 +7,10 @@ import {
   HIDE_CREATE_USER_DIALOG
 } from "../actions/workspacePage";
 
-import { CREATE_NEW_WORKSPACE } from "../actions/createWorkspaceDialog";
+import {
+  CREATE_NEW_WORKSPACE,
+  JOIN_WORKSPACE
+} from "../actions/createWorkspaceDialog";
 
 const initialState = {
   drawerOpen: false,
@@ -48,6 +51,7 @@ export default (state = initialState, action) => {
         showCreateUserDialog: false
       };
     case CREATE_NEW_WORKSPACE:
+    case JOIN_WORKSPACE:
       return {
         ...state,
         workspaceUUID: action.payload.workspaceUUID,

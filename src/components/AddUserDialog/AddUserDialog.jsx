@@ -27,7 +27,7 @@ const styles = theme => ({
   }
 });
 
-const baseUrl = "https://puffnote.github.io/";
+const baseUrl = "https://puffnote.github.io/#/?join=";
 
 function AddUserDialog(props) {
   const {
