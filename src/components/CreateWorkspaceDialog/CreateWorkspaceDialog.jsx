@@ -8,7 +8,13 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Slide
+  Slide,
+  Input,
+  InputLabel,
+  MenuItem,
+  FormHelperText,
+  FormControl,
+  Select
 } from "@material-ui/core";
 import { withTheme } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
@@ -18,7 +24,8 @@ import {
   createNewWorkspace,
   joinUserToWorkspace,
   setWorkspaceName,
-  setUsername
+  setUsername,
+  setExpiry
 } from "../../actions/createWorkspaceDialog";
 
 function Transition(props) {
@@ -32,8 +39,10 @@ const CreateWorkspaceDialog = ({
   joinWorkspace,
   newWorkspaceName,
   newUsername,
+  setExpiryTime,
   workspaceName,
   username,
+  expiry,
   joinWorkspaceUUID,
   history
 }) => (
@@ -80,6 +89,30 @@ const CreateWorkspaceDialog = ({
           value={username}
           onChange={evt => newUsername(evt.target.value)}
         />
+        {joinWorkspaceUUID === null ? (
+          <FormControl fullWidth>
+            <InputLabel shrink htmlFor="expiry-label-placeholder">
+              Expires After
+            </InputLabel>
+            <Select
+              value={expiry}
+              onChange={evt => {
+                setExpiryTime(evt.target.value);
+              }}
+              input={<Input name="expiry" id="expiry-label-placeholder" />}
+              displayEmpty
+              name="expiry"
+            >
+              <MenuItem value="HOUR1">1 Hour</MenuItem>
+              <MenuItem value="HOUR12">12 Hours</MenuItem>
+              <MenuItem value="HOUR24">1 Day</MenuItem>
+              <MenuItem value="HOUR48">2 Days</MenuItem>
+            </Select>
+            <FormHelperText>Data will be purged after this time</FormHelperText>
+          </FormControl>
+        ) : (
+          undefined
+        )}
       </DialogContent>
       <DialogActions>
         <Button
@@ -111,6 +144,7 @@ CreateWorkspaceDialog.defaultProps = {
   showCreateWorkspaceDialog: false,
   workspaceName: "",
   username: "",
+  expiry: "HOUR1",
   joinWorkspaceUUID: null
 };
 
@@ -121,19 +155,22 @@ CreateWorkspaceDialog.propTypes = {
   joinWorkspace: PropTypes.func.isRequired,
   newWorkspaceName: PropTypes.func.isRequired,
   newUsername: PropTypes.func.isRequired,
+  setExpiryTime: PropTypes.func.isRequired,
   workspaceName: PropTypes.string,
   username: PropTypes.string,
+  expiry: PropTypes.string,
   joinWorkspaceUUID: PropTypes.string,
   history: PropTypes.object.isRequired
 };
 
 const mapStateToProps = ({
   landingPage: { showCreateWorkspaceDialog },
-  createWorkspaceDialog: { workspaceName, username, joinWorkspaceUUID }
+  createWorkspaceDialog: { workspaceName, username, expiry, joinWorkspaceUUID }
 }) => ({
   showCreateWorkspaceDialog,
   workspaceName,
   username,
+  expiry,
   joinWorkspaceUUID
 });
 
@@ -142,7 +179,8 @@ const mapDispatchToProps = {
   newWorkspace: createNewWorkspace,
   joinWorkspace: joinUserToWorkspace,
   newWorkspaceName: setWorkspaceName,
-  newUsername: setUsername
+  newUsername: setUsername,
+  setExpiryTime: setExpiry
 };
 
 export default connect(
