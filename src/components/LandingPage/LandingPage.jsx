@@ -107,13 +107,13 @@ class LandingPage extends React.Component {
                 <div className={classes.appBarLeft}>
                   <CloudCircle className={classes.icon} />
                   <Typography variant="h6" color="inherit" noWrap>
-                    Puffnote
+                    Collab
                   </Typography>
                 </div>
                 <div className={classes.appBarRight}>
                   <Link
                     color="inherit"
-                    href="https://www.github.com/puffnote"
+                    href="https://www.github.com/collabhq"
                     target="_blank"
                     rel="noopener"
                   >
@@ -130,7 +130,7 @@ class LandingPage extends React.Component {
             <div className={classes.subMainContent}>
               <CloudCircle className={classes.mainLogo} color="primary" />
               <Typography variant="h4" color="inherit">
-                Puffnote
+                Collab
               </Typography>
               <Typography
                 variant="subtitle1"
@@ -157,7 +157,7 @@ class LandingPage extends React.Component {
               gutterBottom
               className={classes.footerText}
             >
-              puffnote © 2019
+              Collab © 2019
             </Typography>
           </footer>
         </div>
