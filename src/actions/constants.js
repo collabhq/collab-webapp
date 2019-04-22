@@ -1,7 +1,7 @@
 export const serverURL = "http://localhost:5000";
 export const createWorkspaceURL = `${serverURL}/workspace`;
 export const joinWorkspaceURL = `${serverURL}/workspace`;
-export const websocketURL = `${serverURL}/puffnotesocket`;
+export const websocketURL = `${serverURL}/collabsocket`;
 export const noteTopicURL = "/app/note/workspace";
 export const workspaceTopicURL = "/topic/workspace";
 export const ADD_NOTE_OPERATION = "ADD";

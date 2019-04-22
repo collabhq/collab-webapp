@@ -12,6 +12,7 @@ export const SET_USERNAME = "SET_USERNAME";
 export const SET_JOIN_WORKSPACE_UUID = "SET_JOIN_WORKSPACE_UUID";
 export const CREATE_NEW_WORKSPACE = "CREATE_NEW_WORKSPACE";
 export const JOIN_WORKSPACE = "JOIN_WORKSPACE";
+export const SET_EXPIRY = "SET_EXPIRY";
 /**
  * Action Creators
  */
@@ -21,6 +22,10 @@ export const setWorkspaceName = workspaceName => dispatch => {
 
 export const setUsername = username => dispatch => {
   dispatch({ type: SET_USERNAME, payload: username });
+};
+
+export const setExpiry = expiry => dispatch => {
+  dispatch({ type: SET_EXPIRY, payload: expiry });
 };
 
 export const setJoinWorkspaceUUID = workspaceUUID => dispatch => {
@@ -34,10 +39,10 @@ export const setJoinWorkspaceUUID = workspaceUUID => dispatch => {
 
 export const createNewWorkspace = navigateTo => (dispatch, getState) => {
   const {
-    createWorkspaceDialog: { workspaceName, username }
+    createWorkspaceDialog: { workspaceName, username, expiry }
   } = getState();
   axios
-    .post(createWorkspaceURL, { workspaceName, username })
+    .post(createWorkspaceURL, { workspaceName, username, expiry })
     // TODO: Handle network errors (status != 200)
     .then(res => res.data)
     .then(data =>
@@ -46,7 +51,8 @@ export const createNewWorkspace = navigateTo => (dispatch, getState) => {
         payload: {
           ...data,
           workspaceName,
-          username
+          username,
+          expiry
         }
       })
     )

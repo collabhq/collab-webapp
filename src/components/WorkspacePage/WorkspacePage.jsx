@@ -190,7 +190,7 @@ function WorkspacePage(props) {
         >
           <div className={classes.toolbar}>
             <Typography variant="h5" style={colorWhite}>
-              puffnote
+              Collab
             </Typography>
             <IconButton style={colorWhite} onClick={() => props.hideDrawer()}>
               {theme.direction === "rtl" ? (
