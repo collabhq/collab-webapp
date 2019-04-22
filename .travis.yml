@@ -9,7 +9,7 @@ script:
   - npm run build
 deploy:
   provider: pages
-  repo: puffnote/puffnote.github.io
+  repo: collabhq/collabhq.github.io
   target_branch: master
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
