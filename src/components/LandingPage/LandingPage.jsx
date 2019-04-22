@@ -95,7 +95,7 @@ class LandingPage extends React.Component {
   }
 
   render() {
-    const { classes, showWorkspaceDialog } = this.props;
+    const { classes } = this.props;
 
     return (
       <React.Fragment>
@@ -141,11 +141,11 @@ class LandingPage extends React.Component {
               </Typography>
               <Button
                 variant="contained"
-                color="primary"
-                onClick={() => showWorkspaceDialog()}
+                color="secondary"
+                onClick
                 className={classes.getStartedButton}
               >
-                Get Started
+                Coming Soon!
               </Button>
               <CreateWorkspaceDialog />
             </div>
