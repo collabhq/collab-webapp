@@ -4,14 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import CloudCircle from "@material-ui/icons/CloudCircle";
-import {
-  AppBar,
-  Button,
-  Typography,
-  Link,
-  CssBaseline,
-  Toolbar
-} from "@material-ui/core";
+import { AppBar, Button, Typography, Link, Toolbar } from "@material-ui/core";
 import CreateWorkspaceDialog from "../CreateWorkspaceDialog/CreateWorkspaceDialog";
 import { showCreateWorkspaceDialog } from "../../actions/landingPage";
 import { setJoinWorkspaceUUID } from "../../actions/createWorkspaceDialog";
@@ -98,70 +91,67 @@ class LandingPage extends React.Component {
     const { classes, showWorkspaceDialog } = this.props;
 
     return (
-      <React.Fragment>
-        <CssBaseline />
-        <div className={classes.root}>
-          <div className={classes.appBarMain}>
-            <AppBar position="static">
-              <Toolbar className={classes.appBar}>
-                <div className={classes.appBarLeft}>
-                  <CloudCircle className={classes.icon} />
+      <div className={classes.root}>
+        <div className={classes.appBarMain}>
+          <AppBar position="static">
+            <Toolbar className={classes.appBar}>
+              <div className={classes.appBarLeft}>
+                <CloudCircle className={classes.icon} />
+                <Typography variant="h6" color="inherit" noWrap>
+                  Collab
+                </Typography>
+              </div>
+              <div className={classes.appBarRight}>
+                <Link
+                  color="inherit"
+                  href="https://www.github.com/collabhq"
+                  target="_blank"
+                  rel="noopener"
+                >
                   <Typography variant="h6" color="inherit" noWrap>
-                    Collab
+                    Github
                   </Typography>
-                </div>
-                <div className={classes.appBarRight}>
-                  <Link
-                    color="inherit"
-                    href="https://www.github.com/collabhq"
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    <Typography variant="h6" color="inherit" noWrap>
-                      Github
-                    </Typography>
-                  </Link>
-                </div>
-              </Toolbar>
-            </AppBar>
-          </div>
-
-          <div className={classes.mainContent}>
-            <div className={classes.subMainContent}>
-              <CloudCircle className={classes.mainLogo} color="primary" />
-              <Typography variant="h4" color="inherit">
-                Collab
-              </Typography>
-              <Typography
-                variant="subtitle1"
-                color="inherit"
-                className={classes.subtitle}
-              >
-                Collaborate and share data in real-time
-              </Typography>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => showWorkspaceDialog()}
-                className={classes.getStartedButton}
-              >
-                Get Started
-              </Button>
-              <CreateWorkspaceDialog />
-            </div>
-          </div>
-          <footer className={classes.footer}>
-            <Typography
-              variant="subtitle2"
-              align="center"
-              gutterBottom
-              className={classes.footerText}
-            >
-              Collab © 2019
-            </Typography>
-          </footer>
+                </Link>
+              </div>
+            </Toolbar>
+          </AppBar>
         </div>
-      </React.Fragment>
+
+        <div className={classes.mainContent}>
+          <div className={classes.subMainContent}>
+            <CloudCircle className={classes.mainLogo} color="primary" />
+            <Typography variant="h4" color="inherit">
+              Collab
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              color="inherit"
+              className={classes.subtitle}
+            >
+              Collaborate and share data in real-time
+            </Typography>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => showWorkspaceDialog()}
+              className={classes.getStartedButton}
+            >
+              Get Started
+            </Button>
+            <CreateWorkspaceDialog />
+          </div>
+        </div>
+        <footer className={classes.footer}>
+          <Typography
+            variant="subtitle2"
+            align="center"
+            gutterBottom
+            className={classes.footerText}
+          >
+            Collab © 2019
+          </Typography>
+        </footer>
+      </div>
     );
   }
 }

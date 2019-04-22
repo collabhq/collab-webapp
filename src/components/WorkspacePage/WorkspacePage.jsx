@@ -8,7 +8,6 @@ import {
   AppBar,
   Toolbar,
   List,
-  CssBaseline,
   Typography,
   Divider,
   IconButton,
@@ -151,7 +150,6 @@ function WorkspacePage(props) {
   return (
     <div className={classes.page}>
       <div className={classes.root}>
-        <CssBaseline />
         <AppBar
           position="fixed"
           className={classNames(classes.appBar, {
