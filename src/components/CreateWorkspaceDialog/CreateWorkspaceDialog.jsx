@@ -144,7 +144,7 @@ CreateWorkspaceDialog.defaultProps = {
   showCreateWorkspaceDialog: false,
   workspaceName: "",
   username: "",
-  expiry: "HOUR1",
+  expiry: "",
   joinWorkspaceUUID: null
 };
 
