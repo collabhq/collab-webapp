@@ -24,31 +24,45 @@ const styles = theme => ({
 });
 
 function WorkspacePageContent(props) {
-  const { classes, notes } = props;
+  const { classes, notes, selectedUser } = props;
 
   return (
     <div className={classNames(classes.layout, classes.cardGrid)}>
       <Grid container spacing={24}>
-        {notes.map(({ uuid, avatar, title, content }) => (
-          <Grid item key={uuid} sm={6} md={4} lg={3}>
-            <WorkspaceCard
-              uuid={uuid}
-              avatar={avatar}
-              title={title}
-              content={content}
-            />
-          </Grid>
-        ))}
+        {notes.map(({ uuid, avatar, title, content, userUUID }) => {
+          let output;
+          if (selectedUser === userUUID || selectedUser === undefined) {
+            output = (
+              <Grid item key={uuid} sm={6} md={4} lg={3}>
+                <WorkspaceCard
+                  uuid={uuid}
+                  avatar={avatar}
+                  title={title}
+                  content={content}
+                />
+              </Grid>
+            );
+          }
+          return output;
+        })}
       </Grid>
     </div>
   );
 }
-const mapStateToProps = ({ workspacePageContent: { notes } }) => ({ notes });
+const mapStateToProps = ({
+  workspacePageContent: { notes },
+  workspacePage: { selectedUser }
+}) => ({ notes, selectedUser });
+
+WorkspacePageContent.defaultProps = {
+  selectedUser: undefined
+};
 
 WorkspacePageContent.propTypes = {
   notes: PropTypes.array.isRequired,
   classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired
+  theme: PropTypes.object.isRequired,
+  selectedUser: PropTypes.string
 };
 
 export default connect(

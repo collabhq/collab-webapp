@@ -10,6 +10,8 @@ export const FAB_HIDDEN = "FAB_HIDDEN";
 export const SHOW_CREATE_USER_DIALOG = "SHOW_CREATE_USER_DIALOG";
 export const HIDE_CREATE_USER_DIALOG = "HIDE_CREATE_USER_DIALOG";
 
+export const SET_SELECTED_USER = "SET_SELECTED_USER";
+export const NEW_USER_JOINED_WORKSPACE = "NEW_USER_JOINED_WORKSPACE";
 /**
  * Action Creators
  */
@@ -23,3 +25,6 @@ export const showCreateUserDialog = () => dispatch =>
   dispatch({ type: SHOW_CREATE_USER_DIALOG });
 export const hideCreateUserDialog = () => dispatch =>
   dispatch({ type: HIDE_CREATE_USER_DIALOG });
+
+export const setSelectedUser = uuid => dispatch =>
+  dispatch({ type: SET_SELECTED_USER, payload: uuid });

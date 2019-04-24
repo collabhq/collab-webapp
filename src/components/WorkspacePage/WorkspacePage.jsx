@@ -32,7 +32,8 @@ import {
   hideDrawer,
   fabChecked,
   fabHidden,
-  showCreateUserDialog
+  showCreateUserDialog,
+  setSelectedUser
 } from "../../actions/workspacePage";
 import NoteDialog from "../NoteDialog/NoteDialog";
 import { editNote } from "../../actions/workspaceCard";
@@ -130,16 +131,15 @@ const styles = theme => ({
   }
 });
 
-const users = ["Alex", "Price", "John", "Jim"];
-const noteCategories = ["Bookmarked Notes", "All Notes"];
-
 function WorkspacePage(props) {
   const {
     classes,
     theme,
     drawerOpen,
     showCreateUserDialog: showUserDialog,
-    workspaceName
+    workspaceName,
+    users,
+    selectUser
   } = props;
   const colorWhite = {
     color: theme.palette.primary.contrastText
@@ -200,24 +200,30 @@ function WorkspacePage(props) {
           </div>
           <Divider light />
           <List>
-            {noteCategories.map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon style={colorWhite}>
-                  {index % 2 === 0 ? (
-                    <BookmarkIcon style={colorSecondary} />
-                  ) : (
-                    <AppsIcon />
-                  )}
-                </ListItemIcon>
-                <ListItemText
-                  primary={
-                    <Typography variant="body1" style={colorWhite}>
-                      {text}
-                    </Typography>
-                  }
-                />
-              </ListItem>
-            ))}
+            <ListItem button key={0}>
+              <ListItemIcon style={colorWhite}>
+                <BookmarkIcon style={colorSecondary} />
+              </ListItemIcon>
+              <ListItemText
+                primary={
+                  <Typography variant="body1" style={colorWhite}>
+                    {"Bookmarked Notes"}
+                  </Typography>
+                }
+              />
+            </ListItem>
+            <ListItem button key={1} onClick={() => selectUser(undefined)}>
+              <ListItemIcon style={colorWhite}>
+                <AppsIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={
+                  <Typography variant="body1" style={colorWhite}>
+                    {"All Notes"}
+                  </Typography>
+                }
+              />
+            </ListItem>
           </List>
           <Divider light />
           <List>
@@ -236,15 +242,15 @@ function WorkspacePage(props) {
                 }
               />
             </ListItem>
-            {users.map(text => (
-              <ListItem button key={text}>
+            {users.map(({ uuid, username }) => (
+              <ListItem button key={uuid} onClick={() => selectUser(uuid)}>
                 <ListItemIcon style={colorWhite}>
                   <PersonIcon />
                 </ListItemIcon>
                 <ListItemText
                   primary={
                     <Typography variant="body1" style={colorWhite}>
-                      {text}
+                      {username}
                     </Typography>
                   }
                 />
@@ -304,15 +310,18 @@ WorkspacePage.propTypes = {
   theme: PropTypes.object.isRequired,
   drawerOpen: PropTypes.bool.isRequired,
   fabClicked: PropTypes.bool.isRequired,
-  workspaceName: PropTypes.string
+  workspaceName: PropTypes.string,
+  users: PropTypes.arrayOf(String).isRequired,
+  selectUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({
-  workspacePage: { drawerOpen, fabClicked, workspaceName }
+  workspacePage: { drawerOpen, fabClicked, workspaceName, users }
 }) => ({
   drawerOpen,
   fabClicked,
-  workspaceName
+  workspaceName,
+  users
 });
 
 const mapDispatchToProps = {
@@ -321,7 +330,8 @@ const mapDispatchToProps = {
   fabChecked,
   fabHidden,
   newNote: editNote,
-  showCreateUserDialog
+  showCreateUserDialog,
+  selectUser: setSelectedUser
 };
 
 export default connect(
