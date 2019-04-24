@@ -39,6 +39,7 @@ function WorkspacePageContent(props) {
                   avatar={avatar}
                   title={title}
                   content={content}
+                  noteUserUUID={userUUID}
                 />
               </Grid>
             );

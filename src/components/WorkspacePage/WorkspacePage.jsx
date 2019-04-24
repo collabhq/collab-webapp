@@ -14,7 +14,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Fab
+  Fab,
+  Avatar
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -128,6 +129,13 @@ const styles = theme => ({
   },
   fabExtendedIcon: {
     marginRight: theme.spacing.unit
+  },
+  avatar: {
+    backgroundColor: theme.palette.common.white,
+    color: theme.palette.common.black,
+    width: 25,
+    height: 25,
+    fontSize: "inherit"
   }
 });
 
@@ -244,8 +252,10 @@ function WorkspacePage(props) {
             </ListItem>
             {users.map(({ uuid, username }) => (
               <ListItem button key={uuid} onClick={() => selectUser(uuid)}>
-                <ListItemIcon style={colorWhite}>
-                  <PersonIcon />
+                <ListItemIcon>
+                  <Avatar aria-label="Avatar" className={classes.avatar}>
+                    {username.charAt(0).toUpperCase()}
+                  </Avatar>
                 </ListItemIcon>
                 <ListItemText
                   primary={
