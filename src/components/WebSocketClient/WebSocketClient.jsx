@@ -5,19 +5,28 @@ import PropTypes from "prop-types";
 
 import {
   upsertNote,
+  removeNote,
   addNewUserToWorkspace
 } from "../../actions/webSocketClient";
 import { websocketURL, workspaceTopicURL } from "../../actions/constants";
 
-const WebSocketClient = ({ workspaceUUID, upsert, addUserToWorkspace }) => (
+const WebSocketClient = ({
+  workspaceUUID,
+  upsert,
+  remove,
+  addUserToWorkspace
+}) => (
   <div>
     <SockJsClient
       url={websocketURL}
       topics={[`${workspaceTopicURL}/${workspaceUUID}`]}
       onMessage={message => {
         switch (message.type) {
-          case "NOTE":
+          case "SAVE_NOTE":
             upsert(message.payload);
+            break;
+          case "DELETE_NOTE":
+            remove(message.payload);
             break;
           case "USER":
             addUserToWorkspace(message.payload);
@@ -37,6 +46,7 @@ const WebSocketClient = ({ workspaceUUID, upsert, addUserToWorkspace }) => (
 WebSocketClient.propTypes = {
   workspaceUUID: PropTypes.string.isRequired,
   upsert: PropTypes.func.isRequired,
+  remove: PropTypes.func.isRequired,
   addUserToWorkspace: PropTypes.func.isRequired
 };
 
@@ -46,6 +56,7 @@ const mapStateToProps = ({ workspacePage: { workspaceUUID } }) => ({
 
 const mapDispatchToProps = {
   upsert: upsertNote,
+  remove: removeNote,
   addUserToWorkspace: addNewUserToWorkspace
 };
 

@@ -14,7 +14,7 @@ import BookmarkIcon from "@material-ui/icons/Bookmark";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import { withStyles } from "@material-ui/core/styles";
-import { editNote } from "../../actions/workspaceCard";
+import { editNote, deleteNote } from "../../actions/workspaceCard";
 
 const styles = theme => ({
   card: {
@@ -37,7 +37,17 @@ const styles = theme => ({
   }
 });
 
-const WorkspaceCard = ({ classes, edit, uuid, avatar, title, content }) => {
+const WorkspaceCard = ({
+  classes,
+  edit,
+  delNote,
+  uuid,
+  avatar,
+  title,
+  content,
+  userUUID,
+  noteUserUUID
+}) => {
   return (
     <div>
       <Card className={classes.card}>
@@ -49,7 +59,7 @@ const WorkspaceCard = ({ classes, edit, uuid, avatar, title, content }) => {
             alignItems="center"
             className={classes.cardHeader}
           >
-            <Avatar aria-label="Recipe" className={classes.avatar}>
+            <Avatar aria-label="Avatar" className={classes.avatar}>
               {avatar}
             </Avatar>
             <IconButton>
@@ -62,9 +72,15 @@ const WorkspaceCard = ({ classes, edit, uuid, avatar, title, content }) => {
           <Typography component="p">{content}</Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
+          {noteUserUUID === userUUID ? (
+            <IconButton onClick={() => delNote({ uuid })}>
+              <DeleteIcon />
+            </IconButton>
+          ) : (
+            undefined
+          )}
+          {console.log(userUUID)}
+          {console.log(noteUserUUID)}
           <IconButton
             onClick={() => edit({ uuid, avatar, title, content })}
             className={classes.editCard}
@@ -83,15 +99,23 @@ WorkspaceCard.propTypes = {
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   edit: PropTypes.func.isRequired,
+  delNote: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired
+  theme: PropTypes.object.isRequired,
+  userUUID: PropTypes.string.isRequired,
+  noteUserUUID: PropTypes.string.isRequired
 };
 
+const mapStateToProps = ({ workspacePage: { userUUID } }) => ({
+  userUUID
+});
+
 const mapDispatchToProps = {
-  edit: editNote
+  edit: editNote,
+  delNote: deleteNote
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(withStyles(styles, { withTheme: true })(WorkspaceCard));

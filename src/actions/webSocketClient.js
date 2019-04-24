@@ -1,4 +1,4 @@
-import { ADD_NOTE, UPDATE_NOTE } from "./workspacePageContent";
+import { ADD_NOTE, UPDATE_NOTE, DELETE_NOTE } from "./workspacePageContent";
 import { NEW_USER_JOINED_WORKSPACE } from "./workspacePage";
 /**
  * Action Types
@@ -24,6 +24,18 @@ export const upsertNote = note => (dispatch, getState) => {
     dispatch({ type: UPDATE_NOTE, payload: { ...note, avatar } });
   } else {
     dispatch({ type: ADD_NOTE, payload: { ...note, avatar } });
+  }
+};
+
+export const removeNote = note => (dispatch, getState) => {
+  const {
+    workspacePageContent: { notes }
+  } = getState();
+
+  if (
+    notes.find(existingNote => existingNote.uuid === note.uuid) !== undefined
+  ) {
+    dispatch({ type: DELETE_NOTE, payload: { ...note } });
   }
 };
 

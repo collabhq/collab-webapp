@@ -1,7 +1,8 @@
 import {
   SET_NOTES,
   UPDATE_NOTE,
-  ADD_NOTE
+  ADD_NOTE,
+  DELETE_NOTE
 } from "../actions/workspacePageContent";
 import { JOIN_WORKSPACE } from "../actions/createWorkspaceDialog";
 
@@ -46,6 +47,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         notes: [...state.notes, note]
+      };
+    }
+    case DELETE_NOTE: {
+      return {
+        ...state,
+        notes: state.notes.filter(note => note.uuid !== action.payload.uuid)
       };
     }
     case JOIN_WORKSPACE: {
