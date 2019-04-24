@@ -21,7 +21,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
-import PersonIcon from "@material-ui/icons/Person";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AppsIcon from "@material-ui/icons/Apps";
