@@ -64,7 +64,8 @@ export default (state = initialState, action) => {
           // TODO: Fix this mapping issue between service and ui for username
           uuid: user.uuid,
           username: user.name
-        }))
+        })),
+        jwt: action.payload.jwt
       };
     case NEW_USER_JOINED_WORKSPACE:
       return {

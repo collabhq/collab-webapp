@@ -14,7 +14,8 @@ const WebSocketClient = ({
   workspaceUUID,
   upsert,
   remove,
-  addUserToWorkspace
+  addUserToWorkspace,
+  jwt
 }) => (
   <div>
     <SockJsClient
@@ -39,6 +40,7 @@ const WebSocketClient = ({
         // eslint-disable-next-line no-undef
         window.socketClient = client;
       }}
+      headers={{ Authorization: `Bearer ${jwt}` }}
     />
   </div>
 );
@@ -47,11 +49,13 @@ WebSocketClient.propTypes = {
   workspaceUUID: PropTypes.string.isRequired,
   upsert: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired,
-  addUserToWorkspace: PropTypes.func.isRequired
+  addUserToWorkspace: PropTypes.func.isRequired,
+  jwt: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({ workspacePage: { workspaceUUID } }) => ({
-  workspaceUUID
+const mapStateToProps = ({ workspacePage: { workspaceUUID, jwt } }) => ({
+  workspaceUUID,
+  jwt
 });
 
 const mapDispatchToProps = {
