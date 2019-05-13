@@ -2,11 +2,13 @@ import React from "react";
 import SockJsClient from "react-stomp";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
 
 import {
   upsertNote,
   removeNote,
-  addNewUserToWorkspace
+  addNewUserToWorkspace,
+  removeWorkspace
 } from "../../actions/webSocketClient";
 import { websocketURL, workspaceTopicURL } from "../../actions/constants";
 
@@ -15,7 +17,9 @@ const WebSocketClient = ({
   upsert,
   remove,
   addUserToWorkspace,
-  jwt
+  workspaceRemoved,
+  jwt,
+  history
 }) => (
   <div>
     <SockJsClient
@@ -31,6 +35,9 @@ const WebSocketClient = ({
             break;
           case "USER":
             addUserToWorkspace(message.payload);
+            break;
+          case "DELETE_WORKSPACE":
+            workspaceRemoved(message.payload, history.push);
             break;
           default:
             break;
@@ -50,7 +57,9 @@ WebSocketClient.propTypes = {
   upsert: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired,
   addUserToWorkspace: PropTypes.func.isRequired,
-  jwt: PropTypes.string.isRequired
+  jwt: PropTypes.string.isRequired,
+  workspaceRemoved: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 const mapStateToProps = ({ workspacePage: { workspaceUUID, jwt } }) => ({
@@ -61,10 +70,11 @@ const mapStateToProps = ({ workspacePage: { workspaceUUID, jwt } }) => ({
 const mapDispatchToProps = {
   upsert: upsertNote,
   remove: removeNote,
-  addUserToWorkspace: addNewUserToWorkspace
+  addUserToWorkspace: addNewUserToWorkspace,
+  workspaceRemoved: removeWorkspace
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(WebSocketClient);
+)(withRouter(WebSocketClient));
