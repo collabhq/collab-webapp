@@ -24,11 +24,10 @@ export default (state = initialState, action) => {
         notes: state.notes.map(note =>
           note.uuid === action.payload.uuid
             ? {
-                // TODO: Fix these keys mismatch between service and ui
                 uuid: action.payload.uuid,
                 avatar: action.payload.avatar,
-                title: action.payload.name,
-                content: action.payload.value,
+                title: action.payload.title,
+                content: action.payload.content,
                 userUUID: action.payload.userUUID
               }
             : note
@@ -39,9 +38,8 @@ export default (state = initialState, action) => {
       const note = {
         uuid: action.payload.uuid,
         avatar: action.payload.avatar,
-        // TODO: Fix these keys mismatch between service and ui
-        title: action.payload.name,
-        content: action.payload.value,
+        title: action.payload.title,
+        content: action.payload.content,
         userUUID: action.payload.userUUID
       };
       return {

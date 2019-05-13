@@ -12,6 +12,7 @@ import {
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import QRCode from "qrcode.react";
+import { baseJoinUrl } from "../../actions/constants";
 import { hideCreateUserDialog } from "../../actions/workspacePage";
 
 function Transition(props) {
@@ -27,7 +28,7 @@ const styles = theme => ({
   }
 });
 
-const baseUrl = "https://collabhq.github.io/#/?join=";
+const baseUrl = baseJoinUrl;
 
 function AddUserDialog(props) {
   const {

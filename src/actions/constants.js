@@ -1,4 +1,5 @@
 export const serverURL = "http://localhost:5000";
+export const baseJoinUrl = "https://collabhq.github.io/#/?join=";
 export const createWorkspaceURL = `${serverURL}/workspace`;
 export const joinWorkspaceURL = `${serverURL}/workspace`;
 export const websocketURL = `${serverURL}/collabsocket`;
