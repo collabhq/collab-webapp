@@ -13,6 +13,8 @@ import {
   JOIN_WORKSPACE
 } from "../actions/createWorkspaceDialog";
 
+import { DELETE_WORKSPACE } from "../actions/workspacePage";
+
 const appReducer = combineReducers({
   landingPage,
   workspacePage,
@@ -25,7 +27,11 @@ const appReducer = combineReducers({
 });
 
 export default (state, action) => {
-  if (action.type === CREATE_NEW_WORKSPACE || action.type === JOIN_WORKSPACE) {
+  if (
+    action.type === CREATE_NEW_WORKSPACE ||
+    action.type === JOIN_WORKSPACE ||
+    action.type === DELETE_WORKSPACE
+  ) {
     storage.removeItem("persist:root");
     // eslint-disable-next-line no-param-reassign
     state = undefined;
