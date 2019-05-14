@@ -1,5 +1,6 @@
 import { ADD_NOTE, UPDATE_NOTE, DELETE_NOTE } from "./workspacePageContent";
-import { NEW_USER_JOINED_WORKSPACE, DELETE_WORKSPACE } from "./workspacePage";
+import { NEW_USER_JOINED_WORKSPACE } from "./workspacePage";
+import { DELETE_WORKSPACE } from "./deleteWorkspaceDialog";
 /**
  * Action Types
  */
@@ -43,16 +44,12 @@ export const addNewUserToWorkspace = user => dispatch => {
   dispatch({ type: NEW_USER_JOINED_WORKSPACE, payload: user });
 };
 
-export const removeWorkspace = (deletedWorkspaceUUID, navigateTo) => (
-  dispatch,
-  getState
-) => {
+export const removeWorkspace = deletedWorkspaceUUID => (dispatch, getState) => {
   const {
     workspacePage: { workspaceUUID }
   } = getState();
 
   if (workspaceUUID === deletedWorkspaceUUID) {
-    navigateTo("/");
     dispatch({ type: DELETE_WORKSPACE });
   }
 };

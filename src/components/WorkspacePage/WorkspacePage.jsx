@@ -27,6 +27,7 @@ import AppsIcon from "@material-ui/icons/Apps";
 import AddIcon from "@material-ui/icons/Add";
 import WorkspacePageContent from "../WorkspacePageContent/WorkspacePageContent";
 import WebSocketClient from "../WebSocketClient/WebSocketClient";
+import DeleteWorkspaceDialog from "../DeleteWorkspaceDialog/DeleteWorkspaceDialog";
 import {
   showDrawer,
   hideDrawer,
@@ -300,6 +301,7 @@ function WorkspacePage(props) {
       <NoteDialog />
       <AddUserDialog />
       <WebSocketClient />
+      <DeleteWorkspaceDialog />
     </div>
   );
 }
