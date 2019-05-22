@@ -19,14 +19,18 @@ export const saveDialogContent = () => (_, getState) => {
     noteForm: { note },
     workspacePage: { workspaceUUID, userUUID }
   } = getState();
+  const noteUUID = note !== undefined ? note.uuid : undefined;
+  const noteName = note !== undefined ? note.title : "New Note";
+  const noteValue = note !== undefined ? note.content : "";
+
   const noteOperation = {
     workspaceUUID,
     userUUID,
-    noteUUID: note.uuid,
-    noteName: note.title,
-    noteValue: note.content,
+    noteUUID,
+    noteName,
+    noteValue,
     noteOperation:
-      note.uuid === undefined ? ADD_NOTE_OPERATION : EDIT_NOTE_OPERATION
+      noteUUID === undefined ? ADD_NOTE_OPERATION : EDIT_NOTE_OPERATION
   };
 
   // eslint-disable-next-line no-undef

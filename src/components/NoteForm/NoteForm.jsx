@@ -20,12 +20,13 @@ const NoteForm = ({ classes, note, title, content }) => {
   return (
     <div className={classes.root}>
       <Typography variant="h5" color="inherit">
-        New Note
+        {note.uuid === undefined ? "New Note" : "Note"}
       </Typography>
-      <form className={classes.form} noValidate={false} autoComplete="off">
+      <form className={classes.form} autoComplete="off">
         <TextField
           id="standard-title"
           label="Title"
+          required
           variant="outlined"
           margin="normal"
           fullWidth
@@ -37,7 +38,6 @@ const NoteForm = ({ classes, note, title, content }) => {
           multiline
           rows="4"
           label="Note"
-          autoFocus
           required
           maxheight="50%"
           variant="outlined"
