@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { isMobile } from "react-device-detect";
+import classNames from "classnames";
 import {
   Card,
   CardActions,
@@ -18,7 +20,22 @@ import { editNote, deleteNote } from "../../actions/workspaceCard";
 
 const styles = theme => ({
   card: {
-    maxWidth: 400
+    maxWidth: 300,
+    minWidth: 300,
+    maxHeight: 300,
+    minHeight: 300,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between"
+  },
+  mobileCard: {
+    maxWidth: 225,
+    minWidth: 225,
+    maxHeight: 250,
+    minHeight: 250,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between"
   },
   cardHeader: {
     marginBottom: 10
@@ -50,7 +67,11 @@ const WorkspaceCard = ({
 }) => {
   return (
     <div>
-      <Card className={classes.card}>
+      <Card
+        className={classNames(classes.card, {
+          [classes.mobileCard]: isMobile
+        })}
+      >
         <CardContent className={classes.cardContent}>
           <Grid
             container
@@ -66,10 +87,10 @@ const WorkspaceCard = ({
               <BookmarkIcon />
             </IconButton>
           </Grid>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom variant="h5">
             {title}
           </Typography>
-          <Typography component="p">{content}</Typography>
+          <Typography noWrap>{content}</Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
           {noteUserUUID === userUUID ? (
@@ -79,8 +100,6 @@ const WorkspaceCard = ({
           ) : (
             undefined
           )}
-          {console.log(userUUID)}
-          {console.log(noteUserUUID)}
           <IconButton
             onClick={() => edit({ uuid, avatar, title, content })}
             className={classes.editCard}
