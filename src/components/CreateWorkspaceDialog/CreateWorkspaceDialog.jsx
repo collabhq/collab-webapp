@@ -64,7 +64,6 @@ const CreateWorkspaceDialog = ({
         </DialogContentText>
         {joinWorkspaceUUID === null ? (
           <TextField
-            autoFocus
             margin="dense"
             id="room_name"
             label="Workspace Name"
@@ -82,7 +81,7 @@ const CreateWorkspaceDialog = ({
         <TextField
           margin="dense"
           id="user_name"
-          label="User Full Name"
+          label="Your Name"
           type="text"
           variant="outlined"
           fullWidth
@@ -90,7 +89,7 @@ const CreateWorkspaceDialog = ({
           onChange={evt => newUsername(evt.target.value)}
         />
         {joinWorkspaceUUID === null ? (
-          <FormControl fullWidth>
+          <FormControl fullWidth margin="dense">
             <InputLabel shrink htmlFor="expiry-label-placeholder">
               Expires After
             </InputLabel>
