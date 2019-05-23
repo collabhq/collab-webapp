@@ -36,7 +36,7 @@ const NoteForm = ({ classes, note, title, content }) => {
         <TextField
           id="standard-multiline-content"
           multiline
-          rows="4"
+          rows="8"
           label="Note"
           required
           maxheight="50%"

@@ -26,7 +26,7 @@ const NoteDialog = ({ classes, open, hide, save }) => (
   <div>
     <Dialog
       fullWidth
-      maxWidth="sm"
+      maxWidth="md"
       open={open}
       TransitionComponent={Transition}
       onClose={() => hide()}

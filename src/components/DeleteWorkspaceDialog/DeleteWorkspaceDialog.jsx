@@ -28,7 +28,7 @@ const DeleteWorkspaceDialog = ({
       <DialogContent>
         <DialogContentText>
           Your workspace has been deleted either by its creator or has expired,
-          all your data will now be erased
+          all workspace data has been erased.
         </DialogContentText>
       </DialogContent>
       <DialogActions>

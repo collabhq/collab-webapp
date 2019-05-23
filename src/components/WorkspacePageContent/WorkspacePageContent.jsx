@@ -12,14 +12,10 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 1,
     marginLeft: theme.spacing.unit * 1,
     marginRight: theme.spacing.unit * 1,
-    [theme.breakpoints.up(1100 + theme.spacing.unit * 3 * 2)]: {
-      width: 1100,
-      marginLeft: "auto",
-      marginRight: "auto"
-    }
+    marginBottom: theme.spacing.unit * 10
   },
   cardGrid: {
-    padding: `${theme.spacing.unit * 8}px 0`
+    padding: `${theme.spacing.unit * 2}px 0`
   }
 });
 
@@ -28,12 +24,12 @@ function WorkspacePageContent(props) {
 
   return (
     <div className={classNames(classes.layout, classes.cardGrid)}>
-      <Grid container spacing={24}>
+      <Grid container spacing={16}>
         {notes.map(({ uuid, avatar, title, content, userUUID }) => {
           let output;
           if (selectedUser === userUUID || selectedUser === undefined) {
             output = (
-              <Grid item key={uuid} sm={6} md={4} lg={3}>
+              <Grid item key={uuid}>
                 <WorkspaceCard
                   uuid={uuid}
                   avatar={avatar}
