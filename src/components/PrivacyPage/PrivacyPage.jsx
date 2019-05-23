@@ -4,10 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import CloudCircle from "@material-ui/icons/CloudCircle";
-import { AppBar, Button, Typography, Link, Toolbar } from "@material-ui/core";
-import CreateWorkspaceDialog from "../CreateWorkspaceDialog/CreateWorkspaceDialog";
-import { showCreateWorkspaceDialog } from "../../actions/landingPage";
-import { setJoinWorkspaceUUID } from "../../actions/createWorkspaceDialog";
+import { AppBar, Typography, Link, Toolbar } from "@material-ui/core";
 import { WEBSITE_PRIVACY_URL, GITHUB_ORG_URL } from "../../actions/constants";
 
 const styles = theme => ({
@@ -25,8 +22,7 @@ const styles = theme => ({
     width: "100%"
   },
   mainContent: {
-    width: "100%",
-    marginBottom: "10%"
+    width: "100%"
   },
   subMainContent: {
     display: "flex",
@@ -61,16 +57,9 @@ const styles = theme => ({
   icon: {
     marginRight: theme.spacing.unit * 2
   },
-  mainLogo: {
-    width: 150,
-    height: 150
-  },
   subtitle: {
     marginTop: theme.spacing.unit * 0.5,
     marginBottom: theme.spacing.unit * 3
-  },
-  getStartedButton: {
-    width: 150
   },
   footerText: {
     color: theme.palette.common.black,
@@ -92,18 +81,9 @@ const styles = theme => ({
 });
 
 // eslint-disable-next-line react/prefer-stateless-function
-class LandingPage extends React.Component {
-  componentDidMount() {
-    const {
-      joinWorkspace,
-      location: { search }
-    } = this.props;
-    const workspaceUUID = new URLSearchParams(search).get("join");
-    joinWorkspace(workspaceUUID);
-  }
-
+class PrivacyPage extends React.Component {
   render() {
-    const { classes, showWorkspaceDialog } = this.props;
+    const { classes } = this.props;
 
     return (
       <div className={classes.root}>
@@ -123,26 +103,15 @@ class LandingPage extends React.Component {
 
         <div className={classes.mainContent}>
           <div className={classes.subMainContent}>
-            <CloudCircle className={classes.mainLogo} color="primary" />
-            <Typography variant="h4" color="inherit">
-              Collab
+            <Typography variant="h5" color="inherit">
+              Cookie Declaration
             </Typography>
-            <Typography
-              variant="subtitle1"
-              color="inherit"
-              className={classes.subtitle}
-            >
-              Collaborate and share data in real-time
-            </Typography>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => showWorkspaceDialog()}
-              className={classes.getStartedButton}
-            >
-              Get Started
-            </Button>
-            <CreateWorkspaceDialog />
+            <script
+              id="CookieDeclaration"
+              src="https://consent.cookiebot.com/22183745-e911-4700-8e51-eecbd220b50f/cd.js"
+              type="text/javascript"
+              async
+            />
           </div>
         </div>
         <footer className={classes.footer}>
@@ -192,19 +161,11 @@ class LandingPage extends React.Component {
   }
 }
 
-LandingPage.propTypes = {
-  showWorkspaceDialog: PropTypes.func.isRequired,
-  joinWorkspace: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
-  location: PropTypes.object
-};
-
-const mapDispatchToProps = {
-  showWorkspaceDialog: showCreateWorkspaceDialog,
-  joinWorkspace: setJoinWorkspaceUUID
+PrivacyPage.propTypes = {
+  classes: PropTypes.object.isRequired
 };
 
 export default connect(
   null,
-  mapDispatchToProps
-)(withStyles(styles, { withTheme: true })(LandingPage));
+  null
+)(withStyles(styles, { withTheme: true })(PrivacyPage));
