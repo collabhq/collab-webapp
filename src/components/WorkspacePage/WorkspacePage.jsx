@@ -134,8 +134,8 @@ const styles = theme => ({
     marginRight: theme.spacing.unit
   },
   avatar: {
-    backgroundColor: theme.palette.common.white,
-    color: theme.palette.common.black,
+    backgroundColor: theme.palette.secondary.main,
+    color: theme.palette.primary.main,
     width: 25,
     height: 25,
     fontSize: "inherit"
@@ -235,7 +235,7 @@ function WorkspacePage(props) {
             </ListItem>
             <ListItem button key={1} onClick={() => selectUser(undefined)}>
               <ListItemIcon style={colorWhite}>
-                <AppsIcon />
+                <AppsIcon style={colorSecondary} />
               </ListItemIcon>
               <ListItemText
                 primary={
