@@ -346,7 +346,7 @@ function WorkspacePage(props) {
 }
 
 WorkspacePage.defaultProps = {
-  workspaceName: "Default Workspace"
+  workspaceName: "My Workspace"
 };
 
 WorkspacePage.propTypes = {
