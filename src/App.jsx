@@ -17,7 +17,6 @@ const App = props => (
       }
     />
     <Route exact path="/privacy" component={PrivacyPage} />
-    <Route component={LandingPage} />
   </HashRouter>
 );
 

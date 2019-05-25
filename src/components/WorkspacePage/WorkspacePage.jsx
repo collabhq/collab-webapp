@@ -21,9 +21,9 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import BookmarkIcon from "@material-ui/icons/Bookmark";
+// import BookmarkIcon from "@material-ui/icons/Bookmark";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
-import SettingsIcon from "@material-ui/icons/Settings";
+// import SettingsIcon from "@material-ui/icons/Settings";
 import AppsIcon from "@material-ui/icons/Apps";
 import AddIcon from "@material-ui/icons/Add";
 import InfoIcon from "@material-ui/icons/Info";
@@ -221,7 +221,7 @@ function WorkspacePage(props) {
           </div>
           <Divider light />
           <List>
-            <ListItem button key={0}>
+            {/* <ListItem button key={0}>
               <ListItemIcon style={colorWhite}>
                 <BookmarkIcon style={colorSecondary} />
               </ListItemIcon>
@@ -232,7 +232,7 @@ function WorkspacePage(props) {
                   </Typography>
                 }
               />
-            </ListItem>
+            </ListItem> */}
             <ListItem button key={1} onClick={() => selectUser(undefined)}>
               <ListItemIcon style={colorWhite}>
                 <AppsIcon style={colorSecondary} />
@@ -280,7 +280,7 @@ function WorkspacePage(props) {
               </ListItem>
             ))}
           </List>
-          <Divider light />
+          {/* <Divider light />
           <ListItem button key="Settings">
             <ListItemIcon style={colorSecondary}>
               <SettingsIcon />
@@ -292,7 +292,7 @@ function WorkspacePage(props) {
                 </Typography>
               }
             />
-          </ListItem>
+          </ListItem> */}
           {drawerOpen ? (
             <div className={classes.drawerFooter}>
               <Divider light />
