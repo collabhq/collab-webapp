@@ -127,14 +127,13 @@ const styles = theme => ({
   },
   fab: {
     zIndex: theme.zIndex.drawer + 2,
-    backgroundColor: theme.palette.primary.dark,
     boxShadow: "0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23)"
   },
   fabExtendedIcon: {
     marginRight: theme.spacing.unit
   },
   avatar: {
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.common.white,
     color: theme.palette.primary.main,
     width: 25,
     height: 25,
@@ -149,6 +148,9 @@ const styles = theme => ({
   drawerFooterIcons: {
     width: 20,
     height: 20
+  },
+  toolbarLeftMargin: {
+    marginLeft: theme.spacing.unit * 1
   }
 });
 
@@ -165,8 +167,8 @@ function WorkspacePage(props) {
   const colorWhite = {
     color: theme.palette.primary.contrastText
   };
-  const colorSecondary = {
-    color: theme.palette.secondary.main
+  const colorActions = {
+    color: theme.palette.common.white
   };
   return (
     <div className={classes.page}>
@@ -186,7 +188,7 @@ function WorkspacePage(props) {
                 [classes.hide]: drawerOpen
               })}
             >
-              <MenuIcon />
+              <MenuIcon style={colorActions} />
             </IconButton>
             <Typography variant="h6" color="inherit" noWrap>
               {workspaceName}
@@ -208,10 +210,14 @@ function WorkspacePage(props) {
           open={drawerOpen}
         >
           <div className={classes.toolbar}>
-            <Typography variant="h5" style={colorWhite}>
+            <Typography
+              variant="h5"
+              style={colorWhite}
+              className={classes.toolbarLeftMargin}
+            >
               Collab
             </Typography>
-            <IconButton style={colorWhite} onClick={() => props.hideDrawer()}>
+            <IconButton style={colorActions} onClick={() => props.hideDrawer()}>
               {theme.direction === "rtl" ? (
                 <ChevronRightIcon />
               ) : (
@@ -235,7 +241,7 @@ function WorkspacePage(props) {
             </ListItem> */}
             <ListItem button key={1} onClick={() => selectUser(undefined)}>
               <ListItemIcon style={colorWhite}>
-                <AppsIcon style={colorSecondary} />
+                <AppsIcon style={colorActions} />
               </ListItemIcon>
               <ListItemText
                 primary={
@@ -251,7 +257,7 @@ function WorkspacePage(props) {
             <ListItem onClick={() => showUserDialog()} button key="Settings">
               <ListItemIcon
                 onClick={() => showUserDialog()}
-                style={colorSecondary}
+                style={colorActions}
               >
                 <PersonAddIcon />
               </ListItemIcon>
@@ -303,7 +309,7 @@ function WorkspacePage(props) {
                 rel="noopener"
               >
                 <ListItem button key="Privacy">
-                  <ListItemIcon style={colorSecondary}>
+                  <ListItemIcon style={colorActions}>
                     <InfoIcon className={classes.drawerFooterIcons} />
                   </ListItemIcon>
                   <ListItemText
@@ -327,7 +333,7 @@ function WorkspacePage(props) {
       </div>
       <div className={classes.fabDiv}>
         <Fab
-          color="primary"
+          color="secondary"
           variant="extended"
           aria-label="Add"
           className={classes.fab}
