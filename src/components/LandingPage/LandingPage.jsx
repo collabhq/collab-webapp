@@ -218,7 +218,7 @@ class LandingPage extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, showWorkspaceDialog } = this.props;
 
     return (
       <div
@@ -245,10 +245,11 @@ class LandingPage extends React.Component {
               <div className={classes.appBarRight}>
                 <Button
                   color="secondary"
+                  onClick={() => showWorkspaceDialog()}
                   className={classes.headerSubText}
                   size="large"
                 >
-                  Coming Soon!
+                  Get Started
                 </Button>
                 {isMobile === false ? (
                   <div className={classes.appBarRight}>
@@ -343,10 +344,11 @@ class LandingPage extends React.Component {
                 <Button
                   variant="contained"
                   color="secondary"
+                  onClick={() => showWorkspaceDialog()}
                   className={classes.getStartedButton}
                   size="large"
                 >
-                  Coming Soon!
+                  Get Started
                 </Button>
                 <CreateWorkspaceDialog />
               </div>
