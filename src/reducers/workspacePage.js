@@ -4,7 +4,9 @@ import {
   FAB_CHECKED,
   FAB_HIDDEN,
   SHOW_CREATE_USER_DIALOG,
-  HIDE_CREATE_USER_DIALOG
+  HIDE_CREATE_USER_DIALOG,
+  NEW_USER_JOINED_WORKSPACE,
+  SET_SELECTED_USER
 } from "../actions/workspacePage";
 
 import {
@@ -57,7 +59,27 @@ export default (state = initialState, action) => {
         workspaceUUID: action.payload.workspaceUUID,
         userUUID: action.payload.userUUID,
         workspaceName: action.payload.workspaceName,
-        username: action.payload.username
+        selectedUser: undefined,
+        users: action.payload.users.map(user => ({
+          // TODO: Fix this mapping issue between service and ui for username
+          uuid: user.uuid,
+          username: user.name
+        })),
+        jwt: action.payload.jwt
+      };
+    case NEW_USER_JOINED_WORKSPACE:
+      return {
+        ...state,
+        users: [
+          ...state.users,
+          // TODO: Fix this mapping issue between service and ui for username
+          { uuid: action.payload.uuid, username: action.payload.name }
+        ]
+      };
+    case SET_SELECTED_USER:
+      return {
+        ...state,
+        selectedUser: action.payload
       };
     default:
       return state;

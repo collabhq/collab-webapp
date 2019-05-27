@@ -1,5 +1,6 @@
 import { EDIT_NOTE } from "../actions/workspaceCard";
-import { HIDE_NOTE_DIALOG, UPDATE_NOTE, ADD_NOTE } from "../actions/noteDialog";
+import { HIDE_NOTE_DIALOG } from "../actions/noteDialog";
+import { UPDATE_NOTE, ADD_NOTE } from "../actions/workspacePageContent";
 import { SET_TITLE, SET_CONTENT } from "../actions/noteForm";
 
 const initialState = {};

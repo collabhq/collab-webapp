@@ -1,5 +1,9 @@
-import { SET_NOTES } from "../actions/workspacePageContent";
-import { UPDATE_NOTE, ADD_NOTE } from "../actions/noteDialog";
+import {
+  SET_NOTES,
+  UPDATE_NOTE,
+  ADD_NOTE,
+  DELETE_NOTE
+} from "../actions/workspacePageContent";
 import { JOIN_WORKSPACE } from "../actions/createWorkspaceDialog";
 
 const initialState = {
@@ -20,11 +24,11 @@ export default (state = initialState, action) => {
         notes: state.notes.map(note =>
           note.uuid === action.payload.uuid
             ? {
-                // TODO: Fix these keys mismatch between service and ui
                 uuid: action.payload.uuid,
-                avatar: "K",
-                title: action.payload.name,
-                content: action.payload.value
+                avatar: action.payload.avatar,
+                title: action.payload.title,
+                content: action.payload.content,
+                userUUID: action.payload.userUUID
               }
             : note
         )
@@ -32,16 +36,21 @@ export default (state = initialState, action) => {
     }
     case ADD_NOTE: {
       const note = {
-        // TODO: Fix these keys mismatch between service and ui
-        title: action.payload.name,
-        content: action.payload.value,
         uuid: action.payload.uuid,
-        // TODO: Refactor required. Values hardcoded
-        avatar: "K"
+        avatar: action.payload.avatar,
+        title: action.payload.title,
+        content: action.payload.content,
+        userUUID: action.payload.userUUID
       };
       return {
         ...state,
         notes: [...state.notes, note]
+      };
+    }
+    case DELETE_NOTE: {
+      return {
+        ...state,
+        notes: state.notes.filter(note => note.uuid !== action.payload.uuid)
       };
     }
     case JOIN_WORKSPACE: {
@@ -50,9 +59,10 @@ export default (state = initialState, action) => {
         notes: action.payload.notes.map(note => ({
           // TODO: Fix these keys mismatch between service and ui
           uuid: note.uuid,
-          avatar: "K",
+          avatar: note.avatar,
           title: note.name,
-          content: note.value
+          content: note.value,
+          userUUID: note.userUUID
         }))
       };
     }

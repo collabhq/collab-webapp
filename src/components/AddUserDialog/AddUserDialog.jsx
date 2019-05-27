@@ -12,6 +12,7 @@ import {
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import QRCode from "qrcode.react";
+import { baseJoinUrl } from "../../actions/constants";
 import { hideCreateUserDialog } from "../../actions/workspacePage";
 
 function Transition(props) {
@@ -27,7 +28,7 @@ const styles = theme => ({
   }
 });
 
-const baseUrl = "https://collabhq.github.io/#/?join=";
+const baseUrl = baseJoinUrl;
 
 function AddUserDialog(props) {
   const {
@@ -54,7 +55,7 @@ function AddUserDialog(props) {
         <DialogTitle id="form-dialog-title">Invite User</DialogTitle>
         <DialogContent>
           <Typography variant="body2" className={classes.text}>
-            Use this unique link to invite user to workspace.
+            Use this unique link to invite user to the workspace:
           </Typography>
           <Typography variant="body2" style={linkText} className={classes.text}>
             {baseUrl}

@@ -8,8 +8,6 @@ import {
  */
 export const SHOW_NOTE_DIALOG = "SHOW_NOTE_DIALOG";
 export const HIDE_NOTE_DIALOG = "HIDE_NOTE_DIALOG";
-export const UPDATE_NOTE = "UPDATE_NOTE";
-export const ADD_NOTE = "ADD_NOTE";
 /**
  * Action Creators
  */
@@ -21,16 +19,21 @@ export const saveDialogContent = () => (_, getState) => {
     noteForm: { note },
     workspacePage: { workspaceUUID, userUUID }
   } = getState();
+  const noteUUID = note !== undefined ? note.uuid : undefined;
+  const noteName = note !== undefined ? note.title : "New Card";
+  const noteValue = note !== undefined ? note.content : "";
+
   const noteOperation = {
     workspaceUUID,
     userUUID,
-    noteUUID: note.uuid,
-    noteName: note.title,
-    noteValue: note.content,
+    noteUUID,
+    noteName,
+    noteValue,
     noteOperation:
-      note.uuid === undefined ? ADD_NOTE_OPERATION : EDIT_NOTE_OPERATION
+      noteUUID === undefined ? ADD_NOTE_OPERATION : EDIT_NOTE_OPERATION
   };
 
+  // eslint-disable-next-line no-undef
   window.socketClient.sendMessage(
     `${noteTopicURL}/${workspaceUUID}`,
     JSON.stringify(noteOperation)

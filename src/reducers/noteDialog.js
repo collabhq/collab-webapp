@@ -1,9 +1,5 @@
-import {
-  SHOW_NOTE_DIALOG,
-  HIDE_NOTE_DIALOG,
-  UPDATE_NOTE,
-  ADD_NOTE
-} from "../actions/noteDialog";
+import { SHOW_NOTE_DIALOG, HIDE_NOTE_DIALOG } from "../actions/noteDialog";
+import { UPDATE_NOTE, ADD_NOTE } from "../actions/workspacePageContent";
 
 export default (state = {}, action) => {
   switch (action.type) {

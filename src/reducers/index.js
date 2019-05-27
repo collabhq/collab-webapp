@@ -8,7 +8,14 @@ import noteDialog from "./noteDialog";
 import noteForm from "./noteForm";
 import createWorkspaceDialog from "./createWorkspaceDialog";
 import webSocketClient from "./webSocketClient";
-import { CREATE_NEW_WORKSPACE } from "../actions/createWorkspaceDialog";
+import deleteWorkspaceDialog from "./deleteWorkspaceDialog";
+
+import {
+  CREATE_NEW_WORKSPACE,
+  JOIN_WORKSPACE
+} from "../actions/createWorkspaceDialog";
+
+import { RESET_STATE } from "../actions/deleteWorkspaceDialog";
 
 const appReducer = combineReducers({
   landingPage,
@@ -18,11 +25,16 @@ const appReducer = combineReducers({
   noteDialog,
   noteForm,
   createWorkspaceDialog,
-  webSocketClient
+  webSocketClient,
+  deleteWorkspaceDialog
 });
 
 export default (state, action) => {
-  if (action.type === CREATE_NEW_WORKSPACE) {
+  if (
+    action.type === CREATE_NEW_WORKSPACE ||
+    action.type === JOIN_WORKSPACE ||
+    action.type === RESET_STATE
+  ) {
     storage.removeItem("persist:root");
     // eslint-disable-next-line no-param-reassign
     state = undefined;

@@ -8,45 +8,55 @@ import {
   AppBar,
   Toolbar,
   List,
-  CssBaseline,
   Typography,
   Divider,
   IconButton,
   ListItem,
   ListItemIcon,
   ListItemText,
-  Fab
+  Fab,
+  Avatar,
+  Link
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import BookmarkIcon from "@material-ui/icons/Bookmark";
-import PersonIcon from "@material-ui/icons/Person";
+import CloudCircle from "@material-ui/icons/CloudCircle";
+// import BookmarkIcon from "@material-ui/icons/Bookmark";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
-import SettingsIcon from "@material-ui/icons/Settings";
+// import SettingsIcon from "@material-ui/icons/Settings";
 import AppsIcon from "@material-ui/icons/Apps";
 import AddIcon from "@material-ui/icons/Add";
+import InfoIcon from "@material-ui/icons/Info";
 import WorkspacePageContent from "../WorkspacePageContent/WorkspacePageContent";
 import WebSocketClient from "../WebSocketClient/WebSocketClient";
+import DeleteWorkspaceDialog from "../DeleteWorkspaceDialog/DeleteWorkspaceDialog";
 import {
   showDrawer,
   hideDrawer,
   fabChecked,
   fabHidden,
-  showCreateUserDialog
+  showCreateUserDialog,
+  setSelectedUser
 } from "../../actions/workspacePage";
 import NoteDialog from "../NoteDialog/NoteDialog";
 import { editNote } from "../../actions/workspaceCard";
 import AddUserDialog from "../AddUserDialog/AddUserDialog";
+import {
+  WEBSITE_PRIVACY_URL,
+  WEBSITE_PUBLIC_URL
+} from "../../actions/constants";
 
 const drawerWidth = 240;
 
 const styles = theme => ({
   page: {
-    height: "-webkit-fill-available"
+    height: "100%",
+    backgroundColor: theme.palette.background.paper
   },
   root: {
-    display: "flex"
+    display: "flex",
+    backgroundColor: theme.palette.background.paper
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -123,16 +133,32 @@ const styles = theme => ({
   },
   fab: {
     zIndex: theme.zIndex.drawer + 2,
-    backgroundColor: theme.palette.primary.dark,
     boxShadow: "0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23)"
   },
   fabExtendedIcon: {
     marginRight: theme.spacing.unit
+  },
+  avatar: {
+    backgroundColor: theme.palette.common.white,
+    color: theme.palette.primary.main,
+    width: 25,
+    height: 25,
+    fontSize: "inherit"
+  },
+  drawerFooter: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-end",
+    height: "100%"
+  },
+  drawerFooterIcons: {
+    width: 20,
+    height: 20
+  },
+  toolbarLeftMargin: {
+    marginLeft: theme.spacing.unit * 1
   }
 });
-
-const users = ["Alex", "Price", "John", "Jim"];
-const noteCategories = ["Bookmarked Notes", "All Notes"];
 
 function WorkspacePage(props) {
   const {
@@ -140,18 +166,19 @@ function WorkspacePage(props) {
     theme,
     drawerOpen,
     showCreateUserDialog: showUserDialog,
-    workspaceName
+    workspaceName,
+    users,
+    selectUser
   } = props;
   const colorWhite = {
     color: theme.palette.primary.contrastText
   };
-  const colorSecondary = {
-    color: theme.palette.secondary.main
+  const colorActions = {
+    color: theme.palette.common.white
   };
   return (
     <div className={classes.page}>
       <div className={classes.root}>
-        <CssBaseline />
         <AppBar
           position="fixed"
           className={classNames(classes.appBar, {
@@ -167,7 +194,7 @@ function WorkspacePage(props) {
                 [classes.hide]: drawerOpen
               })}
             >
-              <MenuIcon />
+              <MenuIcon style={colorActions} />
             </IconButton>
             <Typography variant="h6" color="inherit" noWrap>
               {workspaceName}
@@ -189,10 +216,16 @@ function WorkspacePage(props) {
           open={drawerOpen}
         >
           <div className={classes.toolbar}>
-            <Typography variant="h5" style={colorWhite}>
-              Collab
-            </Typography>
-            <IconButton style={colorWhite} onClick={() => props.hideDrawer()}>
+            <Link href={WEBSITE_PUBLIC_URL} target="_blank" rel="noopener">
+              <Typography
+                variant="h5"
+                style={colorWhite}
+                className={classes.toolbarLeftMargin}
+              >
+                Collab
+              </Typography>
+            </Link>
+            <IconButton style={colorActions} onClick={() => props.hideDrawer()}>
               {theme.direction === "rtl" ? (
                 <ChevronRightIcon />
               ) : (
@@ -202,31 +235,37 @@ function WorkspacePage(props) {
           </div>
           <Divider light />
           <List>
-            {noteCategories.map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon style={colorWhite}>
-                  {index % 2 === 0 ? (
-                    <BookmarkIcon style={colorSecondary} />
-                  ) : (
-                    <AppsIcon />
-                  )}
-                </ListItemIcon>
-                <ListItemText
-                  primary={
-                    <Typography variant="body1" style={colorWhite}>
-                      {text}
-                    </Typography>
-                  }
-                />
-              </ListItem>
-            ))}
+            {/* <ListItem button key={0}>
+              <ListItemIcon style={colorWhite}>
+                <BookmarkIcon style={colorSecondary} />
+              </ListItemIcon>
+              <ListItemText
+                primary={
+                  <Typography variant="body1" style={colorWhite}>
+                    {"Bookmarked Cards"}
+                  </Typography>
+                }
+              />
+            </ListItem> */}
+            <ListItem button key={1} onClick={() => selectUser(undefined)}>
+              <ListItemIcon style={colorWhite}>
+                <AppsIcon style={colorActions} />
+              </ListItemIcon>
+              <ListItemText
+                primary={
+                  <Typography variant="body1" style={colorWhite}>
+                    {"All Cards"}
+                  </Typography>
+                }
+              />
+            </ListItem>
           </List>
           <Divider light />
           <List>
             <ListItem onClick={() => showUserDialog()} button key="Settings">
               <ListItemIcon
                 onClick={() => showUserDialog()}
-                style={colorSecondary}
+                style={colorActions}
               >
                 <PersonAddIcon />
               </ListItemIcon>
@@ -238,22 +277,24 @@ function WorkspacePage(props) {
                 }
               />
             </ListItem>
-            {users.map(text => (
-              <ListItem button key={text}>
-                <ListItemIcon style={colorWhite}>
-                  <PersonIcon />
+            {users.map(({ uuid, username }) => (
+              <ListItem button key={uuid} onClick={() => selectUser(uuid)}>
+                <ListItemIcon>
+                  <Avatar aria-label="Avatar" className={classes.avatar}>
+                    {username.charAt(0).toUpperCase()}
+                  </Avatar>
                 </ListItemIcon>
                 <ListItemText
                   primary={
                     <Typography variant="body1" style={colorWhite}>
-                      {text}
+                      {username}
                     </Typography>
                   }
                 />
               </ListItem>
             ))}
           </List>
-          <Divider light />
+          {/* <Divider light />
           <ListItem button key="Settings">
             <ListItemIcon style={colorSecondary}>
               <SettingsIcon />
@@ -265,7 +306,43 @@ function WorkspacePage(props) {
                 </Typography>
               }
             />
-          </ListItem>
+          </ListItem> */}
+          {drawerOpen ? (
+            <div className={classes.drawerFooter}>
+              <Divider light />
+              <Link href={WEBSITE_PRIVACY_URL} target="_blank" rel="noopener">
+                <ListItem button key="Privacy">
+                  <ListItemIcon style={colorActions}>
+                    <InfoIcon className={classes.drawerFooterIcons} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={
+                      <Typography variant="subtitle2" style={colorWhite}>
+                        Privacy
+                      </Typography>
+                    }
+                  />
+                </ListItem>
+              </Link>
+              <Divider light />
+              <Link href={WEBSITE_PUBLIC_URL} target="_blank" rel="noopener">
+                <ListItem button key="Homepage">
+                  <ListItemIcon style={colorActions}>
+                    <CloudCircle className={classes.drawerFooterIcons} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={
+                      <Typography variant="subtitle2" style={colorWhite}>
+                        Homepage
+                      </Typography>
+                    }
+                  />
+                </ListItem>
+              </Link>
+            </div>
+          ) : (
+            undefined
+          )}
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
@@ -274,7 +351,7 @@ function WorkspacePage(props) {
       </div>
       <div className={classes.fabDiv}>
         <Fab
-          color="primary"
+          color="secondary"
           variant="extended"
           aria-label="Add"
           className={classes.fab}
@@ -287,12 +364,13 @@ function WorkspacePage(props) {
       <NoteDialog />
       <AddUserDialog />
       <WebSocketClient />
+      <DeleteWorkspaceDialog />
     </div>
   );
 }
 
 WorkspacePage.defaultProps = {
-  workspaceName: "Default Workspace"
+  workspaceName: "My Workspace"
 };
 
 WorkspacePage.propTypes = {
@@ -306,15 +384,18 @@ WorkspacePage.propTypes = {
   theme: PropTypes.object.isRequired,
   drawerOpen: PropTypes.bool.isRequired,
   fabClicked: PropTypes.bool.isRequired,
-  workspaceName: PropTypes.string
+  workspaceName: PropTypes.string,
+  users: PropTypes.arrayOf(String).isRequired,
+  selectUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({
-  workspacePage: { drawerOpen, fabClicked, workspaceName }
+  workspacePage: { drawerOpen, fabClicked, workspaceName, users }
 }) => ({
   drawerOpen,
   fabClicked,
-  workspaceName
+  workspaceName,
+  users
 });
 
 const mapDispatchToProps = {
@@ -323,7 +404,8 @@ const mapDispatchToProps = {
   fabChecked,
   fabHidden,
   newNote: editNote,
-  showCreateUserDialog
+  showCreateUserDialog,
+  selectUser: setSelectedUser
 };
 
 export default connect(

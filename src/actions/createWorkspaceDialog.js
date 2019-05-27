@@ -64,21 +64,28 @@ export const createNewWorkspace = navigateTo => (dispatch, getState) => {
 
 export const joinUserToWorkspace = navigateTo => (dispatch, getState) => {
   const {
-    createWorkspaceDialog: { joinWorkspaceUUID, username }
+    createWorkspaceDialog: { joinWorkspaceUUID, username },
+    workspacePage: { users }
   } = getState();
   axios
     .post(`${joinWorkspaceURL}/${joinWorkspaceUUID}`, { username })
     // TODO: Handle network errors (status != 200)
     .then(res => res.data)
-    .then(data =>
-      dispatch({
-        type: JOIN_WORKSPACE,
-        payload: {
-          ...data,
-          username
-        }
-      })
-    )
+    .then(data => {
+      return {
+        ...data,
+        notes: data.notes.map(note => {
+          // Generates avatar character
+          const avatar = users
+            .find(user => user.uuid === note.userUUID)
+            .username.charAt(0)
+            .toUpperCase();
+          return { ...note, avatar };
+        }),
+        username
+      };
+    })
+    .then(payload => dispatch({ type: JOIN_WORKSPACE, payload }))
     .then(() => dispatch({ type: HIDE_CREATE_WORKSPACE_DIALOG }))
     .then(() => navigateTo("workspace"))
     // TODO: Handle errors in a better way

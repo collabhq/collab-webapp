@@ -26,7 +26,7 @@ const NoteDialog = ({ classes, open, hide, save }) => (
   <div>
     <Dialog
       fullWidth
-      maxWidth="sm"
+      maxWidth="md"
       open={open}
       TransitionComponent={Transition}
       onClose={() => hide()}
@@ -36,10 +36,10 @@ const NoteDialog = ({ classes, open, hide, save }) => (
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={() => hide()} variant="contained" color="secondary">
+        <Button onClick={() => hide()} variant="contained" color="primary">
           Cancel
         </Button>
-        <Button onClick={() => save()} variant="contained" color="primary">
+        <Button onClick={() => save()} variant="contained" color="secondary">
           Save
         </Button>
       </DialogActions>
