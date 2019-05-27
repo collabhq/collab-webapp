@@ -21,6 +21,7 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import CloudCircle from "@material-ui/icons/CloudCircle";
 // import BookmarkIcon from "@material-ui/icons/Bookmark";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 // import SettingsIcon from "@material-ui/icons/Settings";
@@ -41,16 +42,21 @@ import {
 import NoteDialog from "../NoteDialog/NoteDialog";
 import { editNote } from "../../actions/workspaceCard";
 import AddUserDialog from "../AddUserDialog/AddUserDialog";
-import { WEBSITE_PRIVACY_URL } from "../../actions/constants";
+import {
+  WEBSITE_PRIVACY_URL,
+  WEBSITE_PUBLIC_URL
+} from "../../actions/constants";
 
 const drawerWidth = 240;
 
 const styles = theme => ({
   page: {
-    height: "-webkit-fill-available"
+    height: "100%",
+    backgroundColor: theme.palette.background.paper
   },
   root: {
-    display: "flex"
+    display: "flex",
+    backgroundColor: theme.palette.background.paper
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -210,13 +216,15 @@ function WorkspacePage(props) {
           open={drawerOpen}
         >
           <div className={classes.toolbar}>
-            <Typography
-              variant="h5"
-              style={colorWhite}
-              className={classes.toolbarLeftMargin}
-            >
-              Collab
-            </Typography>
+            <Link href={WEBSITE_PUBLIC_URL} target="_blank" rel="noopener">
+              <Typography
+                variant="h5"
+                style={colorWhite}
+                className={classes.toolbarLeftMargin}
+              >
+                Collab
+              </Typography>
+            </Link>
             <IconButton style={colorActions} onClick={() => props.hideDrawer()}>
               {theme.direction === "rtl" ? (
                 <ChevronRightIcon />
@@ -234,7 +242,7 @@ function WorkspacePage(props) {
               <ListItemText
                 primary={
                   <Typography variant="body1" style={colorWhite}>
-                    {"Bookmarked Notes"}
+                    {"Bookmarked Cards"}
                   </Typography>
                 }
               />
@@ -246,7 +254,7 @@ function WorkspacePage(props) {
               <ListItemText
                 primary={
                   <Typography variant="body1" style={colorWhite}>
-                    {"All Notes"}
+                    {"All Cards"}
                   </Typography>
                 }
               />
@@ -302,12 +310,7 @@ function WorkspacePage(props) {
           {drawerOpen ? (
             <div className={classes.drawerFooter}>
               <Divider light />
-              <Link
-                color="inherit"
-                href={WEBSITE_PRIVACY_URL}
-                target="_blank"
-                rel="noopener"
-              >
+              <Link href={WEBSITE_PRIVACY_URL} target="_blank" rel="noopener">
                 <ListItem button key="Privacy">
                   <ListItemIcon style={colorActions}>
                     <InfoIcon className={classes.drawerFooterIcons} />
@@ -316,6 +319,21 @@ function WorkspacePage(props) {
                     primary={
                       <Typography variant="subtitle2" style={colorWhite}>
                         Privacy
+                      </Typography>
+                    }
+                  />
+                </ListItem>
+              </Link>
+              <Divider light />
+              <Link href={WEBSITE_PUBLIC_URL} target="_blank" rel="noopener">
+                <ListItem button key="Homepage">
+                  <ListItemIcon style={colorActions}>
+                    <CloudCircle className={classes.drawerFooterIcons} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={
+                      <Typography variant="subtitle2" style={colorWhite}>
+                        Homepage
                       </Typography>
                     }
                   />

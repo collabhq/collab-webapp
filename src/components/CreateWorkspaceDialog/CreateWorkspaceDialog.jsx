@@ -107,7 +107,7 @@ const CreateWorkspaceDialog = ({
               <MenuItem value="HOUR24">1 Day</MenuItem>
               <MenuItem value="HOUR48">2 Days</MenuItem>
             </Select>
-            <FormHelperText>Data will be purged after this time</FormHelperText>
+            <FormHelperText>Data will be erased after this time</FormHelperText>
           </FormControl>
         ) : (
           undefined
@@ -117,13 +117,13 @@ const CreateWorkspaceDialog = ({
         <Button
           onClick={() => hideWorkspaceDialog()}
           variant="contained"
-          color="secondary"
+          color="primary"
         >
           Cancel
         </Button>
         <Button
           variant="contained"
-          color="primary"
+          color="secondary"
           onClick={() => {
             if (joinWorkspaceUUID === null) {
               newWorkspace(history.push);

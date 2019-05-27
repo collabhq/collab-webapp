@@ -20,7 +20,7 @@ export const saveDialogContent = () => (_, getState) => {
     workspacePage: { workspaceUUID, userUUID }
   } = getState();
   const noteUUID = note !== undefined ? note.uuid : undefined;
-  const noteName = note !== undefined ? note.title : "New Note";
+  const noteName = note !== undefined ? note.title : "New Card";
   const noteValue = note !== undefined ? note.content : "";
 
   const noteOperation = {

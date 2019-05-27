@@ -14,7 +14,7 @@ const styles = theme => ({
     justifyContent: "space-between",
     alignItems: "center",
     alignContent: "center",
-    height: "100vh",
+    height: "100%",
     backgroundColor: theme.palette.background.paper
   },
   appBarMain: {
