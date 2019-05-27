@@ -24,11 +24,11 @@ const DeleteWorkspaceDialog = ({
       aria-labelledby="Deleted Workspace"
       aria-describedby="Notify user about workspace deletion"
     >
-      <DialogTitle>Workspace Deleted</DialogTitle>
+      <DialogTitle>Workspace deleted</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Your workspace has been deleted either by its creator or has expired,
-          all your data will now be erased
+          Your workspace has either been deleted by its owner or has expired.
+          All workspace data has been erased.
         </DialogContentText>
       </DialogContent>
       <DialogActions>
@@ -37,7 +37,7 @@ const DeleteWorkspaceDialog = ({
             history.push("/");
             hide();
           }}
-          color="primary"
+          color="secondary"
           autoFocus
         >
           Ok

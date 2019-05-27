@@ -15,16 +15,19 @@ import {
   ListItemIcon,
   ListItemText,
   Fab,
-  Avatar
+  Avatar,
+  Link
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import BookmarkIcon from "@material-ui/icons/Bookmark";
+import CloudCircle from "@material-ui/icons/CloudCircle";
+// import BookmarkIcon from "@material-ui/icons/Bookmark";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
-import SettingsIcon from "@material-ui/icons/Settings";
+// import SettingsIcon from "@material-ui/icons/Settings";
 import AppsIcon from "@material-ui/icons/Apps";
 import AddIcon from "@material-ui/icons/Add";
+import InfoIcon from "@material-ui/icons/Info";
 import WorkspacePageContent from "../WorkspacePageContent/WorkspacePageContent";
 import WebSocketClient from "../WebSocketClient/WebSocketClient";
 import DeleteWorkspaceDialog from "../DeleteWorkspaceDialog/DeleteWorkspaceDialog";
@@ -39,15 +42,21 @@ import {
 import NoteDialog from "../NoteDialog/NoteDialog";
 import { editNote } from "../../actions/workspaceCard";
 import AddUserDialog from "../AddUserDialog/AddUserDialog";
+import {
+  WEBSITE_PRIVACY_URL,
+  WEBSITE_PUBLIC_URL
+} from "../../actions/constants";
 
 const drawerWidth = 240;
 
 const styles = theme => ({
   page: {
-    height: "-webkit-fill-available"
+    height: "100%",
+    backgroundColor: theme.palette.background.paper
   },
   root: {
-    display: "flex"
+    display: "flex",
+    backgroundColor: theme.palette.background.paper
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -124,7 +133,6 @@ const styles = theme => ({
   },
   fab: {
     zIndex: theme.zIndex.drawer + 2,
-    backgroundColor: theme.palette.primary.dark,
     boxShadow: "0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23)"
   },
   fabExtendedIcon: {
@@ -132,10 +140,23 @@ const styles = theme => ({
   },
   avatar: {
     backgroundColor: theme.palette.common.white,
-    color: theme.palette.common.black,
+    color: theme.palette.primary.main,
     width: 25,
     height: 25,
     fontSize: "inherit"
+  },
+  drawerFooter: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-end",
+    height: "100%"
+  },
+  drawerFooterIcons: {
+    width: 20,
+    height: 20
+  },
+  toolbarLeftMargin: {
+    marginLeft: theme.spacing.unit * 1
   }
 });
 
@@ -152,8 +173,8 @@ function WorkspacePage(props) {
   const colorWhite = {
     color: theme.palette.primary.contrastText
   };
-  const colorSecondary = {
-    color: theme.palette.secondary.main
+  const colorActions = {
+    color: theme.palette.common.white
   };
   return (
     <div className={classes.page}>
@@ -173,7 +194,7 @@ function WorkspacePage(props) {
                 [classes.hide]: drawerOpen
               })}
             >
-              <MenuIcon />
+              <MenuIcon style={colorActions} />
             </IconButton>
             <Typography variant="h6" color="inherit" noWrap>
               {workspaceName}
@@ -195,10 +216,16 @@ function WorkspacePage(props) {
           open={drawerOpen}
         >
           <div className={classes.toolbar}>
-            <Typography variant="h5" style={colorWhite}>
-              Collab
-            </Typography>
-            <IconButton style={colorWhite} onClick={() => props.hideDrawer()}>
+            <Link href={WEBSITE_PUBLIC_URL} target="_blank" rel="noopener">
+              <Typography
+                variant="h5"
+                style={colorWhite}
+                className={classes.toolbarLeftMargin}
+              >
+                Collab
+              </Typography>
+            </Link>
+            <IconButton style={colorActions} onClick={() => props.hideDrawer()}>
               {theme.direction === "rtl" ? (
                 <ChevronRightIcon />
               ) : (
@@ -208,26 +235,26 @@ function WorkspacePage(props) {
           </div>
           <Divider light />
           <List>
-            <ListItem button key={0}>
+            {/* <ListItem button key={0}>
               <ListItemIcon style={colorWhite}>
                 <BookmarkIcon style={colorSecondary} />
               </ListItemIcon>
               <ListItemText
                 primary={
                   <Typography variant="body1" style={colorWhite}>
-                    {"Bookmarked Notes"}
+                    {"Bookmarked Cards"}
                   </Typography>
                 }
               />
-            </ListItem>
+            </ListItem> */}
             <ListItem button key={1} onClick={() => selectUser(undefined)}>
               <ListItemIcon style={colorWhite}>
-                <AppsIcon />
+                <AppsIcon style={colorActions} />
               </ListItemIcon>
               <ListItemText
                 primary={
                   <Typography variant="body1" style={colorWhite}>
-                    {"All Notes"}
+                    {"All Cards"}
                   </Typography>
                 }
               />
@@ -238,7 +265,7 @@ function WorkspacePage(props) {
             <ListItem onClick={() => showUserDialog()} button key="Settings">
               <ListItemIcon
                 onClick={() => showUserDialog()}
-                style={colorSecondary}
+                style={colorActions}
               >
                 <PersonAddIcon />
               </ListItemIcon>
@@ -267,7 +294,7 @@ function WorkspacePage(props) {
               </ListItem>
             ))}
           </List>
-          <Divider light />
+          {/* <Divider light />
           <ListItem button key="Settings">
             <ListItemIcon style={colorSecondary}>
               <SettingsIcon />
@@ -279,7 +306,43 @@ function WorkspacePage(props) {
                 </Typography>
               }
             />
-          </ListItem>
+          </ListItem> */}
+          {drawerOpen ? (
+            <div className={classes.drawerFooter}>
+              <Divider light />
+              <Link href={WEBSITE_PRIVACY_URL} target="_blank" rel="noopener">
+                <ListItem button key="Privacy">
+                  <ListItemIcon style={colorActions}>
+                    <InfoIcon className={classes.drawerFooterIcons} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={
+                      <Typography variant="subtitle2" style={colorWhite}>
+                        Privacy
+                      </Typography>
+                    }
+                  />
+                </ListItem>
+              </Link>
+              <Divider light />
+              <Link href={WEBSITE_PUBLIC_URL} target="_blank" rel="noopener">
+                <ListItem button key="Homepage">
+                  <ListItemIcon style={colorActions}>
+                    <CloudCircle className={classes.drawerFooterIcons} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={
+                      <Typography variant="subtitle2" style={colorWhite}>
+                        Homepage
+                      </Typography>
+                    }
+                  />
+                </ListItem>
+              </Link>
+            </div>
+          ) : (
+            undefined
+          )}
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
@@ -288,7 +351,7 @@ function WorkspacePage(props) {
       </div>
       <div className={classes.fabDiv}>
         <Fab
-          color="primary"
+          color="secondary"
           variant="extended"
           aria-label="Add"
           className={classes.fab}
@@ -307,7 +370,7 @@ function WorkspacePage(props) {
 }
 
 WorkspacePage.defaultProps = {
-  workspaceName: "Default Workspace"
+  workspaceName: "My Workspace"
 };
 
 WorkspacePage.propTypes = {

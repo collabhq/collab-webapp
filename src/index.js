@@ -20,7 +20,7 @@ ReactDOM.render(
       <MuiThemeProvider theme={theme}>
         <React.Fragment>
           <CssBaseline />
-          <App />
+          <App store={store} />
         </React.Fragment>
       </MuiThemeProvider>
     </PersistGate>
