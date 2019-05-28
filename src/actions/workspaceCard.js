@@ -2,7 +2,7 @@
  * Action Types
  */
 import { SHOW_NOTE_DIALOG } from "./noteDialog";
-import { DELETE_NOTE_OPERATION, noteTopicURL } from "./constants";
+import { DELETE_NOTE_OPERATION, noteQueueURL } from "./constants";
 
 export const EDIT_NOTE = "EDIT_NOTE";
 
@@ -27,7 +27,7 @@ export const deleteNote = note => (_, getState) => {
 
   // eslint-disable-next-line no-undef
   window.socketClient.sendMessage(
-    `${noteTopicURL}/${workspaceUUID}`,
+    `${noteQueueURL}/${workspaceUUID}`,
     JSON.stringify(noteOperation)
   );
 };

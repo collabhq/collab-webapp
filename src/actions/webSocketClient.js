@@ -1,6 +1,7 @@
 import { ADD_NOTE, UPDATE_NOTE, DELETE_NOTE } from "./workspacePageContent";
 import { NEW_USER_JOINED_WORKSPACE } from "./workspacePage";
 import { DELETE_WORKSPACE } from "./deleteWorkspaceDialog";
+import { workspaceQueueURL } from "./constants";
 /**
  * Action Types
  */
@@ -52,4 +53,16 @@ export const removeWorkspace = deletedWorkspaceUUID => (dispatch, getState) => {
   if (workspaceUUID === deletedWorkspaceUUID) {
     dispatch({ type: DELETE_WORKSPACE });
   }
+};
+
+export const checkIfWorkspaceExists = () => (_, getState) => {
+  const {
+    workspacePage: { workspaceUUID }
+  } = getState();
+
+  // eslint-disable-next-line no-undef
+  window.socketClient.sendMessage(
+    `${workspaceQueueURL}/${workspaceUUID}`,
+    workspaceUUID
+  );
 };

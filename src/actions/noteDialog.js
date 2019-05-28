@@ -1,5 +1,5 @@
 import {
-  noteTopicURL,
+  noteQueueURL,
   EDIT_NOTE_OPERATION,
   ADD_NOTE_OPERATION
 } from "./constants";
@@ -35,7 +35,7 @@ export const saveDialogContent = () => (_, getState) => {
 
   // eslint-disable-next-line no-undef
   window.socketClient.sendMessage(
-    `${noteTopicURL}/${workspaceUUID}`,
+    `${noteQueueURL}/${workspaceUUID}`,
     JSON.stringify(noteOperation)
   );
 };
