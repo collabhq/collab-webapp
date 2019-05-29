@@ -7,7 +7,8 @@ import {
 import { HIDE_CREATE_WORKSPACE_DIALOG } from "../actions/landingPage";
 
 const intialState = {
-  expiry: "HOUR1"
+  expiry: "HOUR1",
+  username: "User"
 };
 export default (state = intialState, action) => {
   switch (action.type) {

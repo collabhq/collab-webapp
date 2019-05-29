@@ -17,7 +17,8 @@ import {
 const initialState = {
   drawerOpen: false,
   fabClicked: false,
-  showCreateUserDialog: false
+  showCreateUserDialog: false,
+  users: []
 };
 
 export default (state = initialState, action) => {

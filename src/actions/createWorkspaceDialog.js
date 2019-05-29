@@ -75,11 +75,14 @@ export const joinUserToWorkspace = navigateTo => (dispatch, getState) => {
       return {
         ...data,
         notes: data.notes.map(note => {
-          // Generates avatar character
-          const avatar = users
-            .find(user => user.uuid === note.userUUID)
-            .username.charAt(0)
-            .toUpperCase();
+          let avatar = "U";
+          if (users && users.length) {
+            // Generates avatar character
+            avatar = users
+              .find(user => user.uuid === note.userUUID)
+              .username.charAt(0)
+              .toUpperCase();
+          }
           return { ...note, avatar };
         }),
         username
