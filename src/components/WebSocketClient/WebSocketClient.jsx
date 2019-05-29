@@ -7,7 +7,8 @@ import {
   upsertNote,
   removeNote,
   addNewUserToWorkspace,
-  removeWorkspace
+  removeWorkspace,
+  checkIfWorkspaceExists
 } from "../../actions/webSocketClient";
 import { websocketURL, workspaceTopicURL } from "../../actions/constants";
 
@@ -17,6 +18,7 @@ const WebSocketClient = ({
   remove,
   addUserToWorkspace,
   workspaceRemoved,
+  workspaceExists,
   jwt
 }) => (
   <div>
@@ -46,6 +48,7 @@ const WebSocketClient = ({
         window.socketClient = client;
       }}
       headers={{ Authorization: `Bearer ${jwt}` }}
+      onConnect={() => workspaceExists()}
     />
   </div>
 );
@@ -56,7 +59,8 @@ WebSocketClient.propTypes = {
   remove: PropTypes.func.isRequired,
   addUserToWorkspace: PropTypes.func.isRequired,
   jwt: PropTypes.string.isRequired,
-  workspaceRemoved: PropTypes.func.isRequired
+  workspaceRemoved: PropTypes.func.isRequired,
+  workspaceExists: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ workspacePage: { workspaceUUID, jwt } }) => ({
@@ -68,7 +72,8 @@ const mapDispatchToProps = {
   upsert: upsertNote,
   remove: removeNote,
   addUserToWorkspace: addNewUserToWorkspace,
-  workspaceRemoved: removeWorkspace
+  workspaceRemoved: removeWorkspace,
+  workspaceExists: checkIfWorkspaceExists
 };
 
 export default connect(

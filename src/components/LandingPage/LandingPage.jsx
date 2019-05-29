@@ -187,7 +187,8 @@ const styles = theme => ({
   appBarCustom: {
     backgroundColor: theme.palette.common.white,
     color: theme.palette.primary.main,
-    boxShadow: "1"
+    boxShadow:
+      "0px 0px 1px -4px rgba(0,0,0,0.2), 0px 0px 4px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)"
   },
   divider: {
     width: "100%",
@@ -218,7 +219,7 @@ class LandingPage extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, showWorkspaceDialog } = this.props;
 
     return (
       <div
@@ -245,10 +246,10 @@ class LandingPage extends React.Component {
               <div className={classes.appBarRight}>
                 <Button
                   color="secondary"
+                  onClick={() => showWorkspaceDialog()}
                   className={classes.headerSubText}
-                  size="large"
                 >
-                  Coming Soon!
+                  Get Started
                 </Button>
                 {isMobile === false ? (
                   <div className={classes.appBarRight}>
@@ -262,9 +263,21 @@ class LandingPage extends React.Component {
                         })
                       }
                       className={classes.headerSubText}
-                      size="large"
                     >
                       Overview
+                    </Button>
+                    <Button
+                      color="secondary"
+                      onClick={() =>
+                        scrollToComponent(this.Privacy, {
+                          offset: 0,
+                          align: "middle",
+                          duration: 750
+                        })
+                      }
+                      className={classes.headerSubText}
+                    >
+                      Privacy
                     </Button>
                     <Button
                       color="secondary"
@@ -276,7 +289,6 @@ class LandingPage extends React.Component {
                         })
                       }
                       className={classes.headerSubText}
-                      size="large"
                     >
                       Pricing
                     </Button>
@@ -290,7 +302,6 @@ class LandingPage extends React.Component {
                         })
                       }
                       className={classes.headerSubText}
-                      size="large"
                     >
                       Contribute
                     </Button>
@@ -304,7 +315,6 @@ class LandingPage extends React.Component {
                         })
                       }
                       className={classes.headerSubText}
-                      size="large"
                     >
                       Team
                     </Button>
@@ -324,7 +334,7 @@ class LandingPage extends React.Component {
                   <CloudCircle className={classes.mainLogo} />
                 </div>
                 <Typography
-                  variant="h1"
+                  variant="h2"
                   color="inherit"
                   align="center"
                   gutterBottom
@@ -343,10 +353,11 @@ class LandingPage extends React.Component {
                 <Button
                   variant="contained"
                   color="secondary"
+                  onClick={() => showWorkspaceDialog()}
                   className={classes.getStartedButton}
                   size="large"
                 >
-                  Coming Soon!
+                  Get Started
                 </Button>
                 <CreateWorkspaceDialog />
               </div>
@@ -383,7 +394,12 @@ class LandingPage extends React.Component {
               <div className={classes.overviewSection}>
                 <Divider variant="middle" className={classes.divider} />
               </div>
-              <div className={classes.overviewSection}>
+              <div
+                className={classes.overviewSection}
+                ref={section => {
+                  this.Privacy = section;
+                }}
+              >
                 <SecurityIcon className={classes.bigAvatar} />
                 <Typography
                   variant="h2"
@@ -391,7 +407,7 @@ class LandingPage extends React.Component {
                   align="center"
                   gutterBottom
                 >
-                  Security and Privacy
+                  Privacy and Security
                 </Typography>
               </div>
               <div className={classes.overviewSection}>
