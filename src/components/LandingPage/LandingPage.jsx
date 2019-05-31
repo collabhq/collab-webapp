@@ -347,8 +347,7 @@ class LandingPage extends React.Component {
                   align="center"
                   gutterBottom
                 >
-                  Share data and collaborate with your team anonymously, in
-                  real-time.
+                  Share data and collaborate anonymously, in real-time
                 </Typography>
                 <Button
                   variant="contained"
@@ -407,7 +406,7 @@ class LandingPage extends React.Component {
                   align="center"
                   gutterBottom
                 >
-                  Privacy and Security
+                  Privacy
                 </Typography>
               </div>
               <div className={classes.overviewSection}>
