@@ -4,6 +4,7 @@ import "./App.css";
 import LandingPage from "./components/LandingPage/LandingPage";
 import WorkspacePage from "./components/WorkspacePage/WorkspacePage";
 import PrivacyPage from "./components/PrivacyPage/PrivacyPage";
+import TermsPage from "./components/TermsPage/TermsPage";
 import checkAccess from "./actions/checkAccess";
 
 const App = props => (
@@ -17,6 +18,7 @@ const App = props => (
       }
     />
     <Route exact path="/privacy" component={PrivacyPage} />
+    <Route exact path="/terms" component={TermsPage} />
   </HashRouter>
 );
 

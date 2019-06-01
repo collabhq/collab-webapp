@@ -35,7 +35,8 @@ import {
   SG_URL,
   KN_WEB_URL,
   SG_WEB_URL,
-  WEBSITE_PUBLIC_URL
+  WEBSITE_PUBLIC_URL,
+  WEBSITE_TERMS_URL
 } from "../../actions/constants";
 
 const styles = theme => ({
@@ -45,7 +46,7 @@ const styles = theme => ({
     justifyContent: "space-between",
     alignItems: "center",
     alignContent: "center",
-    height: "100%",
+    height: "auto",
     backgroundColor: theme.palette.background.paper
   },
   appBarMain: {
@@ -632,6 +633,21 @@ class LandingPage extends React.Component {
                 className={classes.footerSubText}
               >
                 Privacy
+              </Typography>
+            </Link>
+            <Link
+              color="secondary"
+              href={WEBSITE_TERMS_URL}
+              target="_blank"
+              rel="noopener"
+            >
+              <Typography
+                variant="subtitle2"
+                align="center"
+                gutterBottom
+                className={classes.footerSubText}
+              >
+                Terms
               </Typography>
             </Link>
             <Link

@@ -11,6 +11,7 @@ export const EDIT_NOTE_OPERATION = "EDIT";
 export const DELETE_NOTE_OPERATION = "DELETE";
 export const WEBSITE_PUBLIC_URL = "https://collabhq.app/#/";
 export const WEBSITE_PRIVACY_URL = `${WEBSITE_PUBLIC_URL}privacy`;
+export const WEBSITE_TERMS_URL = `${WEBSITE_PUBLIC_URL}terms`;
 export const GITHUB_ORG_URL = "https://github.com/collabhq";
 export const FEEDBACK_URL = "mailto:support@collabhq.app";
 export const KN_URL = "mailto:karthik@collabhq.app";
