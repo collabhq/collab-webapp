@@ -15,7 +15,8 @@ import {
   WEBSITE_PRIVACY_URL,
   GITHUB_ORG_URL,
   WEBSITE_PUBLIC_URL,
-  FEEDBACK_URL
+  FEEDBACK_URL,
+  WEBSITE_TERMS_URL
 } from "../../actions/constants";
 
 const styles = theme => ({
@@ -25,7 +26,7 @@ const styles = theme => ({
     justifyContent: "space-between",
     alignItems: "center",
     alignContent: "center",
-    height: "100%",
+    height: "auto",
     backgroundColor: theme.palette.background.paper
   },
   appBarMain: {
@@ -45,7 +46,7 @@ const styles = theme => ({
     justifyContent: "center",
     alignItems: "center",
     alignContent: "center",
-    marginTop: "10%"
+    marginTop: "5%"
   },
   subMainContent: {
     width: "75%",
@@ -143,6 +144,10 @@ const styles = theme => ({
     borderBottom: "1px solid #777777",
     verticalAlign: "top",
     padding: "4px 4px 5px 4px"
+  },
+  textMarginTop: {
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit
   }
 });
 /* eslint-disable no-script-url */
@@ -226,6 +231,7 @@ class PrivacyPage extends React.Component {
               color="inherit"
               align="center"
               gutterBottom
+              className={classes.textMarginTop}
             >
               Manage your consent
             </Typography>
@@ -241,7 +247,9 @@ class PrivacyPage extends React.Component {
             </Link>
             <Link
               color="secondary"
-              href={"javascript:CookieConsent.withdraw();"}
+              href={
+                "javascript:CookieConsent.withdraw();javascript:CookieConsent.renew();"
+              }
             >
               <Typography
                 color="secondary"
@@ -423,6 +431,21 @@ class PrivacyPage extends React.Component {
                 className={classes.footerSubText}
               >
                 Privacy
+              </Typography>
+            </Link>
+            <Link
+              color="secondary"
+              href={WEBSITE_TERMS_URL}
+              target="_blank"
+              rel="noopener"
+            >
+              <Typography
+                variant="subtitle2"
+                align="center"
+                gutterBottom
+                className={classes.footerSubText}
+              >
+                Terms
               </Typography>
             </Link>
             <Link
