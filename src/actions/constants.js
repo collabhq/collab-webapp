@@ -1,4 +1,4 @@
-export const serverURL = "http://localhost:5000";
+export const serverURL = "http://api.collabhq.app";
 export const baseJoinUrl = "https://collabhq.app/#/?join=";
 export const createWorkspaceURL = `${serverURL}/workspace`;
 export const joinWorkspaceURL = `${serverURL}/workspace`;
