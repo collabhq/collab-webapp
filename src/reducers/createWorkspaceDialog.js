@@ -7,9 +7,9 @@ import {
 import { HIDE_CREATE_WORKSPACE_DIALOG } from "../actions/landingPage";
 
 const intialState = {
-  expiry: "HOUR1",
-  username: "User"
+  expiry: "HOUR1"
 };
+
 export default (state = intialState, action) => {
   switch (action.type) {
     case SET_WORKSPACE_NAME:
