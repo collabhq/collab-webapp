@@ -64,8 +64,7 @@ export const createNewWorkspace = navigateTo => (dispatch, getState) => {
 
 export const joinUserToWorkspace = navigateTo => (dispatch, getState) => {
   const {
-    createWorkspaceDialog: { joinWorkspaceUUID, username },
-    workspacePage: { users }
+    createWorkspaceDialog: { joinWorkspaceUUID, username }
   } = getState();
   axios
     .post(`${joinWorkspaceURL}/${joinWorkspaceUUID}`, { username })
@@ -76,12 +75,14 @@ export const joinUserToWorkspace = navigateTo => (dispatch, getState) => {
         ...data,
         notes: data.notes.map(note => {
           let avatar = "U";
-          if (users && users.length) {
+          if (data.users && data.users.length) {
             // Generates avatar character
-            avatar = users
-              .find(user => user.uuid === note.userUUID)
-              .username.charAt(0)
-              .toUpperCase();
+            const userFound = data.users.find(
+              user => user.uuid === note.userUUID
+            );
+            if (userFound && userFound.username) {
+              avatar = userFound.username.charAt(0).toUpperCase();
+            }
           }
           return { ...note, avatar };
         }),
