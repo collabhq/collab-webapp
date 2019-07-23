@@ -307,42 +307,6 @@ function WorkspacePage(props) {
               }
             />
           </ListItem> */}
-          {drawerOpen ? (
-            <div className={classes.drawerFooter}>
-              <Divider light />
-              <Link href={WEBSITE_PRIVACY_URL} target="_blank" rel="noopener">
-                <ListItem button key="Privacy">
-                  <ListItemIcon style={colorActions}>
-                    <InfoIcon className={classes.drawerFooterIcons} />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={
-                      <Typography variant="subtitle2" style={colorWhite}>
-                        Privacy
-                      </Typography>
-                    }
-                  />
-                </ListItem>
-              </Link>
-              <Divider light />
-              <Link href={WEBSITE_PUBLIC_URL} target="_blank" rel="noopener">
-                <ListItem button key="Homepage">
-                  <ListItemIcon style={colorActions}>
-                    <CloudCircle className={classes.drawerFooterIcons} />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={
-                      <Typography variant="subtitle2" style={colorWhite}>
-                        Homepage
-                      </Typography>
-                    }
-                  />
-                </ListItem>
-              </Link>
-            </div>
-          ) : (
-            undefined
-          )}
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
