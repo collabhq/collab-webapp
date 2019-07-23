@@ -21,13 +21,11 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import CloudCircle from "@material-ui/icons/CloudCircle";
 // import BookmarkIcon from "@material-ui/icons/Bookmark";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 // import SettingsIcon from "@material-ui/icons/Settings";
 import AppsIcon from "@material-ui/icons/Apps";
 import AddIcon from "@material-ui/icons/Add";
-import InfoIcon from "@material-ui/icons/Info";
 import WorkspacePageContent from "../WorkspacePageContent/WorkspacePageContent";
 import WebSocketClient from "../WebSocketClient/WebSocketClient";
 import DeleteWorkspaceDialog from "../DeleteWorkspaceDialog/DeleteWorkspaceDialog";
@@ -42,10 +40,7 @@ import {
 import NoteDialog from "../NoteDialog/NoteDialog";
 import { editNote } from "../../actions/workspaceCard";
 import AddUserDialog from "../AddUserDialog/AddUserDialog";
-import {
-  WEBSITE_PRIVACY_URL,
-  WEBSITE_PUBLIC_URL
-} from "../../actions/constants";
+import { WEBSITE_PUBLIC_URL } from "../../actions/constants";
 
 const drawerWidth = 240;
 
