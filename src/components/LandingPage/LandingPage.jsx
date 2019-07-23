@@ -385,7 +385,7 @@ class LandingPage extends React.Component {
                   Share all your data in one place.
                 </Typography>
                 <Typography variant="body1" color="inherit" align="center">
-                  Collaborate with your team in real-time.
+                  Collaborate with others in real-time.
                 </Typography>
                 <Typography variant="body1" color="inherit" align="center">
                   Access your workspace from any device or platform.
