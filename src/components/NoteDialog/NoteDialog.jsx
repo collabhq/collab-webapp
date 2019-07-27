@@ -25,8 +25,7 @@ const styles = theme => ({
 const NoteDialog = ({ classes, open, hide, save }) => (
   <div>
     <Dialog
-      fullWidth
-      maxWidth="md"
+      fullScreen
       open={open}
       TransitionComponent={Transition}
       onClose={() => hide()}
@@ -34,7 +33,6 @@ const NoteDialog = ({ classes, open, hide, save }) => (
       <DialogContent className={classes.dialog}>
         <NoteForm />
       </DialogContent>
-
       <DialogActions>
         <Button onClick={() => hide()} variant="contained" color="primary">
           Cancel
