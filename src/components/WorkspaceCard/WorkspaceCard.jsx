@@ -15,24 +15,19 @@ import {
 // import BookmarkIcon from "@material-ui/icons/Bookmark";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import * as Showdown from "showdown";
+import xssFilter from "showdown-xss-filter";
+import ReactHtmlParser from "react-html-parser";
 import { withStyles } from "@material-ui/core/styles";
 import { editNote, deleteNote } from "../../actions/workspaceCard";
 
 const styles = theme => ({
   card: {
-    maxWidth: 300,
-    minWidth: 300,
-    maxHeight: 300,
-    minHeight: 300,
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between"
   },
   mobileCard: {
-    maxWidth: 225,
-    minWidth: 225,
-    maxHeight: 250,
-    minHeight: 250,
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between"
@@ -42,9 +37,6 @@ const styles = theme => ({
   },
   cardContent: {
     flexGrow: 1
-  },
-  editCard: {
-    marginLeft: "auto"
   },
   actions: {
     display: "flex"
@@ -65,6 +57,14 @@ const WorkspaceCard = ({
   userUUID,
   noteUserUUID
 }) => {
+  const converter = new Showdown.Converter({
+    tables: true,
+    simplifiedAutoLink: true,
+    strikethrough: true,
+    tasklists: true,
+    extensions: [xssFilter]
+  });
+  const markdownashtml = converter.makeHtml(content);
   return (
     <div>
       <Card
@@ -90,7 +90,9 @@ const WorkspaceCard = ({
           <Typography gutterBottom variant="h5">
             {title}
           </Typography>
-          <Typography noWrap>{content}</Typography>
+          <Typography component="span">
+            {ReactHtmlParser(markdownashtml)}
+          </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
           {noteUserUUID === userUUID ? (
@@ -100,10 +102,7 @@ const WorkspaceCard = ({
           ) : (
             undefined
           )}
-          <IconButton
-            onClick={() => edit({ uuid, avatar, title, content })}
-            className={classes.editCard}
-          >
+          <IconButton onClick={() => edit({ uuid, avatar, title, content })}>
             <EditIcon />
           </IconButton>
         </CardActions>
