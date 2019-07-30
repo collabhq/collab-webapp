@@ -53,7 +53,7 @@ With the amazing help of Markdown, you can do **this**, *this*, or ~~this~~.
 
 With support for embedded links and images, you can even do
 
-![](http://localhost:3000/this.png)
+![](https://collabhq.app/this.png)
 
 Want to create lists?
 
