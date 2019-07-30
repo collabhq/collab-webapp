@@ -9,6 +9,7 @@ import noteForm from "./noteForm";
 import createWorkspaceDialog from "./createWorkspaceDialog";
 import webSocketClient from "./webSocketClient";
 import deleteWorkspaceDialog from "./deleteWorkspaceDialog";
+import helpDialog from "./helpDialog";
 
 import {
   CREATE_NEW_WORKSPACE,
@@ -26,7 +27,8 @@ const appReducer = combineReducers({
   noteForm,
   createWorkspaceDialog,
   webSocketClient,
-  deleteWorkspaceDialog
+  deleteWorkspaceDialog,
+  helpDialog
 });
 
 export default (state, action) => {
