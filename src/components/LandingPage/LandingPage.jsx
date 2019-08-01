@@ -20,8 +20,6 @@ import EmailIcon from "@material-ui/icons/Email";
 import TopIcon from "@material-ui/icons/KeyboardArrowUp";
 import SecurityIcon from "@material-ui/icons/Security";
 import PricingIcon from "@material-ui/icons/MoneyOff";
-import CodeIcon from "@material-ui/icons/Code";
-import LaunchIcon from "@material-ui/icons/Launch";
 import TeamIcon from "@material-ui/icons/People";
 import WorkspaceIcon from "@material-ui/icons/Devices";
 import CreateWorkspaceDialog from "../CreateWorkspaceDialog/CreateWorkspaceDialog";
@@ -296,19 +294,6 @@ class LandingPage extends React.Component {
                     <Button
                       color="secondary"
                       onClick={() =>
-                        scrollToComponent(this.Contribute, {
-                          offset: 0,
-                          align: "middle",
-                          duration: 750
-                        })
-                      }
-                      className={classes.headerSubText}
-                    >
-                      Contribute
-                    </Button>
-                    <Button
-                      color="secondary"
-                      onClick={() =>
                         scrollToComponent(this.Team, {
                           offset: 0,
                           align: "middle",
@@ -462,51 +447,6 @@ class LandingPage extends React.Component {
                 >
                   Free on web, forever
                 </Typography>
-              </div>
-              <div className={classes.overviewSection}>
-                <Divider variant="middle" className={classes.divider} />
-              </div>
-              <div
-                className={classes.overviewSection}
-                ref={section => {
-                  this.Contribute = section;
-                }}
-              >
-                <CodeIcon className={classes.bigAvatar} />
-                <Typography
-                  variant="h2"
-                  color="inherit"
-                  align="center"
-                  gutterBottom
-                >
-                  Contribute
-                </Typography>
-                <Typography
-                  variant="h4"
-                  color="inherit"
-                  align="center"
-                  gutterBottom
-                >
-                  We believe in open source.
-                </Typography>
-                <Typography
-                  variant="h5"
-                  color="inherit"
-                  align="center"
-                  gutterBottom
-                >
-                  Fork our work on github and contribute.
-                </Typography>
-                <Link
-                  color="secondary"
-                  href={GITHUB_ORG_URL}
-                  target="_blank"
-                  rel="noopener"
-                >
-                  <IconButton color="secondary" aria-label="Github">
-                    <LaunchIcon />
-                  </IconButton>
-                </Link>
               </div>
               <div className={classes.overviewSection}>
                 <Divider variant="middle" className={classes.divider} />

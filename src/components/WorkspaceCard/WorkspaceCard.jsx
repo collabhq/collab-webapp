@@ -10,14 +10,18 @@ import {
   Typography,
   Avatar,
   IconButton,
-  Grid
+  Grid,
+  Zoom,
+  Tooltip
 } from "@material-ui/core";
 // import BookmarkIcon from "@material-ui/icons/Bookmark";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import ExportIcon from "@material-ui/icons/CloudDownload";
 import * as Showdown from "showdown";
 import xssFilter from "showdown-xss-filter";
 import ReactHtmlParser from "react-html-parser";
+import fileDownload from "js-file-download";
 import { withStyles } from "@material-ui/core/styles";
 import { editNote, deleteNote } from "../../actions/workspaceCard";
 
@@ -65,6 +69,7 @@ const WorkspaceCard = ({
     extensions: [xssFilter]
   });
   const markdownashtml = converter.makeHtml(content);
+  const fileName = title ? `${title}.md` : "`Collab-Note.md";
   return (
     <div>
       <Card
@@ -96,15 +101,36 @@ const WorkspaceCard = ({
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
           {noteUserUUID === userUUID ? (
-            <IconButton onClick={() => delNote({ uuid })}>
-              <DeleteIcon />
-            </IconButton>
+            <Tooltip
+              disableFocusListener
+              TransitionComponent={Zoom}
+              title="Delete Card"
+            >
+              <IconButton onClick={() => delNote({ uuid })}>
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
           ) : (
             undefined
           )}
-          <IconButton onClick={() => edit({ uuid, avatar, title, content })}>
-            <EditIcon />
-          </IconButton>
+          <Tooltip
+            disableFocusListener
+            TransitionComponent={Zoom}
+            title="Edit Card"
+          >
+            <IconButton onClick={() => edit({ uuid, avatar, title, content })}>
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip
+            disableFocusListener
+            TransitionComponent={Zoom}
+            title="Download as Markdown"
+          >
+            <IconButton onClick={() => fileDownload(content, fileName)}>
+              <ExportIcon />
+            </IconButton>
+          </Tooltip>
         </CardActions>
       </Card>
     </div>
