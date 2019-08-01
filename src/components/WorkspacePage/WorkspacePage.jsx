@@ -16,7 +16,9 @@ import {
   ListItemText,
   Fab,
   Avatar,
-  Link
+  Link,
+  Tooltip,
+  Zoom
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -24,11 +26,13 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 // import BookmarkIcon from "@material-ui/icons/Bookmark";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 // import SettingsIcon from "@material-ui/icons/Settings";
+import HelpIcon from "@material-ui/icons/Help";
 import AppsIcon from "@material-ui/icons/Apps";
 import AddIcon from "@material-ui/icons/Add";
 import WorkspacePageContent from "../WorkspacePageContent/WorkspacePageContent";
 import WebSocketClient from "../WebSocketClient/WebSocketClient";
 import DeleteWorkspaceDialog from "../DeleteWorkspaceDialog/DeleteWorkspaceDialog";
+import HelpDialog from "../HelpDialog/HelpDialog";
 import {
   showDrawer,
   hideDrawer,
@@ -41,6 +45,7 @@ import NoteDialog from "../NoteDialog/NoteDialog";
 import { editNote } from "../../actions/workspaceCard";
 import AddUserDialog from "../AddUserDialog/AddUserDialog";
 import { WEBSITE_PUBLIC_URL } from "../../actions/constants";
+import { showHelpDialog } from "../../actions/helpDialog";
 
 const drawerWidth = 240;
 
@@ -140,6 +145,14 @@ const styles = theme => ({
     height: 25,
     fontSize: "inherit"
   },
+  helpbutton: {
+    marginLeft: "auto",
+    marginRight: theme.spacing.unit * 1
+  },
+  helpicon: {
+    width: 30,
+    height: 30
+  },
   drawerFooter: {
     display: "flex",
     flexDirection: "column",
@@ -163,7 +176,8 @@ function WorkspacePage(props) {
     showCreateUserDialog: showUserDialog,
     workspaceName,
     users,
-    selectUser
+    selectUser,
+    showHelp
   } = props;
   const colorWhite = {
     color: theme.palette.primary.contrastText
@@ -171,6 +185,13 @@ function WorkspacePage(props) {
   const colorActions = {
     color: theme.palette.common.white
   };
+  const LightTooltip = withStyles(theme => ({
+    tooltip: {
+      backgroundColor: theme.palette.common.white,
+      color: "rgba(0, 0, 0, 0.87)",
+      boxShadow: theme.shadows[1]
+    }
+  }))(Tooltip);
   return (
     <div className={classes.page}>
       <div className={classes.root}>
@@ -194,6 +215,16 @@ function WorkspacePage(props) {
             <Typography variant="h6" color="inherit" noWrap>
               {workspaceName}
             </Typography>
+            <LightTooltip
+              disableFocusListener
+              TransitionComponent={Zoom}
+              title="Help"
+              className={classes.helpbutton}
+            >
+              <IconButton style={colorActions} onClick={() => showHelp()}>
+                <HelpIcon aria-label="Help" className={classes.helpicon} />
+              </IconButton>
+            </LightTooltip>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -243,9 +274,15 @@ function WorkspacePage(props) {
               />
             </ListItem> */}
             <ListItem button key={1} onClick={() => selectUser(undefined)}>
-              <ListItemIcon style={colorWhite}>
-                <AppsIcon style={colorActions} />
-              </ListItemIcon>
+              <LightTooltip
+                disableFocusListener
+                TransitionComponent={Zoom}
+                title="All Cards"
+              >
+                <ListItemIcon style={colorWhite}>
+                  <AppsIcon style={colorActions} />
+                </ListItemIcon>
+              </LightTooltip>
               <ListItemText
                 primary={
                   <Typography variant="body1" style={colorWhite}>
@@ -258,12 +295,18 @@ function WorkspacePage(props) {
           <Divider light />
           <List>
             <ListItem onClick={() => showUserDialog()} button key="Settings">
-              <ListItemIcon
-                onClick={() => showUserDialog()}
-                style={colorActions}
+              <LightTooltip
+                disableFocusListener
+                TransitionComponent={Zoom}
+                title="Add User to Workspace"
               >
-                <PersonAddIcon />
-              </ListItemIcon>
+                <ListItemIcon
+                  onClick={() => showUserDialog()}
+                  style={colorActions}
+                >
+                  <PersonAddIcon />
+                </ListItemIcon>
+              </LightTooltip>
               <ListItemText
                 primary={
                   <Typography variant="body1" style={colorWhite}>
@@ -274,11 +317,17 @@ function WorkspacePage(props) {
             </ListItem>
             {users.map(({ uuid, username }) => (
               <ListItem button key={uuid} onClick={() => selectUser(uuid)}>
-                <ListItemIcon>
-                  <Avatar aria-label="Avatar" className={classes.avatar}>
-                    {username.charAt(0).toUpperCase()}
-                  </Avatar>
-                </ListItemIcon>
+                <LightTooltip
+                  disableFocusListener
+                  TransitionComponent={Zoom}
+                  title={`${username}'s Cards`}
+                >
+                  <ListItemIcon>
+                    <Avatar aria-label="Avatar" className={classes.avatar}>
+                      {username.charAt(0).toUpperCase()}
+                    </Avatar>
+                  </ListItemIcon>
+                </LightTooltip>
                 <ListItemText
                   primary={
                     <Typography variant="body1" style={colorWhite}>
@@ -324,6 +373,7 @@ function WorkspacePage(props) {
       <AddUserDialog />
       <WebSocketClient />
       <DeleteWorkspaceDialog />
+      <HelpDialog />
     </div>
   );
 }
@@ -345,7 +395,8 @@ WorkspacePage.propTypes = {
   fabClicked: PropTypes.bool.isRequired,
   workspaceName: PropTypes.string,
   users: PropTypes.arrayOf(String).isRequired,
-  selectUser: PropTypes.func.isRequired
+  selectUser: PropTypes.func.isRequired,
+  showHelp: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({
@@ -364,7 +415,8 @@ const mapDispatchToProps = {
   fabHidden,
   newNote: editNote,
   showCreateUserDialog,
-  selectUser: setSelectedUser
+  selectUser: setSelectedUser,
+  showHelp: showHelpDialog
 };
 
 export default connect(
