@@ -34,7 +34,9 @@ import {
   KN_WEB_URL,
   SG_WEB_URL,
   WEBSITE_PUBLIC_URL,
-  WEBSITE_TERMS_URL
+  WEBSITE_TERMS_URL,
+  KN_IMG_URL,
+  SG_IMG_URL
 } from "../../actions/constants";
 
 const styles = theme => ({
@@ -470,7 +472,7 @@ class LandingPage extends React.Component {
                   <div className={classes.teamSubSection}>
                     <Avatar
                       alt="Karthik Narumanchi"
-                      src="https://avatars0.githubusercontent.com/u/10250307?v=4"
+                      src={KN_IMG_URL}
                       className={classes.bigAvatar}
                     />
                     <Typography
@@ -507,7 +509,7 @@ class LandingPage extends React.Component {
                   <div className={classes.teamSubSection}>
                     <Avatar
                       alt="Sudesh Gutta"
-                      src="https://avatars0.githubusercontent.com/u/7446138?s=400&v=4"
+                      src={SG_IMG_URL}
                       className={classes.bigAvatar}
                     />
                     <Typography

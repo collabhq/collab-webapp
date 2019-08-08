@@ -18,3 +18,6 @@ export const KN_URL = "mailto:karthik@collabhq.app";
 export const SG_URL = "mailto:sudesh@collabhq.app";
 export const KN_WEB_URL = "https://krthk.dev";
 export const SG_WEB_URL = "https://github.com/sudeshgutta";
+export const KN_IMG_URL = "https://krthk.dev/profile.jpg";
+export const SG_IMG_URL =
+  "https://avatars0.githubusercontent.com/u/7446138?s=400&v=4";
