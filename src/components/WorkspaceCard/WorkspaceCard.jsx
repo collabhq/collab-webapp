@@ -69,7 +69,7 @@ const WorkspaceCard = ({
     extensions: [xssFilter]
   });
   const markdownashtml = converter.makeHtml(content);
-  const fileName = title ? `${title}.md` : "`Collab-Note.md";
+  const fileName = title ? `${title}.md` : "Collab-Note.md";
   return (
     <div>
       <Card

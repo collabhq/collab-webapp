@@ -75,7 +75,7 @@ const styles = theme => ({
   },
   menuButton: {
     marginLeft: theme.spacing.unit * 0.5,
-    marginRight: theme.spacing.unit * 4.5
+    marginRight: theme.spacing.unit * 0.5
   },
   addUserButton: {
     alignSelf: "center",
@@ -114,7 +114,8 @@ const styles = theme => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: "0 8px",
+    paddingLeft: "0",
+    paddingRight: "0",
     ...theme.mixins.toolbar
   },
   content: {
@@ -164,7 +165,10 @@ const styles = theme => ({
     height: 20
   },
   toolbarLeftMargin: {
-    marginLeft: theme.spacing.unit * 1
+    marginLeft: "18px"
+  },
+  workspaceNameText: {
+    paddingLeft: "24px"
   }
 });
 
@@ -201,7 +205,7 @@ function WorkspacePage(props) {
             [classes.appBarShift]: drawerOpen
           })}
         >
-          <Toolbar disableGutters={!drawerOpen}>
+          <Toolbar className={classes.toolbar}>
             <IconButton
               color="inherit"
               aria-label="Open drawer"
@@ -212,7 +216,12 @@ function WorkspacePage(props) {
             >
               <MenuIcon style={colorActions} />
             </IconButton>
-            <Typography variant="h6" color="inherit" noWrap>
+            <Typography
+              variant="h6"
+              color="inherit"
+              noWrap
+              className={classes.workspaceNameText}
+            >
               {workspaceName}
             </Typography>
             <LightTooltip
