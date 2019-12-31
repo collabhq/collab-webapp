@@ -628,7 +628,7 @@ class LandingPage extends React.Component {
               gutterBottom
               className={classes.footerText}
             >
-              © 2019 CollabHQ
+              © 2020 CollabHQ
             </Typography>
           </div>
         </footer>
