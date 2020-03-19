@@ -33,6 +33,7 @@ import WorkspacePageContent from "../WorkspacePageContent/WorkspacePageContent";
 import WebSocketClient from "../WebSocketClient/WebSocketClient";
 import DeleteWorkspaceDialog from "../DeleteWorkspaceDialog/DeleteWorkspaceDialog";
 import HelpDialog from "../HelpDialog/HelpDialog";
+import WorkspaceTimer from "../WorkspaceTimer/WorkspaceTimer";
 import {
   showDrawer,
   hideDrawer,
@@ -147,7 +148,6 @@ const styles = theme => ({
     fontSize: "inherit"
   },
   helpbutton: {
-    marginLeft: "auto",
     marginRight: theme.spacing.unit * 1
   },
   helpicon: {
@@ -168,7 +168,8 @@ const styles = theme => ({
     marginLeft: "18px"
   },
   workspaceNameText: {
-    paddingLeft: "24px"
+    paddingLeft: "24px",
+    marginRight: "auto"
   }
 });
 
@@ -224,6 +225,7 @@ function WorkspacePage(props) {
             >
               {workspaceName}
             </Typography>
+            <WorkspaceTimer />
             <LightTooltip
               disableFocusListener
               TransitionComponent={Zoom}
