@@ -66,7 +66,9 @@ export default (state = initialState, action) => {
           uuid: user.uuid,
           username: user.name
         })),
-        jwt: action.payload.jwt
+        jwt: action.payload.jwt,
+        createdAt: action.payload.createdAt,
+        expiry: action.payload.expiry
       };
     case NEW_USER_JOINED_WORKSPACE:
       return {
