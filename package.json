@@ -13,6 +13,7 @@
     "prop-types": "^15.7.2",
     "qrcode.react": "^0.9.3",
     "react": "^16.8.4",
+    "react-countdown-timer": "^1.0.3",
     "react-device-detect": "^1.6.2",
     "react-dom": "^16.8.4",
     "react-html-parser": "^2.0.2",
