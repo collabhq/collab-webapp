@@ -1,6 +1,7 @@
 export const localServerURL = ""; // Empty or http://localhost:5000
 export const localBaseJoinURL = ""; // Empty or http://localhost:3000/#/?join=
-export const serverURL = localServerURL || "https://api.collabhq.app";
+export const serverURL =
+  localServerURL || "https://collab-service.herokuapp.com";
 export const baseJoinUrl = localBaseJoinURL || "https://collabhq.app/#/?join=";
 export const createWorkspaceURL = `${serverURL}/workspace`;
 export const joinWorkspaceURL = `${serverURL}/workspace`;
